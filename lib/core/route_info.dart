@@ -22,9 +22,9 @@ class RouteInfo {
   });
 
   static List<RouteInfo> get routes => [
-    dashboard,
-    settings,
+    collection,
     scanner,
+    settings,
     details,
     results,
     search,
@@ -56,10 +56,10 @@ class RouteInfo {
       routes.where((r) => r.isNavigationRoute).map((e) => e.name).toList();
 
   // Definition of the routes for the navigation
-  static RouteInfo dashboard = RouteInfo._(
-    route: '/dashboard',
-    name: "dashboard",
-    icon: Icons.home_filled,
+  static RouteInfo collection = RouteInfo._(
+    route: '/collection',
+    name: "collection",
+    icon: Icons.album,
     isNavigationRoute: true,
   );
 
@@ -81,7 +81,6 @@ class RouteInfo {
     route: '/details',
     name: "details",
     icon: Icons.album,
-    isNavigationRoute: true,
   );
 
   static RouteInfo results = RouteInfo._(
