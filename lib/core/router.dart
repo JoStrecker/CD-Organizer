@@ -1,12 +1,11 @@
 import 'package:cd_organizer/core/route_info.dart';
-import 'package:cd_organizer/ui/dashboard_screen.dart';
-import 'package:cd_organizer/ui/detail_screen.dart';
-import 'package:cd_organizer/ui/error_screen.dart';
-import 'package:cd_organizer/ui/framework.dart';
-import 'package:cd_organizer/ui/result_screen.dart';
-import 'package:cd_organizer/ui/scanner_screen.dart';
-import 'package:cd_organizer/ui/settings_screen.dart';
-import 'package:cd_organizer/ui/splash_screen.dart';
+import 'package:cd_organizer/feature/dashboard/ui/dashboard_screen.dart';
+import 'package:cd_organizer/feature/details/ui/detail_screen.dart';
+import 'package:cd_organizer/feature/error/ui/error_screen.dart';
+import 'package:cd_organizer/feature/framework/ui/framework.dart';
+import 'package:cd_organizer/feature/scanner/ui/scanner_screen.dart';
+import 'package:cd_organizer/feature/settings/ui/settings_screen.dart';
+import 'package:cd_organizer/feature/splash/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -61,16 +60,6 @@ class CDOrganizerRouter {
                 state: state,
                 context: context,
                 child: const DetailScreen(),
-              ),
-            ),
-            GoRoute(
-              name: RouteInfo.results.name,
-              path: RouteInfo.results.route,
-              pageBuilder: (context, state) =>
-                  buildPageWithDefaultTransition<void>(
-                state: state,
-                context: context,
-                child: const ResultScreen(),
               ),
             ),
           ],

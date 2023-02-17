@@ -1,4 +1,4 @@
-import 'package:cd_organizer/core/app_widget.dart';
+import 'package:cd_organizer/core/ui/app_widget.dart';
 import 'package:cd_organizer/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
