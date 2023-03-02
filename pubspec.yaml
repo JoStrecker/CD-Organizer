@@ -17,23 +17,29 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.5
-  path_provider: ^2.0.12
+  path_provider: ^2.0.13
   easy_localization: ^3.0.1
   flutter_bloc: ^8.1.2
   get_it: ^7.2.0
-  go_router: ^6.0.8
+  go_router: ^6.2.0
   google_fonts: ^4.0.3
-  url_launcher: ^6.1.9
+  url_launcher: ^6.1.10
   equatable: ^2.0.5
   lottie: ^2.2.0
-  dio: ^5.0.0
+  dio: ^5.0.1
   bloc: ^8.1.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_staggered_animations: ^1.1.1
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.1
+  hive_generator: ^2.0.0
+  build_runner: ^2.3.3
 
 
 flutter:
@@ -41,8 +47,9 @@ flutter:
 
 
   assets:
-    - assets/
-
+    - assets/images/
+    - assets/lotties/
+    - assets/translations/
 
   # fonts:
   #   - family: Schyler

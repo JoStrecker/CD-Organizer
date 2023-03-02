@@ -1,4 +1,5 @@
-import 'package:cd_organizer/core/domain/global_vars.dart';
+import 'package:cd_organizer/core/application/global_vars.dart';
+import 'package:cd_organizer/core/infrastructure/dio_response_handler.dart';
 import 'package:cd_organizer/feature/music_api/domain/artist_credit.dart';
 import 'package:cd_organizer/feature/music_api/domain/label_info.dart';
 import 'package:cd_organizer/feature/music_api/domain/media.dart';
@@ -6,6 +7,7 @@ import 'package:cd_organizer/feature/music_api/domain/release_events.dart';
 import 'package:cd_organizer/feature/music_api/domain/release_group.dart';
 import 'package:cd_organizer/feature/music_api/domain/text_representation.dart';
 import 'package:cd_organizer/generated/assets.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -96,16 +98,36 @@ class Release extends Equatable {
         trackCount,
       ];
 
+  Future<bool> hasImage() async {
+    try {
+      Response response = await Dio().get(
+        '${coverRootURL}release/$id/front',
+      );
+      dioResponseHandler(response);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Image getCoverArt() {
-    // return Image(image: NetworkImage('${coverRootURL}release/$id/front'));
     return Image.network(
       '${coverRootURL}release/$id/front',
+      frameBuilder: (BuildContext context, Widget child, int? frame,
+          bool wasSynchronislyLoaded) {
+        return child;
+      },
       loadingBuilder: (BuildContext context, Widget child,
           ImageChunkEvent? loadingProgress) {
         return Center(
-          child: CircularProgressIndicator(
-            value: ((loadingProgress?.cumulativeBytesLoaded ?? 0) /
-                (loadingProgress?.expectedTotalBytes ?? 1)),
+          child: Stack(
+            children: [
+              child,
+              CircularProgressIndicator(
+                value: ((loadingProgress?.cumulativeBytesLoaded ?? 0) /
+                    (loadingProgress?.expectedTotalBytes ?? 1)),
+              ),
+            ],
           ),
         );
       },
@@ -119,7 +141,9 @@ class Release extends Equatable {
     );
   }
 
-  String getAllArtists(){
-    return artistCredit.fold('', (previousValue, element) => '$previousValue, ${element.name}').replaceFirst(',', '');
+  String getAllArtists() {
+    return artistCredit
+        .fold('', (previousValue, element) => '$previousValue, ${element.name}')
+        .replaceFirst(',', '');
   }
 }

@@ -3,25 +3,25 @@ import 'package:cd_organizer/feature/results/ui/widgets/result_item.dart';
 import 'package:flutter/material.dart';
 
 class ResultScreen extends StatelessWidget {
-  final List<Release> albums;
+  final List<Release> releases;
 
-  const ResultScreen({super.key, required this.albums});
+  const ResultScreen({super.key, required this.releases});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: ListView.builder(
-        itemCount: albums.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(
-              top: 8,
-            ),
-            child: ResultItem(album: albums[index]),
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: releases.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: 8,
+          ),
+          child: ResultItem(
+            release: releases[index],
+            index: index,
+          ),
+        );
+      },
     );
   }
 }

@@ -9,7 +9,12 @@ class Framework extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: child,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: child,
+        ),
+      ),
       bottomNavigationBar: const Navigation(),
     );
   }

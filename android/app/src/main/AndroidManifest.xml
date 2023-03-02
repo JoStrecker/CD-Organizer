@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.jstrecker.cd_organizer.cd_organizer">
    <application
-        android:label="cd_organizer"
+        android:label="CD-Organizer"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

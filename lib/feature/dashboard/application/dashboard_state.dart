@@ -14,7 +14,7 @@ class DashboardLoadingState extends DashboardState {
 }
 
 class DashboardLoadedState extends DashboardState {
-  final List<Release> albums;
+  final List<Album> albums;
 
   const DashboardLoadedState(
     this.albums,
