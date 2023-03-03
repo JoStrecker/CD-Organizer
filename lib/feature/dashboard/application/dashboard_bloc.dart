@@ -32,5 +32,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         emit(DashboardErrorState(UnknownServerError().message));
       }
     });
+
+    on<DashboardSelectAlbumEvent>((event, emit){
+      if(state is DashboardLoadedState){
+        emit(DashboardLoadedDetailState(event.selectedAlbum));
+      }
+    });
   }
 }

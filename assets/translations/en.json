@@ -2,5 +2,6 @@
   "collection": "Collection",
   "scanner": "Scanner",
   "settings": "Settings",
-  "search": "Search"
+  "search": "Search",
+  "unknown": "Unknown"
 }

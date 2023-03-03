@@ -10,7 +10,7 @@ class DashboardLoadEvent extends DashboardEvent {
 }
 
 class DashboardSelectAlbumEvent extends DashboardEvent {
-  final int selectedAlbum;
+  final Album selectedAlbum;
 
   const DashboardSelectAlbumEvent(
     this.selectedAlbum,

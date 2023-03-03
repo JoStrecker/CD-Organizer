@@ -1,4 +1,5 @@
 import 'package:cd_organizer/core/route_info.dart';
+import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/dashboard/ui/dashboard_screen.dart';
 import 'package:cd_organizer/feature/details/ui/detail_screen.dart';
 import 'package:cd_organizer/feature/error/ui/error_screen.dart';
@@ -31,6 +32,18 @@ class CDOrganizerRouter {
                 context: context,
                 child: const DashboardScreen(),
               ),
+              routes: [
+                GoRoute(
+                  name: RouteInfo.details.name,
+                  path: RouteInfo.details.route,
+                  pageBuilder: (context, state) =>
+                      buildPageWithDefaultTransition<void>(
+                    state: state,
+                    context: context,
+                    child: DetailScreen(album: state.extra as Album),
+                  ),
+                ),
+              ],
             ),
             GoRoute(
               name: RouteInfo.settings.name,
@@ -50,16 +63,6 @@ class CDOrganizerRouter {
                 state: state,
                 context: context,
                 child: const ScannerScreen(),
-              ),
-            ),
-            GoRoute(
-              name: RouteInfo.details.name,
-              path: RouteInfo.details.route,
-              pageBuilder: (context, state) =>
-                  buildPageWithDefaultTransition<void>(
-                state: state,
-                context: context,
-                child: const DetailScreen(),
               ),
             ),
           ],

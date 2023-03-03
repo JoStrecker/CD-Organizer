@@ -78,7 +78,7 @@ class RouteInfo {
   );
 
   static RouteInfo details = RouteInfo._(
-    route: '/details',
+    route: 'details',
     name: "details",
     icon: Icons.album,
   );

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:hive/hive.dart';
 
 part 'track.g.dart';
@@ -18,4 +19,15 @@ class Track {
     this.length,
     required this.number,
   });
+
+  String getLengthFormatted(){
+    if(length != null){
+      int minutes = length!~/60000;
+      String seconds2 = (length!%60000).toString();
+      String secondsString = seconds2.padLeft(5-seconds2.length, '0');
+      return '$minutes:${secondsString.substring(0, 2)}min';
+    }else{
+      return 'unknown'.tr();
+    }
+  }
 }
