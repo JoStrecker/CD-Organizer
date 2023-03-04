@@ -3,5 +3,7 @@
   "scanner": "Scanner",
   "settings": "Settings",
   "search": "Search",
-  "unknown": "Unknown"
+  "unknown": "Unknown",
+  "delete": "Delete",
+  "lend": "Lend"
 }

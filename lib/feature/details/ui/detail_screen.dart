@@ -1,4 +1,5 @@
 import 'package:cd_organizer/feature/albums/domain/album.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -15,6 +16,9 @@ class DetailScreen extends StatelessWidget {
           album.title,
           style: Theme.of(context).textTheme.headlineLarge,
         ),
+        const SizedBox(
+          height: 16,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,6 +29,9 @@ class DetailScreen extends StatelessWidget {
                 height: 160,
                 child: album.getCoverArt(),
               ),
+            ),
+            const SizedBox(
+              width: 8,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,6 +63,38 @@ class DetailScreen extends StatelessWidget {
               ],
             ),
           ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MaterialButton(
+              onPressed: () => {},
+              color: Theme.of(context).primaryColor,
+              child: Text(
+                'lend'.tr(),
+                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+              ),
+            ),
+            const Expanded(
+              child: SizedBox(
+                height: 8,
+              ),
+            ),
+            MaterialButton(
+              onPressed: () => {},
+              color: Theme.of(context).primaryColor,
+              child: Text(
+                'delete'.tr(),
+                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
         ),
         Expanded(
           child: ListView.separated(
