@@ -28,7 +28,7 @@ Future<void> main() async {
   Color? accentColor = await DynamicColorPlugin.getAccentColor();
   CorePalette? palette = await DynamicColorPlugin.getCorePalette();
 
-  Color seedColor = accentColor ?? palette?.toColorScheme().primary ?? Colors.red;
+  Color seedColor = accentColor ?? palette?.toColorScheme().primary ?? Colors.tealAccent;
 
   //Initialize objects for dependency injection
   initInjection();
