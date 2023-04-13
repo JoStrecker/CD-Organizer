@@ -70,12 +70,10 @@ class DetailScreen extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MaterialButton(
+            FilledButton(
               onPressed: () => {},
-              color: Theme.of(context).primaryColor,
               child: Text(
                 'lend'.tr(),
-                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
             ),
             const Expanded(
@@ -83,12 +81,10 @@ class DetailScreen extends StatelessWidget {
                 height: 8,
               ),
             ),
-            MaterialButton(
+            FilledButton(
               onPressed: () => {},
-              color: Theme.of(context).primaryColor,
               child: Text(
                 'delete'.tr(),
-                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
             ),
           ],

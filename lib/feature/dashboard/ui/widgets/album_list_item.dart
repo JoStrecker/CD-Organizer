@@ -15,9 +15,7 @@ class AlbumListItem extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: InkWell(
-        onTap: () => {
-          context.goNamed("details", extra: album)
-        },
+        onTap: () => {context.goNamed("details", extra: album)},
         child: Row(
           children: [
             ClipRRect(
@@ -42,13 +40,18 @@ class AlbumListItem extends StatelessWidget {
                               .colorScheme
                               .onSecondaryContainer,
                         ),
-                        Text(
-                          album.title,
-                          style: Theme.of(context).textTheme.labelLarge?.apply(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                              ),
+                        Expanded(
+                          child: Text(
+                            album.title,
+                            style:
+                                Theme.of(context).textTheme.labelLarge?.apply(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer,
+                                    ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ),
                       ],
                     ),

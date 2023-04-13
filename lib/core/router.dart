@@ -12,16 +12,19 @@ import 'package:go_router/go_router.dart';
 
 class CDOrganizerRouter {
   static GoRouter? _router;
+  static final GlobalKey<NavigatorState> _rootNavigatorKey =
+      GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> _shellNavigatorKey =
+      GlobalKey<NavigatorState>();
 
   static GoRouter getRouter() {
     _router ??= GoRouter(
       initialLocation: RouteInfo.collection.route,
+      navigatorKey: _rootNavigatorKey,
       routes: [
         ShellRoute(
-          pageBuilder: (context, state, child) => MaterialPage<void>(
-            key: state.pageKey,
-            child: Framework(child: child),
-          ),
+          navigatorKey: _shellNavigatorKey,
+          builder: (context, state, child) => Framework(child: child),
           routes: [
             GoRoute(
               name: RouteInfo.collection.name,
@@ -36,12 +39,8 @@ class CDOrganizerRouter {
                 GoRoute(
                   name: RouteInfo.details.name,
                   path: RouteInfo.details.route,
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition<void>(
-                    state: state,
-                    context: context,
-                    child: DetailScreen(album: state.extra as Album),
-                  ),
+                  builder: (context, state) =>
+                      DetailScreen(album: state.extra as Album),
                 ),
               ],
             ),

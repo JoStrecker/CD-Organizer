@@ -6,7 +6,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
-  const AppWidget({super.key});
+  final Color seedColor;
+
+  const AppWidget({super.key, required this.seedColor});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,8 @@ class AppWidget extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           themeMode: ThemeMode.system,
-          theme: getLightTheme(),
-          darkTheme: getDarkTheme(),
+          theme: getLightTheme(seed: seedColor),
+          darkTheme: getDarkTheme(seed: seedColor),
           routerDelegate: router.routerDelegate,
           routeInformationParser: router.routeInformationParser,
           routeInformationProvider: router.routeInformationProvider,
