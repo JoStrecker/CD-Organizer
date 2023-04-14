@@ -1,8 +1,7 @@
-import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
-import 'package:cd_organizer/feature/error/ui/error_screen.dart';
 import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
-import 'package:cd_organizer/feature/results/application/result_bloc.dart';
 import 'package:cd_organizer/feature/results/ui/result_screen.dart';
+import 'package:cd_organizer/feature/scanner/application/scanner_bloc.dart';
+import 'package:cd_organizer/feature/scanner/ui/scanner.dart';
 import 'package:cd_organizer/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,19 +11,17 @@ class ScannerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ResultBloc>(
-      create: (context) => sl<ResultBloc>()..add(const ResultLoadEvent()),
-      child: BlocBuilder<ResultBloc, ResultState>(
+    return BlocProvider<ScannerBloc>(
+      create: (context) => sl<ScannerBloc>(),
+      child: BlocBuilder<ScannerBloc, ScannerState>(
         builder: (context, state) {
-          if (state is ResultLoadedState) {
-            return ResultScreen(releases: state.releases);
-          } else if (state is ResultLoadingState) {
+          if (state is ScannerInitialState) {
+            return const Scanner();
+          } else if (state is ScannerLoadingState) {
             return const LoadingScreen();
-          } else if (state is ResultEmptyState) {
-            return const EmptyScreen();
-          } else if (state is ResultErrorState) {
-            return ErrorScreen(
-              message: state.errorMessage,
+          } else if (state is ScannerLoadedState) {
+            return ResultScreen(
+              releases: state.results,
             );
           } else {
             return Container();

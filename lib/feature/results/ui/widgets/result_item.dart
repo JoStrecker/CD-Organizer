@@ -19,12 +19,19 @@ class ResultItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: release.getCoverArt(),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 4,
+              top: 4,
+              bottom: 4,
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              child: SizedBox(
+                width: 80,
+                height: 80,
+                child: release.getCoverArt(),
+              ),
             ),
           ),
           Expanded(

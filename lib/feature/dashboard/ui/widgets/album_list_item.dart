@@ -18,12 +18,19 @@ class AlbumListItem extends StatelessWidget {
         onTap: () => {context.goNamed("details", extra: album)},
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              child: SizedBox(
-                width: 80,
-                height: 80,
-                child: album.getCoverArt(),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 4,
+                top: 4,
+                bottom: 4,
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                child: SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: album.getCoverArt(),
+                ),
               ),
             ),
             Expanded(

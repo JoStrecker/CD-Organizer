@@ -10,14 +10,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
 Future<void> main() async {
-  //Current this method is not necessary
   WidgetsFlutterBinding.ensureInitialized();
 
   //Deactivate that GoogleFonts downloads fonts from the web
   GoogleFonts.config.allowRuntimeFetching = false;
 
   //Initialize json files for translations
-  //Tip: Currently with await but should be in the Splashscreen
   await EasyLocalization.ensureInitialized();
 
   //Initialize Hive
@@ -25,23 +23,20 @@ Future<void> main() async {
   Hive.registerAdapter(AlbumAdapter());
   Hive.registerAdapter(TrackAdapter());
 
-  Color? accentColor = await DynamicColorPlugin.getAccentColor();
+  //Get Color Palette on Android >12 for a Dynamic Color Scheme
   CorePalette? palette = await DynamicColorPlugin.getCorePalette();
-
-  Color seedColor = accentColor ?? palette?.toColorScheme().primary ?? Colors.tealAccent;
 
   //Initialize objects for dependency injection
   initInjection();
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [
-        Locale('de', 'DE'),
-        Locale('en', 'US'),
-      ],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('de', 'DE'),
-      useOnlyLangCode: true,
-      child: AppWidget(seedColor: seedColor),
-    )
-  );
+
+  runApp(EasyLocalization(
+    supportedLocales: const [
+      Locale('de', 'DE'),
+      Locale('en', 'US'),
+    ],
+    path: 'assets/translations',
+    fallbackLocale: const Locale('de', 'DE'),
+    useOnlyLangCode: true,
+    child: AppWidget(palette: palette),
+  ));
 }

@@ -9,17 +9,26 @@ class Navigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<RouteInfo> routeInfos = RouteInfo.getNavRoutes();
+    String currRoute =
+        Router.of(context).routeInformationProvider?.value.location ??
+            '/collection';
+    print(currRoute);
     return BottomNavigationBar(
       selectedItemColor: Theme.of(context).colorScheme.onSurface,
-      selectedIconTheme:
-          IconThemeData(color: Theme.of(context).colorScheme.onSecondaryContainer),
+      selectedIconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.onSecondaryContainer),
       backgroundColor: Theme.of(context).colorScheme.surface,
       unselectedItemColor: Theme.of(context).colorScheme.onSurface,
-      unselectedIconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurfaceVariant),
+      unselectedIconTheme:
+          IconThemeData(color: Theme.of(context).colorScheme.onSurfaceVariant),
       showUnselectedLabels: true,
-      currentIndex: routeInfos.indexWhere((element) =>
-          element.route ==
-          Router.of(context).routeInformationProvider?.value.location),
+      currentIndex: currRoute == '/collection'
+          ? 0
+          : currRoute == '/scanner'
+              ? 1
+              : currRoute == '/settings'
+                  ? 2
+                  : 0,
       items: List.generate(
         routeInfos.length,
         (index) => BottomNavigationBarItem(

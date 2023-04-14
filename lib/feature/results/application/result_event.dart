@@ -6,7 +6,11 @@ abstract class ResultEvent {
 }
 
 class ResultLoadEvent extends ResultEvent {
-  const ResultLoadEvent();
+  final List<Release> result;
+
+  const ResultLoadEvent(
+    this.result,
+  );
 }
 
 class ResultSelectAlbumEvent extends ResultEvent {

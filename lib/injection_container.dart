@@ -4,6 +4,7 @@ import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:cd_organizer/feature/music_api/domain/i_music_brainz_facade.dart';
 import 'package:cd_organizer/feature/music_api/infrastructure/dio_music_brainz_facade.dart';
 import 'package:cd_organizer/feature/results/application/result_bloc.dart';
+import 'package:cd_organizer/feature/scanner/application/scanner_bloc.dart';
 import 'package:cd_organizer/feature/search/application/search_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -25,6 +26,10 @@ void initInjection() {
         albumFacade: sl<IAlbumFacade>(),
       ));
   sl.registerFactory<ResultBloc>(() => ResultBloc(
+        musicBrainzFacade: sl<IMusicBrainzFacade>(),
+        albumFacade: sl<IAlbumFacade>(),
+      ));
+  sl.registerFactory<ScannerBloc>(() => ScannerBloc(
         musicBrainzFacade: sl<IMusicBrainzFacade>(),
         albumFacade: sl<IAlbumFacade>(),
       ));

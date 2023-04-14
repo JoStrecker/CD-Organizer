@@ -5,5 +5,7 @@
   "search": "Suchen",
   "unknown": "Unbekannt",
   "delete": "Löschen",
-  "lend": "Verleihen"
+  "lend": "Verleihen",
+  "scan:": "Scanne",
+  "cancel": "Abbrechen"
 }

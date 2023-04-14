@@ -39,8 +39,11 @@ class CDOrganizerRouter {
                 GoRoute(
                   name: RouteInfo.details.name,
                   path: RouteInfo.details.route,
-                  builder: (context, state) =>
-                      DetailScreen(album: state.extra as Album),
+                  pageBuilder: (context, state) => buildPageWithTransition(
+                    context: context,
+                    state: state,
+                    child: DetailScreen(album: state.extra as Album),
+                  ),
                 ),
               ],
             ),
@@ -92,6 +95,18 @@ class CDOrganizerRouter {
     return NoTransitionPage<T>(
       key: state.pageKey,
       child: child,
+    );
+  }
+
+  static CustomTransitionPage buildPageWithTransition<T>({
+    required BuildContext context,
+    required GoRouterState state,
+    required Widget child,
+  }) {
+    return CustomTransitionPage(
+      child: child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          ScaleTransition(scale: animation, child: child),
     );
   }
 }
