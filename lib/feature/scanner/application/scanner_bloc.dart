@@ -19,7 +19,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
     on<ScannerScanCodeEvent>((event, emit) async {
       emit(const ScannerLoadingState());
 
-      if(event.code == '-1'){
+      if(event.code.isEmpty || event.code == '-1'){
         emit(const ScannerInitialState());
         return;
       }
@@ -30,6 +30,33 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
         if (releases.isEmpty) {
           emit(const ScannerInitialState());
         } else {
+          releases.sort((a,b) => a.title.compareTo(b.title));
+          emit(ScannerLoadedState(releases));
+        }
+      } catch (e) {
+        if (e is CDOrganizerError) {
+          emit(ScannerErrorState(e.message));
+        }
+        emit(ScannerErrorState(UnknownServerError().message));
+      }
+    });
+
+    on<ScannerSearchAlbumEvent>((event, emit) async {
+      emit(const ScannerLoadingState());
+
+      if(event.query.isEmpty){
+        emit(const ScannerInitialState());
+        return;
+      }
+
+      try {
+        List<Release> albumResults = await musicBrainzFacade.searchByAlbumTitle(albumTitle: event.query);
+        List<Release> artistResults = await musicBrainzFacade.searchByArtist(artistName: event.query);
+        List<Release> releases = List.of([...albumResults, ...artistResults.where((res) => albumResults.every((element) => element.id != res.id))]);
+        if (releases.isEmpty) {
+          emit(const ScannerInitialState());
+        } else {
+          releases.sort((a,b) => a.title.compareTo(b.title));
           emit(ScannerLoadedState(releases));
         }
       } catch (e) {

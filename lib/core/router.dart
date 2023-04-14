@@ -106,7 +106,8 @@ class CDOrganizerRouter {
     return CustomTransitionPage(
       child: child,
       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          ScaleTransition(scale: animation, child: child),
+          ScaleTransition(
+              scale: animation, alignment: Alignment.topCenter, child: child),
     );
   }
 }
