@@ -12,7 +12,6 @@ class Navigation extends StatelessWidget {
     String currRoute =
         Router.of(context).routeInformationProvider?.value.location ??
             '/collection';
-    print(currRoute);
     return BottomNavigationBar(
       selectedItemColor: Theme.of(context).colorScheme.onSurface,
       selectedIconTheme: IconThemeData(
@@ -22,11 +21,11 @@ class Navigation extends StatelessWidget {
       unselectedIconTheme:
           IconThemeData(color: Theme.of(context).colorScheme.onSurfaceVariant),
       showUnselectedLabels: true,
-      currentIndex: currRoute == '/collection'
+      currentIndex: currRoute.startsWith('/collection')
           ? 0
-          : currRoute == '/scanner'
+          : currRoute.startsWith('/scanner')
               ? 1
-              : currRoute == '/settings'
+              : currRoute.startsWith('/settings')
                   ? 2
                   : 0,
       items: List.generate(

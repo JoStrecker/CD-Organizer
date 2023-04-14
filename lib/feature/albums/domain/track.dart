@@ -24,7 +24,7 @@ class Track {
     if(length != null){
       int minutes = length!~/60000;
       String seconds2 = (length!%60000).toString();
-      String secondsString = seconds2.padLeft(5-seconds2.length, '0');
+      String secondsString = seconds2.padLeft(5, '0');
       return '$minutes:${secondsString.substring(0, 2)}min';
     }else{
       return 'unknown'.tr();

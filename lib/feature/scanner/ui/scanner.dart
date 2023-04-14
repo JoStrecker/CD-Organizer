@@ -9,6 +9,13 @@ class Scanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterBarcodeScanner.scanBarcode(
+      'red',
+      'cancel'.tr(),
+      true,
+      ScanMode.BARCODE,
+    ).then((code) =>
+        context.read<ScannerBloc>().add(ScannerScanCodeEvent(code)));
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
