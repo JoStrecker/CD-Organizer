@@ -7,7 +7,7 @@ import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
 import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
-import 'package:cd_organizer/feature/music_api/domain/i_music_brainz_facade.dart';
+import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:cd_organizer/feature/music_api/domain/release.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,7 +17,7 @@ part 'result_event.dart';
 part 'result_state.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState> {
-  IMusicBrainzFacade musicBrainzFacade;
+  IMusicAPIFacade musicBrainzFacade;
   IAlbumFacade albumFacade;
 
   ResultBloc({required this.musicBrainzFacade, required this.albumFacade})

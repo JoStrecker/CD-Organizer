@@ -1,3 +1,4 @@
+import 'package:cd_organizer/core/ui/container_text_element.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,7 @@ class AlbumListItem extends StatelessWidget {
       child: InkWell(
         onTap: () => {context.goNamed("details", extra: album)},
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(
@@ -35,68 +37,21 @@ class AlbumListItem extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.all(8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.album,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                        ),
-                        Expanded(
-                          child: Text(
-                            album.title,
-                            style:
-                                Theme.of(context).textTheme.labelLarge?.apply(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSecondaryContainer,
-                                    ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ],
+                    ContainerTextElement(
+                      text: album.title,
+                      icon: Icons.album,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.people,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                        ),
-                        Text(
-                          album.getAllArtists(),
-                          style: Theme.of(context).textTheme.labelLarge?.apply(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                              ),
-                        ),
-                      ],
+                    ContainerTextElement(
+                      text: album.getAllArtists(),
+                      icon: Icons.people,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.format_list_numbered,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                        ),
-                        Text(
-                          album.trackCount.toString(),
-                          style: Theme.of(context).textTheme.labelLarge?.apply(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                              ),
-                        ),
-                      ],
+                    ContainerTextElement(
+                      text: album.trackCount.toString(),
+                      icon: Icons.format_list_numbered,
                     ),
                   ],
                 ),

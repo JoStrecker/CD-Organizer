@@ -11,24 +11,31 @@ class AlbumListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController controller = TextEditingController();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.search_rounded),
-            border: InputBorder.none,
-            hintText: 'search'.tr(),
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 16,
+        left: 16,
+        right: 16,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search_rounded),
+              border: InputBorder.none,
+              hintText: 'search'.tr(),
+            ),
+            onChanged: (text) {},
+            onSubmitted: (text) {},
           ),
-          onChanged: (text) {},
-          onSubmitted: (text) {},
-        ),
-        //Filter Bar
-        Expanded(
-          child: AlbumList(albums: albums),
-        ),
-      ],
+          //Filter Bar
+          Expanded(
+            child: AlbumList(albums: albums),
+          ),
+        ],
+      ),
     );
   }
 }

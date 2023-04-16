@@ -16,12 +16,29 @@ class ScannerScreen extends StatelessWidget {
       child: BlocBuilder<ScannerBloc, ScannerState>(
         builder: (context, state) {
           if (state is ScannerInitialState) {
-            return const Scanner();
+            return const Padding(
+              padding: EdgeInsets.all(16),
+              child: Scanner(),
+            );
           } else if (state is ScannerLoadingState) {
             return const LoadingScreen();
-          } else if (state is ScannerLoadedState) {
-            return ResultScreen(
-              releases: state.results,
+          } else if (state is ScannerResultState) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                top: 16,
+                left: 16,
+                right: 16,
+              ),
+              child: Column(
+                children: [
+                  Scanner(search: state.search),
+                  Expanded(
+                    child: ResultScreen(
+                      releases: state.results,
+                    ),
+                  ),
+                ],
+              ),
             );
           } else {
             return Container();

@@ -2,7 +2,7 @@
 class Assets {
   Assets._();
 
-  static const String imagesMissingImage = 'assets/images/MissingImage.png';
+  static const String imagesMissingImage = 'assets/images/missing_image.png';
   static const String lottiesEmptyAnim = 'assets/lotties/empty_anim.json';
   static const String lottiesLoadingAnim = 'assets/lotties/loading_anim.json';
   static const String lottiesSearchAnim = 'assets/lotties/search_anim.json';

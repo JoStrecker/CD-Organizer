@@ -5,25 +5,58 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Scanner extends StatelessWidget {
-  const Scanner({super.key});
+  final String? search;
+
+  const Scanner({super.key, this.search});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
-
-    FlutterBarcodeScanner.scanBarcode(
-      'red',
-      'cancel'.tr(),
-      true,
-      ScanMode.BARCODE,
-    ).then(
-        (code) => context.read<ScannerBloc>().add(ScannerScanCodeEvent(code)));
+    final TextEditingController controller =
+        TextEditingController(text: search);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        MaterialButton(
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                onSubmitted: (query) => {
+                  context
+                      .read<ScannerBloc>()
+                      .add(ScannerSearchAlbumEvent(query))
+                },
+                controller: controller,
+                textCapitalization: TextCapitalization.sentences,
+                textInputAction: TextInputAction.search,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: 'search'.tr(),
+                  suffixIcon: IconButton(
+                    onPressed: controller.clear,
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            FilledButton(
+              onPressed: () => {
+                context
+                    .read<ScannerBloc>()
+                    .add(ScannerSearchAlbumEvent(controller.text))
+              },
+              child: const Icon(Icons.search),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        FilledButton(
           onPressed: () async => {
             await FlutterBarcodeScanner.scanBarcode(
               'red',
@@ -33,59 +66,16 @@ class Scanner extends StatelessWidget {
             ).then((code) =>
                 context.read<ScannerBloc>().add(ScannerScanCodeEvent(code)))
           },
-          color: Theme.of(context).colorScheme.primary,
-          minWidth: 16,
-          height: 16,
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.qr_code_scanner,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                Text(
-                  'scan',
-                  style: Theme.of(context).textTheme.labelLarge?.apply(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                ).tr(),
-              ],
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.qr_code_scanner),
+              const Text('scan').tr(),
+            ],
           ),
         ),
-        const Divider(),
-        TextField(
-          controller: controller,
-        ),
-        MaterialButton(
-          onPressed: () => {
-            context
-                .read<ScannerBloc>()
-                .add(ScannerSearchAlbumEvent(controller.text))
-          },
-          color: Theme.of(context).colorScheme.primary,
-          minWidth: 16,
+        const SizedBox(
           height: 16,
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.search,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                Text(
-                  'search',
-                  style: Theme.of(context).textTheme.labelLarge?.apply(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                ).tr(),
-              ],
-            ),
-          ),
         ),
       ],
     );

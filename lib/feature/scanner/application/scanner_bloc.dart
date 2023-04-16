@@ -3,7 +3,7 @@ import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
 import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
 import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
 import 'package:cd_organizer/feature/music_api/domain/release.dart';
-import 'package:cd_organizer/feature/music_api/domain/i_music_brainz_facade.dart';
+import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:meta/meta.dart';
 
 part 'scanner_event.dart';
@@ -11,7 +11,7 @@ part 'scanner_event.dart';
 part 'scanner_state.dart';
 
 class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
-  IMusicBrainzFacade musicBrainzFacade;
+  IMusicAPIFacade musicBrainzFacade;
   IAlbumFacade albumFacade;
 
   ScannerBloc({required this.musicBrainzFacade, required this.albumFacade})
@@ -31,7 +31,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
           emit(const ScannerInitialState());
         } else {
           releases.sort((a,b) => a.title.compareTo(b.title));
-          emit(ScannerLoadedState(releases));
+          emit(ScannerResultState(releases, null));
         }
       } catch (e) {
         if (e is CDOrganizerError) {
@@ -57,7 +57,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
           emit(const ScannerInitialState());
         } else {
           releases.sort((a,b) => a.title.compareTo(b.title));
-          emit(ScannerLoadedState(releases));
+          emit(ScannerResultState(releases, event.query));
         }
       } catch (e) {
         if (e is CDOrganizerError) {

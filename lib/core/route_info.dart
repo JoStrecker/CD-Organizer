@@ -26,8 +26,6 @@ class RouteInfo {
     scanner,
     settings,
     details,
-    results,
-    search,
     error,
   ];
 
@@ -81,18 +79,6 @@ class RouteInfo {
     route: 'details',
     name: "details",
     icon: Icons.album,
-  );
-
-  static RouteInfo results = RouteInfo._(
-    route: '/results',
-    name: "results",
-    icon: Icons.info,
-  );
-
-  static RouteInfo search = RouteInfo._(
-    route: '/search',
-    name: "search",
-    icon: Icons.search_rounded,
   );
 
   static RouteInfo splash = RouteInfo._(

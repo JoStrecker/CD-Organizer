@@ -9,10 +9,11 @@ class ScannerInitialState extends ScannerState {
   const ScannerInitialState();
 }
 
-class ScannerLoadedState extends ScannerState {
+class ScannerResultState extends ScannerState {
   final List<Release> results;
+  final String? search;
 
-  const ScannerLoadedState(this.results);
+  const ScannerResultState(this.results, this.search);
 }
 
 class ScannerLoadingState extends ScannerState {

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:cd_organizer/feature/music_api/domain/i_music_brainz_facade.dart';
+import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:cd_organizer/feature/music_api/domain/release.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,7 +7,7 @@ part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  IMusicBrainzFacade albumFacade;
+  IMusicAPIFacade albumFacade;
 
   SearchBloc({required this.albumFacade}) : super(const SearchInitial()) {
     on<SearchChangedEvent>((event, emit) async {

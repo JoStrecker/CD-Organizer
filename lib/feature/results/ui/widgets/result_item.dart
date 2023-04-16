@@ -1,3 +1,4 @@
+import 'package:cd_organizer/core/ui/container_text_element.dart';
 import 'package:cd_organizer/feature/music_api/domain/release.dart';
 import 'package:cd_organizer/feature/results/application/result_bloc.dart';
 import 'package:flutter/material.dart';
@@ -40,61 +41,18 @@ class ResultItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.album,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                      ),
-                      Expanded(
-                        child: Text(
-                          release.title,
-                          style: Theme.of(context).textTheme.labelLarge?.apply(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                              ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.people,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                      ),
-                      Text(
-                        release.getAllArtists(),
-                        style: Theme.of(context).textTheme.labelLarge?.apply(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer,
-                            ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.format_list_numbered,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                      ),
-                      Text(
-                        release.trackCount.toString(),
-                        style: Theme.of(context).textTheme.labelLarge?.apply(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer,
-                            ),
-                      ),
-                    ],
-                  ),
+                  ContainerTextElement(text: release.title, icon: Icons.album),
+                  ContainerTextElement(
+                      text: release.getAllArtists(), icon: Icons.people),
+                  ContainerTextElement(
+                      text: release.labelInfo?[0].label?.name ?? 'unknown',
+                      icon: Icons.label),
+                  ContainerTextElement(
+                      text: (DateTime.tryParse(release.date ?? '') ??
+                              DateTime.fromMillisecondsSinceEpoch(0))
+                          .year
+                          .toString(),
+                      icon: Icons.access_time),
                 ],
               ),
             ),
