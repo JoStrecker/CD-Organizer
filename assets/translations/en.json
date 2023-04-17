@@ -9,5 +9,8 @@
   "scan": "Scan",
   "cancel": "Cancel",
   "wantToDelete": "Are you sure you want to delete this Album?",
-  "yes": "Yes"
+  "yes": "Yes",
+  "all": "All",
+  "vinyl": "Vinyl",
+  "cd": "CD"
 }

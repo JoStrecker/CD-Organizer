@@ -28,3 +28,19 @@ class DashboardDeleteAlbumEvent extends DashboardEvent {
 class DashboardRefreshEvent extends DashboardEvent {
   const DashboardRefreshEvent();
 }
+
+class DashboardSearchAlbumEvent extends DashboardEvent {
+  final String search;
+
+  const DashboardSearchAlbumEvent(
+    this.search,
+  );
+}
+
+class DashboardFilterAlbumEvent extends DashboardEvent {
+  final MediaTypeFilter filter;
+
+  const DashboardFilterAlbumEvent(
+    this.filter,
+  );
+}

@@ -20,10 +20,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       try {
         List<Album> albums = await albumFacade.getAllAlbums();
         albums.sort((a, b) => a.title.compareTo(b.title));
+
         if (albums.isEmpty) {
           emit(const DashboardEmptyState());
         } else {
-          emit(DashboardLoadedState(albums));
+          emit(DashboardLoadedState(albums, MediaTypeFilter.all, null));
         }
       } catch (e) {
         if (e is CDOrganizerError) {
@@ -34,21 +35,43 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     });
 
     on<DashboardRefreshEvent>((event, emit) async {
-      emit(const DashboardLoadingState());
+      DashboardState state = this.state;
 
-      try {
-        List<Album> albums = await albumFacade.getAllAlbums();
-        albums.sort((a, b) => a.title.compareTo(b.title));
-        if (albums.isEmpty) {
-          emit(const DashboardEmptyState());
-        } else {
-          emit(DashboardLoadedState(albums));
+      if (state is DashboardLoadedState) {
+        emit(const DashboardLoadingState());
+
+        try {
+          List<Album> albums = await albumFacade.getAllAlbums();
+          albums.sort((a, b) => a.title.compareTo(b.title));
+          albums = state.filter == MediaTypeFilter.vinyl
+              ? albums.where((album) => album.type.contains('Vinyl')).toList()
+              : state.filter == MediaTypeFilter.cd
+              ? albums.where((album) => album.type.contains('Cd')).toList()
+              : albums;
+          albums = state.search != null
+              ? albums
+              .where((album) =>
+          album.title.contains(state.search!) ||
+              album.artists
+                  .any((artist) => artist.contains(state.search!)))
+              .toList()
+              : albums;
+
+          if (albums.isEmpty) {
+            emit(const DashboardEmptyState());
+          } else {
+            emit(DashboardLoadedState(
+              albums,
+              state.filter,
+              state.search,
+            ));
+          }
+        } catch (e) {
+          if (e is CDOrganizerError) {
+            emit(DashboardErrorState(e.message));
+          }
+          emit(DashboardErrorState(UnknownServerError().message));
         }
-      } catch (e) {
-        if (e is CDOrganizerError) {
-          emit(DashboardErrorState(e.message));
-        }
-        emit(DashboardErrorState(UnknownServerError().message));
       }
     });
 
@@ -69,11 +92,24 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
           List<Album> albums = await albumFacade.getAllAlbums();
           albums.sort((a, b) => a.title.compareTo(b.title));
+          albums = state.filter == MediaTypeFilter.vinyl
+              ? albums.where((album) => album.type.contains('Vinyl')).toList()
+              : state.filter == MediaTypeFilter.cd
+                  ? albums.where((album) => album.type.contains('Cd')).toList()
+                  : albums;
+          albums = state.search != null
+              ? albums
+                  .where((album) =>
+                      album.title.contains(state.search!) ||
+                      album.artists
+                          .any((artist) => artist.contains(state.search!)))
+                  .toList()
+              : albums;
 
           if (albums.isEmpty) {
             emit(const DashboardEmptyState());
           } else {
-            emit(DashboardLoadedState(albums));
+            emit(DashboardLoadedState(albums, state.filter, state.search));
           }
         } catch (e) {
           if (e is CDOrganizerError) {
@@ -83,5 +119,78 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         }
       }
     });
+
+    on<DashboardSearchAlbumEvent>((event, emit) async {
+      DashboardState state = this.state;
+
+      if (state is DashboardLoadedState) {
+        emit(const DashboardLoadingState());
+
+        try {
+          List<Album> albums = await albumFacade.getAllAlbums();
+          albums.sort((a, b) => a.title.compareTo(b.title));
+          albums = state.filter == MediaTypeFilter.vinyl
+              ? albums.where((album) => album.type.contains('Vinyl')).toList()
+              : state.filter == MediaTypeFilter.cd
+                  ? albums.where((album) => album.type.contains('Cd')).toList()
+                  : albums;
+          albums = albums
+              .where((album) =>
+                  album.title.contains(event.search) ||
+                  album.artists.any((artist) => artist.contains(event.search)))
+              .toList();
+
+          emit(DashboardLoadedState(
+            albums,
+            state.filter,
+            event.search,
+          ));
+        } catch (e) {
+          if (e is CDOrganizerError) {
+            emit(DashboardErrorState(e.message));
+          }
+          emit(DashboardErrorState(UnknownServerError().message));
+        }
+      }
+    });
+
+    on<DashboardFilterAlbumEvent>((event, emit) async {
+      DashboardState state = this.state;
+
+      if (state is DashboardLoadedState) {
+        emit(const DashboardLoadingState());
+
+        try {
+          List<Album> albums = await albumFacade.getAllAlbums();
+          albums.sort((a, b) => a.title.compareTo(b.title));
+          albums = event.filter == MediaTypeFilter.vinyl
+              ? albums.where((album) => album.type.contains('Vinyl')).toList()
+              : event.filter == MediaTypeFilter.cd
+                  ? albums.where((album) => album.type.contains('Cd')).toList()
+                  : albums;
+          albums = state.search != null
+              ? albums
+                  .where((album) =>
+                      album.title.contains(state.search!) ||
+                      album.artists
+                          .any((artist) => artist.contains(state.search!)))
+                  .toList()
+              : albums;
+
+          emit(DashboardLoadedState(albums, event.filter, state.search));
+        } catch (e) {
+          if (e is CDOrganizerError) {
+            emit(DashboardErrorState(e.message));
+          }
+          emit(DashboardErrorState(UnknownServerError().message));
+        }
+      }
+    });
   }
+}
+
+enum MediaTypeFilter {
+  all,
+  vinyl,
+  cd,
 }

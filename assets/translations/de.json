@@ -9,5 +9,8 @@
   "scan": "Scannen",
   "cancel": "Abbrechen",
   "wantToDelete": "Bist du dir sicher, dass du dieses Album löschen willst?",
-  "yes": "Ja"
+  "yes": "Ja",
+  "all": "Alles",
+  "vinyl": "Vinyl",
+  "cd": "CD"
 }

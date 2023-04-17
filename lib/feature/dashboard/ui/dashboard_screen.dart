@@ -1,4 +1,3 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list_screen.dart';
 import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
@@ -14,8 +13,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<DashboardBloc>(
-      create: (context) =>
-          sl<DashboardBloc>()..add(const DashboardLoadEvent()),
+      create: (context) => sl<DashboardBloc>()..add(const DashboardLoadEvent()),
       child: BlocBuilder<DashboardBloc, DashboardState>(
         builder: (context, state) {
           if (state is DashboardLoadedState) {
@@ -31,9 +29,8 @@ class DashboardScreen extends StatelessWidget {
               },
               child: AlbumListScreen(
                 albums: state.albums,
-                deleteAlbum: (Album album) => context
-                    .read<DashboardBloc>()
-                    .add(DashboardDeleteAlbumEvent(album)),
+                search: state.search,
+                filter: state.filter,
               ),
             );
           } else if (state is DashboardLoadingState) {
