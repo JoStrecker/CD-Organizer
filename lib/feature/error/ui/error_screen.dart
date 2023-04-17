@@ -1,4 +1,6 @@
+import 'package:cd_organizer/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class ErrorScreen extends StatelessWidget {
   final Exception? error;
@@ -8,21 +10,19 @@ class ErrorScreen extends StatelessWidget {
 
   const ErrorScreen(
       {super.key,
-        this.error,
-        this.message,
-        this.buttonLabel,
-        this.buttonFunction});
+      this.error,
+      this.message,
+      this.buttonLabel,
+      this.buttonFunction});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            const Text('Error Screen'),
-            Text(message ?? ''),
-          ],
-        ),
+    return Center(
+      child: Column(
+        children: [
+          Lottie.asset(Assets.lottiesErrorAnim),
+          Text(message ?? ''),
+        ],
       ),
     );
   }

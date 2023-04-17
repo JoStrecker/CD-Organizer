@@ -31,7 +31,6 @@ class Scanner extends StatelessWidget {
                 textCapitalization: TextCapitalization.sentences,
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
                   labelText: 'search'.tr(),
                   suffixIcon: IconButton(
                     onPressed: controller.clear,

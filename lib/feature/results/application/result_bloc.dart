@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:cd_organizer/core/application/global_vars.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
 import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
@@ -9,7 +9,6 @@ import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
 import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:cd_organizer/feature/music_api/domain/release.dart';
-import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'result_event.dart';
@@ -54,24 +53,16 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
         try {
           String? coverArt;
 
-          if(await selected.hasImage()){
+          if(selected.coverArt != null){
             Directory dir = await getApplicationDocumentsDirectory();
             coverArt ='${dir.path}/${selected.id}';
             File image = File(coverArt);
-            var response = await http.get(Uri.parse('${coverRootURL}release/${selected.id}/front'));
+            var response = await http.get(selected.coverArt!);
             await image.writeAsBytes(response.bodyBytes);
           }
 
-          Album newAlbum = Album(
-            coverArt: coverArt,
-            trackCount: selected.trackCount,
-            label: selected.label ?? 'unknown',
-            date: DateTime(selected.year),
-            mbid: selected.id,
-            artists: selected.artists,
-            title: selected.title,
-            tracks: await musicApiFacade.getTracksForMBID(mbid: selected.id),
-          );
+          Album newAlbum = await musicApiFacade.getAlbumForID(id: selected.id);
+          newAlbum.coverArt = coverArt;
 
           await albumFacade.addAlbum(newAlbum);
 

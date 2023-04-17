@@ -2,33 +2,20 @@ import 'package:cd_organizer/feature/music_api/domain/release.dart';
 import 'package:equatable/equatable.dart';
 
 class ReleaseInitial extends Equatable {
-  final int offset;
-  final int count;
-  final String created;
-  final List<Release> releases;
+  final List<Release> results;
 
   const ReleaseInitial({
-    required this.offset,
-    required this.count,
-    required this.created,
-    required this.releases,
+    required this.results,
   });
 
   static ReleaseInitial fromJson(Map<String, dynamic> json) {
     return ReleaseInitial(
-      offset: json['offset'],
-      count: json['count'],
-      created: json['created'],
-      releases:
-          json['releases'].map<Release>((e) => Release.fromJson(e)).toList(),
+      results: json['results'].map<Release>((e) => Release.fromJson(e)).toList(),
     );
   }
 
   @override
   List<Object?> get props => [
-        offset,
-        count,
-        created,
-        releases,
+        results,
       ];
 }

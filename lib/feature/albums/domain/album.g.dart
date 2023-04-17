@@ -21,9 +21,10 @@ class AlbumAdapter extends TypeAdapter<Album> {
       trackCount: fields[5] as int,
       label: fields[4] as String,
       date: fields[3] as DateTime,
-      mbid: fields[0] as String,
+      id: fields[0] as String,
       artists: (fields[2] as List).cast<String>(),
       title: fields[1] as String,
+      type: fields[8] as String,
       tracks: (fields[7] as List?)?.cast<Track>(),
     );
   }
@@ -31,9 +32,9 @@ class AlbumAdapter extends TypeAdapter<Album> {
   @override
   void write(BinaryWriter writer, Album obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
-      ..write(obj.mbid)
+      ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
@@ -47,7 +48,9 @@ class AlbumAdapter extends TypeAdapter<Album> {
       ..writeByte(6)
       ..write(obj.coverArt)
       ..writeByte(7)
-      ..write(obj.tracks);
+      ..write(obj.tracks)
+      ..writeByte(8)
+      ..write(obj.type);
   }
 
   @override

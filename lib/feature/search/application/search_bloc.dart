@@ -13,7 +13,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchChangedEvent>((event, emit) async {
       try {
         List<Release> albums =
-        await albumFacade.searchByArtist(artistName: event.text);
+        await albumFacade.searchByQuery(query: event.text);
         if (albums.isEmpty) {
           emit(const SearchEmptyState());
         }else{

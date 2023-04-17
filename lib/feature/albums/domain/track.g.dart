@@ -18,8 +18,8 @@ class TrackAdapter extends TypeAdapter<Track> {
     };
     return Track(
       title: fields[0] as String,
-      length: fields[1] as int?,
-      number: fields[2] as int,
+      length: fields[1] as String?,
+      number: fields[2] as String,
     );
   }
 

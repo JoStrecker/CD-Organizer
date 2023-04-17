@@ -1,3 +1,5 @@
+import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
+import 'package:cd_organizer/feature/error/ui/error_screen.dart';
 import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
 import 'package:cd_organizer/feature/results/ui/result_screen.dart';
 import 'package:cd_organizer/feature/scanner/application/scanner_bloc.dart';
@@ -40,8 +42,24 @@ class ScannerScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else {
-            return Container();
+          } else if(state is ScannerErrorState) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                top: 16,
+                left: 16,
+                right: 16,
+              ),
+              child: Column(
+                children: [
+                  const Scanner(),
+                  Expanded(
+                    child: ErrorScreen(message: state.errorMessage),
+                  ),
+                ],
+              ),
+            );
+          }else{
+            return const EmptyScreen();
           }
         },
       ),

@@ -1,6 +1,7 @@
 import 'package:cd_organizer/core/ui/container_text_element.dart';
 import 'package:cd_organizer/feature/music_api/domain/release.dart';
 import 'package:cd_organizer/feature/results/application/result_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +32,7 @@ class ResultItem extends StatelessWidget {
               child: SizedBox(
                 width: 80,
                 height: 80,
-                child: release.getCoverArt(),
+                child: release.getThumbnail(),
               ),
             ),
           ),
@@ -41,15 +42,16 @@ class ResultItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ContainerTextElement(text: release.title, icon: Icons.album),
+                  ContainerTextElement(text: release.title, icon: Icons.people),
                   ContainerTextElement(
-                      text: release.getAllArtists(), icon: Icons.people),
+                      text: release.label ?? 'unknown'.tr(), icon: Icons.label),
                   ContainerTextElement(
-                      text: release.label ?? 'unknown',
-                      icon: Icons.label),
-                  ContainerTextElement(
-                      text: release.year.toString(),
+                      text: release.year ?? 'unknown'.tr(),
                       icon: Icons.access_time),
+                  ContainerTextElement(
+                      text: release.formats
+                          .reduce((value, element) => '$value, $element'),
+                      icon: Icons.album),
                 ],
               ),
             ),

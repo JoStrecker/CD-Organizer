@@ -10,7 +10,7 @@ part 'album.g.dart';
 @HiveType(typeId: 0)
 class Album {
   @HiveField(0)
-  String mbid;
+  String id;
 
   @HiveField(1)
   String title;
@@ -33,25 +33,42 @@ class Album {
   @HiveField(7)
   List<Track>? tracks;
 
+  @HiveField(8)
+  String type;
+
   Album({
     this.coverArt,
     required this.trackCount,
     required this.label,
     required this.date,
-    required this.mbid,
+    required this.id,
     required this.artists,
     required this.title,
+    required this.type,
     this.tracks,
   });
 
-  String getAllArtists(){
-    return artists.fold('', (previousValue, element) => '$previousValue, $element').replaceFirst(',', '');
+  static Album fromJson(Map<String, dynamic> json) {
+    return Album(
+      trackCount: (json['tracklist'] as List).length,
+      label: (json['labels'] as List).map((e) => e['name']).toList().reduce((value, element) => '$value, $element'),
+      date: DateTime(json['year']),
+      id: json['id'].toString(),
+      artists: (json['artists'] as List).map((e) => e['name'].toString()).toList(),
+      title: json['title'],
+      tracks: (json['tracklist'] as List).where((track) => track['type_'] == 'track').map((e) => Track.fromJson(e)).toList(),
+      type: (json['formats'] as List).map((e) => e['name']).toList()[0],
+    );
   }
 
-  Image getCoverArt(){
-    if(coverArt == null){
+  String getAllArtists() {
+    return artists.reduce((value, element) => '$value, $element');
+  }
+
+  Image getCoverArt() {
+    if (coverArt == null) {
       return Image.asset(Assets.imagesMissingImage);
-    }else {
+    } else {
       return Image.file(File(coverArt!));
     }
   }

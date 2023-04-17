@@ -95,6 +95,18 @@ class DetailScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.album),
+                        Expanded(
+                          child: Text(
+                            album.type,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -132,6 +144,8 @@ class DetailScreen extends StatelessWidget {
             child: ListView.separated(
               itemBuilder: (context, index) => Row(
                 children: [
+                  Text(album.tracks![index].number),
+                  const VerticalDivider(),
                   Expanded(
                     child: Text(
                       album.tracks![index].title,
@@ -139,7 +153,7 @@ class DetailScreen extends StatelessWidget {
                       maxLines: 2,
                     ),
                   ),
-                  Text(album.tracks![index].getLengthFormatted()),
+                  Text(album.tracks![index].length ?? 'unknown'.tr()),
                 ],
               ),
               separatorBuilder: (context, index) => const Divider(),

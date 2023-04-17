@@ -4,6 +4,7 @@ class Assets {
 
   static const String imagesMissingImage = 'assets/images/missing_image.png';
   static const String lottiesEmptyAnim = 'assets/lotties/empty_anim.json';
+  static const String lottiesErrorAnim = 'assets/lotties/error_anim.json';
   static const String lottiesLoadingAnim = 'assets/lotties/loading_anim.json';
   static const String lottiesSearchAnim = 'assets/lotties/search_anim.json';
   static const String translationsDe = 'assets/translations/de.json';

@@ -29,8 +29,8 @@ class AlbumListItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: SizedBox(
-                  width: 80,
-                  height: 80,
+                  width: 96,
+                  height: 96,
                   child: album.getCoverArt(),
                 ),
               ),
@@ -43,7 +43,7 @@ class AlbumListItem extends StatelessWidget {
                   children: [
                     ContainerTextElement(
                       text: album.title,
-                      icon: Icons.album,
+                      icon: Icons.title,
                     ),
                     ContainerTextElement(
                       text: album.getAllArtists(),
@@ -53,6 +53,10 @@ class AlbumListItem extends StatelessWidget {
                       text: album.trackCount.toString(),
                       icon: Icons.format_list_numbered,
                     ),
+                    ContainerTextElement(
+                      text: album.type,
+                      icon: Icons.album,
+                    )
                   ],
                 ),
               ),
