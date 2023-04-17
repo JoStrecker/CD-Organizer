@@ -1,5 +1,5 @@
+import 'package:cd_organizer/core/application/env.dart';
 import 'package:cd_organizer/core/application/global_vars.dart';
-import 'package:cd_organizer/core/application/secrets.dart';
 import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
 import 'package:cd_organizer/core/infrastructure/dio_response_handler.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
@@ -17,7 +17,7 @@ class DioDiscogsFacade extends IMusicAPIFacade{
             '%20')}&type=release',
         options: Options(
           headers: {
-            'Authorization': 'Discogs key=$key, secret=$secret',
+            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
             'Accept': 'application/json',
           },
         ),
@@ -41,7 +41,7 @@ class DioDiscogsFacade extends IMusicAPIFacade{
         '$musicRootURL/database/search?barcode=$barcode&type=release',
         options: Options(
           headers: {
-            'Authorization': 'Discogs key=$key, secret=$secret',
+            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
             'Accept': 'application/json',
           },
         ),
@@ -65,7 +65,7 @@ class DioDiscogsFacade extends IMusicAPIFacade{
         '$musicRootURL/releases/$id',
         options: Options(
           headers: {
-            'Authorization': 'Discogs key=$key, secret=$secret',
+            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
             'Accept': 'application/json',
           },
         ),

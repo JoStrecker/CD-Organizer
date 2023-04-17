@@ -14,8 +14,8 @@ class AlbumListScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
         top: 16,
-        left: 16,
-        right: 16,
+        left: 8,
+        right: 8,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
