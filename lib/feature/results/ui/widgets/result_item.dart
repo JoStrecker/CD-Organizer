@@ -45,13 +45,10 @@ class ResultItem extends StatelessWidget {
                   ContainerTextElement(
                       text: release.getAllArtists(), icon: Icons.people),
                   ContainerTextElement(
-                      text: release.labelInfo?[0].label?.name ?? 'unknown',
+                      text: release.label ?? 'unknown',
                       icon: Icons.label),
                   ContainerTextElement(
-                      text: (DateTime.tryParse(release.date ?? '') ??
-                              DateTime.fromMillisecondsSinceEpoch(0))
-                          .year
-                          .toString(),
+                      text: release.year.toString(),
                       icon: Icons.access_time),
                 ],
               ),

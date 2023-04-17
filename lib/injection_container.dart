@@ -26,7 +26,7 @@ void initInjection() {
         albumFacade: sl<IAlbumFacade>(),
       ));
   sl.registerFactory<ResultBloc>(() => ResultBloc(
-        musicBrainzFacade: sl<IMusicAPIFacade>(),
+        musicApiFacade: sl<IMusicAPIFacade>(),
         albumFacade: sl<IAlbumFacade>(),
       ));
   sl.registerFactory<ScannerBloc>(() => ScannerBloc(

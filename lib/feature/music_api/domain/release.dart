@@ -1,11 +1,5 @@
 import 'package:cd_organizer/core/application/global_vars.dart';
 import 'package:cd_organizer/core/infrastructure/dio_response_handler.dart';
-import 'package:cd_organizer/feature/music_api/domain/artist_credit.dart';
-import 'package:cd_organizer/feature/music_api/domain/label_info.dart';
-import 'package:cd_organizer/feature/music_api/domain/media.dart';
-import 'package:cd_organizer/feature/music_api/domain/release_events.dart';
-import 'package:cd_organizer/feature/music_api/domain/release_group.dart';
-import 'package:cd_organizer/feature/music_api/domain/text_representation.dart';
 import 'package:cd_organizer/generated/assets.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -13,89 +7,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Release extends Equatable {
-  final List<ArtistCredit> artistCredit;
-  final String? barcode;
-  final int count;
-  final String? country;
-  final String? date;
   final String id;
-  final List<LabelInfo>? labelInfo;
-  final List<Media> media;
-  final List<ReleaseEvents>? releaseEvents;
-  final ReleaseGroup releaseGroup;
-  final int score;
-  final String status;
-  final String statusId;
-  final TextRepresentation? textRepresentation;
   final String title;
+  final List<String> artists;
+  final String? label;
+  final int year;
   final int trackCount;
+  final Uri? coverArt;
 
   const Release({
-    required this.artistCredit,
-    this.barcode,
-    required this.count,
-    this.country,
-    this.date,
+    this.coverArt,
+    this.label,
+    required this.year,
     required this.id,
-    this.labelInfo,
-    required this.media,
-    this.releaseEvents,
-    required this.releaseGroup,
-    required this.score,
-    required this.status,
-    required this.statusId,
-    this.textRepresentation,
+    required this.artists,
     required this.title,
     required this.trackCount,
   });
 
   static Release fromJson(Map<String, dynamic> json) {
     return Release(
-      artistCredit: json['artist-credit']
-          .map<ArtistCredit>((e) => ArtistCredit.fromJson(e))
-          .toList(),
-      barcode: json['barcode'],
-      count: json['count'],
-      country: json['country'],
-      date: json['date'],
       id: json['id'],
-      labelInfo: json['label-info']
-          ?.map<LabelInfo>((e) => LabelInfo.fromJson(e))
-          .toList(),
-      media: json['media'].map<Media>((e) => Media.fromJson(e)).toList(),
-      releaseEvents: json['release-events']
-          ?.map<ReleaseEvents>((e) => ReleaseEvents.fromJson(e))
-          .toList(),
-      releaseGroup: ReleaseGroup.fromJson(json['release-group']),
-      score: json['score'],
-      status: json['status'],
-      statusId: json['status-id'],
-      textRepresentation: json['text-representation'] != null
-          ? TextRepresentation.fromJson(json['text-representation'])
-          : null,
       title: json['title'],
-      trackCount: json['track-count'],
+      artists: json['artists'].map<Map<String, dynamic>>((e) => e['name']).toList(),
+      label: json['labels']?.map<Map<String, dynamic>>((e) => e['name']).toList()[0],
+      year: json['year'],
+      trackCount: json['tracklist'],
+      coverArt: json['images'] != null ? Uri.parse(json['images'].map<Map<String, dynamic>>((e) => e['resource_url']).toList()[0]) : null,
     );
   }
 
   @override
   List<Object?> get props => [
-        artistCredit,
-        barcode,
-        count,
-        country,
-        date,
         id,
-        labelInfo,
-        media,
-        releaseEvents,
-        releaseGroup,
-        score,
-        status,
-        statusId,
-        textRepresentation,
         title,
+        artists,
+        label,
+        year,
         trackCount,
+        coverArt,
       ];
 
   Future<bool> hasImage() async {
@@ -142,8 +92,8 @@ class Release extends Equatable {
   }
 
   String getAllArtists() {
-    return artistCredit
-        .fold('', (previousValue, element) => '$previousValue, ${element.name}')
+    return artists
+        .fold('', (previousValue, element) => '$previousValue, $element')
         .replaceFirst(',', '');
   }
 }

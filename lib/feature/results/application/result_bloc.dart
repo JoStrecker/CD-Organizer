@@ -17,10 +17,10 @@ part 'result_event.dart';
 part 'result_state.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState> {
-  IMusicAPIFacade musicBrainzFacade;
+  IMusicAPIFacade musicApiFacade;
   IAlbumFacade albumFacade;
 
-  ResultBloc({required this.musicBrainzFacade, required this.albumFacade})
+  ResultBloc({required this.musicApiFacade, required this.albumFacade})
       : super(const ResultInitialState()) {
     on<ResultLoadEvent>((event, emit) async {
       emit(const ResultLoadingState());
@@ -65,13 +65,12 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
           Album newAlbum = Album(
             coverArt: coverArt,
             trackCount: selected.trackCount,
-            label: selected.labelInfo?[0].label?.name ?? 'unknown',
-            date: DateTime.tryParse(selected.date ?? '') ??
-                DateTime.fromMillisecondsSinceEpoch(0),
+            label: selected.label ?? 'unknown',
+            date: DateTime(selected.year),
             mbid: selected.id,
-            artists: selected.artistCredit.map((e) => e.name).toList(),
+            artists: selected.artists,
             title: selected.title,
-            tracks: await musicBrainzFacade.getTracksForMBID(mbid: selected.id),
+            tracks: await musicApiFacade.getTracksForMBID(mbid: selected.id),
           );
 
           await albumFacade.addAlbum(newAlbum);
