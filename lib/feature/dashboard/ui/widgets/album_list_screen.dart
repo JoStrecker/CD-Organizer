@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class AlbumListScreen extends StatelessWidget {
   final List<Album> albums;
+  final Function(Album) deleteAlbum;
 
-  const AlbumListScreen({super.key, required this.albums});
+  const AlbumListScreen({super.key, required this.albums, required this.deleteAlbum});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class AlbumListScreen extends StatelessWidget {
           ),
           //Filter Bar
           Expanded(
-            child: AlbumList(albums: albums),
+            child: AlbumList(albums: albums, deleteAlbum: deleteAlbum),
           ),
         ],
       ),

@@ -7,5 +7,7 @@
   "delete": "Löschen",
   "lend": "Verleihen",
   "scan": "Scannen",
-  "cancel": "Abbrechen"
+  "cancel": "Abbrechen",
+  "wantToDelete": "Bist du dir sicher, dass du dieses Album löschen willst?",
+  "yes": "Ja"
 }

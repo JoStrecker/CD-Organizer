@@ -18,39 +18,21 @@ class Scanner extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                onSubmitted: (query) => {
-                  context
-                      .read<ScannerBloc>()
-                      .add(ScannerSearchAlbumEvent(query))
-                },
-                controller: controller,
-                textCapitalization: TextCapitalization.sentences,
-                textInputAction: TextInputAction.search,
-                decoration: InputDecoration(
-                  labelText: 'search'.tr(),
-                  suffixIcon: IconButton(
-                    onPressed: controller.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
-                ),
-              ),
+        TextField(
+          onSubmitted: (query) =>
+              {context.read<ScannerBloc>().add(ScannerSearchAlbumEvent(query))},
+          controller: controller,
+          textCapitalization: TextCapitalization.sentences,
+          textInputAction: TextInputAction.search,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'search'.tr(),
+            suffixIcon: IconButton(
+              onPressed: controller.clear,
+              icon: const Icon(Icons.clear),
             ),
-            const SizedBox(
-              width: 8,
-            ),
-            FilledButton(
-              onPressed: () => {
-                context
-                    .read<ScannerBloc>()
-                    .add(ScannerSearchAlbumEvent(controller.text))
-              },
-              child: const Icon(Icons.search),
-            ),
-          ],
+            prefixIcon: const Icon(Icons.search),
+          ),
         ),
         const SizedBox(
           height: 8,

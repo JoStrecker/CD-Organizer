@@ -30,8 +30,8 @@ class ResultItem extends StatelessWidget {
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: SizedBox(
-                width: 80,
-                height: 80,
+                width: 96,
+                height: 96,
                 child: release.getThumbnail(),
               ),
             ),
@@ -42,16 +42,37 @@ class ResultItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ContainerTextElement(text: release.title, icon: Icons.people),
                   ContainerTextElement(
-                      text: release.label ?? 'unknown'.tr(), icon: Icons.label),
+                    text: release.title,
+                    icon: Icons.people,
+                    textColor:
+                        Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
                   ContainerTextElement(
-                      text: release.year ?? 'unknown'.tr(),
-                      icon: Icons.access_time),
+                    text: release.label ?? 'unknown'.tr(),
+                    icon: Icons.label,
+                    textColor:
+                        Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
                   ContainerTextElement(
-                      text: release.formats
-                          .reduce((value, element) => '$value, $element'),
-                      icon: Icons.album),
+                    text: release.year ?? 'unknown'.tr(),
+                    icon: Icons.access_time,
+                    textColor:
+                        Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                  ContainerTextElement(
+                    text: release.country ?? 'unknown'.tr(),
+                    icon: Icons.language,
+                    textColor:
+                        Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                  ContainerTextElement(
+                    text: release.formats
+                        .reduce((value, element) => '$value, $element'),
+                    icon: Icons.album,
+                    textColor:
+                        Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
                 ],
               ),
             ),

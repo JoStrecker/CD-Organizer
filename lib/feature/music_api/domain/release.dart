@@ -10,12 +10,14 @@ class Release extends Equatable {
   final String? label;
   final Uri? coverArt;
   final Uri? thumbnail;
+  final String? country;
 
   const Release({
     this.coverArt,
     this.thumbnail,
     this.label,
     this.year,
+    this.country,
     required this.formats,
     required this.id,
     required this.title,
@@ -27,9 +29,10 @@ class Release extends Equatable {
       title: json['title'],
       label: json['label']?.toList()[0],
       year: json['year'],
+      country: json['country'],
       formats: (json['format'] as List).map((e) => e as String).toList(),
       thumbnail: json['thumb'] != null ? Uri.parse(json['thumb']) : null,
-      coverArt: json['cover_image'] != null ? Uri.parse(json['thumb']) : null,
+      coverArt: json['cover_image'] != null ? Uri.parse(json['cover_image']) : null,
     );
   }
 

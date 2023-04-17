@@ -18,11 +18,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       emit(const DashboardLoadingState());
 
       try {
-        List<Album> albums =
-            await albumFacade.getAllAlbums();
+        List<Album> albums = await albumFacade.getAllAlbums();
+        albums.sort((a, b) => a.title.compareTo(b.title));
         if (albums.isEmpty) {
           emit(const DashboardEmptyState());
-        }else{
+        } else {
           emit(DashboardLoadedState(albums));
         }
       } catch (e) {
@@ -33,9 +33,54 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       }
     });
 
-    on<DashboardSelectAlbumEvent>((event, emit){
-      if(state is DashboardLoadedState){
+    on<DashboardRefreshEvent>((event, emit) async {
+      emit(const DashboardLoadingState());
+
+      try {
+        List<Album> albums = await albumFacade.getAllAlbums();
+        albums.sort((a, b) => a.title.compareTo(b.title));
+        if (albums.isEmpty) {
+          emit(const DashboardEmptyState());
+        } else {
+          emit(DashboardLoadedState(albums));
+        }
+      } catch (e) {
+        if (e is CDOrganizerError) {
+          emit(DashboardErrorState(e.message));
+        }
+        emit(DashboardErrorState(UnknownServerError().message));
+      }
+    });
+
+    on<DashboardSelectAlbumEvent>((event, emit) {
+      if (state is DashboardLoadedState) {
         emit(DashboardLoadedDetailState(event.selectedAlbum));
+      }
+    });
+
+    on<DashboardDeleteAlbumEvent>((event, emit) async {
+      DashboardState state = this.state;
+
+      if (state is DashboardLoadedState) {
+        emit(const DashboardLoadingState());
+
+        try {
+          await albumFacade.deleteAlbum(event.selectedAlbum);
+
+          List<Album> albums = await albumFacade.getAllAlbums();
+          albums.sort((a, b) => a.title.compareTo(b.title));
+
+          if (albums.isEmpty) {
+            emit(const DashboardEmptyState());
+          } else {
+            emit(DashboardLoadedState(albums));
+          }
+        } catch (e) {
+          if (e is CDOrganizerError) {
+            emit(DashboardErrorState(e.message));
+          }
+          emit(DashboardErrorState(UnknownServerError().message));
+        }
       }
     });
   }

@@ -16,3 +16,15 @@ class DashboardSelectAlbumEvent extends DashboardEvent {
     this.selectedAlbum,
   );
 }
+
+class DashboardDeleteAlbumEvent extends DashboardEvent {
+  final Album selectedAlbum;
+
+  const DashboardDeleteAlbumEvent(
+    this.selectedAlbum,
+  );
+}
+
+class DashboardRefreshEvent extends DashboardEvent {
+  const DashboardRefreshEvent();
+}

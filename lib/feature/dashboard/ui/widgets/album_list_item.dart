@@ -1,12 +1,18 @@
 import 'package:cd_organizer/core/ui/container_text_element.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AlbumListItem extends StatelessWidget {
   final Album album;
+  final Function(Album) deleteAlbum;
 
-  const AlbumListItem({super.key, required this.album});
+  const AlbumListItem({
+    super.key,
+    required this.album,
+    required this.deleteAlbum,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,27 @@ class AlbumListItem extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: InkWell(
-        onTap: () => {context.goNamed("details", extra: album)},
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        onTap: () => context.goNamed("details", extra: album),
+        onLongPress: () => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text('delete').tr(),
+                  content: const Text('wantToDelete').tr(),
+                  actions: [
+                    FilledButton.tonal(
+                      onPressed: () => Navigator.pop(context, 'cancel'),
+                      child: const Text('cancel').tr(),
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        Navigator.pop(context, 'yes');
+                        deleteAlbum(album);
+                      },
+                      child: const Text('yes').tr(),
+                    )
+                  ],
+                )),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,18 +70,26 @@ class AlbumListItem extends StatelessWidget {
                     ContainerTextElement(
                       text: album.title,
                       icon: Icons.title,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                     ContainerTextElement(
                       text: album.getAllArtists(),
                       icon: Icons.people,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                     ContainerTextElement(
                       text: album.trackCount.toString(),
                       icon: Icons.format_list_numbered,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                     ContainerTextElement(
                       text: album.type,
                       icon: Icons.album,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
                     )
                   ],
                 ),

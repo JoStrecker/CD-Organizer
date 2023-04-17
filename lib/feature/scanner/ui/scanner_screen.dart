@@ -18,10 +18,20 @@ class ScannerScreen extends StatelessWidget {
       child: BlocBuilder<ScannerBloc, ScannerState>(
         builder: (context, state) {
           if (state is ScannerInitialState) {
-            return const Padding(
-              padding: EdgeInsets.all(16),
-              child: Scanner(),
-            );
+            return Padding(
+                padding: const EdgeInsets.only(
+                  top: 16,
+                  left: 8,
+                  right: 8,
+                ),
+                child: Column(
+                  children: [
+                    const Scanner(),
+                    Expanded(
+                      child: Container(),
+                    ),
+                  ],
+                ));
           } else if (state is ScannerLoadingState) {
             return const LoadingScreen();
           } else if (state is ScannerResultState) {
@@ -42,7 +52,7 @@ class ScannerScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else if(state is ScannerErrorState) {
+          } else if (state is ScannerErrorState) {
             return Padding(
               padding: const EdgeInsets.only(
                 top: 16,
@@ -53,12 +63,14 @@ class ScannerScreen extends StatelessWidget {
                 children: [
                   const Scanner(),
                   Expanded(
-                    child: ErrorScreen(message: state.errorMessage),
+                    child: ErrorScreen(
+                      message: state.errorMessage,
+                    ),
                   ),
                 ],
               ),
             );
-          }else{
+          } else {
             return const EmptyScreen();
           }
         },

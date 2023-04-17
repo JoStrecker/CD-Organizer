@@ -1,6 +1,7 @@
 import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
 import 'package:cd_organizer/feature/albums/infrastructure/hive_album_facade.dart';
 import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
+import 'package:cd_organizer/feature/details/application/detail_bloc.dart';
 import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:cd_organizer/feature/music_api/infrastructure/dio_discogs_facade.dart';
 import 'package:cd_organizer/feature/results/application/result_bloc.dart';
@@ -31,6 +32,9 @@ void initInjection() {
       ));
   sl.registerFactory<ScannerBloc>(() => ScannerBloc(
         musicAPIFacade: sl<IMusicAPIFacade>(),
+        albumFacade: sl<IAlbumFacade>(),
+      ));
+  sl.registerFactory<DetailBloc>(() => DetailBloc(
         albumFacade: sl<IAlbumFacade>(),
       ));
 }
