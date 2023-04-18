@@ -16,172 +16,188 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DetailBloc>(
-      create: (context) => sl<DetailBloc>()..add(DetailLoadEvent(album)),
-      child: BlocBuilder<DetailBloc, DetailState>(
-        builder: (context, state) {
-          if (state is DetailLoadedState) {
-            return Padding(
-              padding: const EdgeInsets.only(
-                top: 16,
-                left: 16,
-                right: 16,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    state.album.title,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        child: SizedBox(
-                          width: 160,
-                          height: 160,
-                          child: state.album.getCoverArt(
-                              tint: Theme.of(context).colorScheme.onSurface),
+    return WillPopScope(
+      onWillPop: () async {
+        context.pop(false);
+        return false;
+      },
+      child: BlocProvider<DetailBloc>(
+        create: (context) => sl<DetailBloc>()..add(DetailLoadEvent(album)),
+        child: BlocBuilder<DetailBloc, DetailState>(
+          builder: (context, state) {
+            if (state is DetailLoadedState) {
+              return Padding(
+                padding: const EdgeInsets.only(
+                  top: 16,
+                  left: 16,
+                  right: 16,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            context.pop(false);
+                          },
+                          icon: const Icon(Icons.arrow_back_ios_new),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Text(
+                          state.album.title,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8)),
+                          child: SizedBox(
+                            width: 160,
+                            height: 160,
+                            child: state.album.getCoverArt(
+                                tint: Theme.of(context).colorScheme.onSurface),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ContainerTextElement(
+                                text: state.album.getAllArtists(),
+                                icon: Icons.people,
+                              ),
+                              ContainerTextElement(
+                                text: state.album.label ?? 'unknown'.tr(),
+                                icon: Icons.label,
+                              ),
+                              ContainerTextElement(
+                                text: state.album.year ?? 'unknown'.tr(),
+                                icon: Icons.access_time,
+                              ),
+                              ContainerTextElement(
+                                text: state.album.country ?? 'unknown'.tr(),
+                                icon: Icons.language,
+                              ),
+                              ContainerTextElement(
+                                text: state.album.type,
+                                icon: Icons.album,
+                              ),
+                              ContainerTextElement(
+                                text: state.price?.toStringAsFixed(2) ??
+                                    'unknown'.tr(),
+                                icon: Icons.euro,
+                              ),
+                              ContainerTextElement(
+                                text: state.album.trackCount ?? 'unknown'.tr(),
+                                icon: Icons.format_list_numbered,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    state.album.lendee != null
+                        ? lendingRow(state.album)
+                        : Container(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () => showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                    title: const Text('delete').tr(),
+                                    content: const Text('wantToDelete').tr(),
+                                    actions: [
+                                      FilledButton.tonal(
+                                        onPressed: () =>
+                                            Navigator.pop(ctx, 'cancel'),
+                                        child: const Text('cancel').tr(),
+                                      ),
+                                      FilledButton(
+                                        onPressed: () {
+                                          Navigator.pop(ctx, 'yes');
+                                          context
+                                              .read<DetailBloc>()
+                                              .add(const DetailDeleteEvent());
+                                          context.pop(true);
+                                        },
+                                        child: const Text('yes').tr(),
+                                      ),
+                                    ],
+                                  )),
+                          child: Text(
+                            'delete'.tr(),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        FilledButton.tonal(
+                          onPressed: () => state.album.lendee == null
+                              ? lendDialog(context)
+                              : gotBackDialog(context),
+                          child: Text(
+                            state.album.lendee == null
+                                ? 'lend'.tr()
+                                : 'giveBack'.tr(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Expanded(
+                      child: ListView.separated(
+                        itemBuilder: (context, index) => Row(
                           children: [
-                            ContainerTextElement(
-                              text: state.album.getAllArtists(),
-                              icon: Icons.people,
+                            Text(state.album.tracks![index].number),
+                            const VerticalDivider(),
+                            Expanded(
+                              child: Text(
+                                state.album.tracks![index].title,
+                                overflow: TextOverflow.fade,
+                                maxLines: 2,
+                              ),
                             ),
-                            ContainerTextElement(
-                              text: state.album.label ?? 'unknown'.tr(),
-                              icon: Icons.label,
-                            ),
-                            ContainerTextElement(
-                              text: state.album.year ?? 'unknown'.tr(),
-                              icon: Icons.access_time,
-                            ),
-                            ContainerTextElement(
-                              text: state.album.country ?? 'unknown'.tr(),
-                              icon: Icons.language,
-                            ),
-                            ContainerTextElement(
-                              text: state.album.type,
-                              icon: Icons.album,
-                            ),
-                            ContainerTextElement(
-                              text: state.price?.toStringAsFixed(2) ??
-                                  'unknown'.tr(),
-                              icon: Icons.euro,
-                            ),
-                            ContainerTextElement(
-                              text: state.album.trackCount ?? 'unknown'.tr(),
-                              icon: Icons.format_list_numbered,
-                            ),
+                            Text(state.album.tracks![index].length ??
+                                'unknown'.tr()),
                           ],
                         ),
+                        separatorBuilder: (context, index) => const Divider(),
+                        itemCount: state.album.tracks?.length ?? 0,
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  state.album.lendee != null
-                      ? lendingRow(state.album)
-                      : Container(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      OutlinedButton(
-                        onPressed: () => showDialog(
-                            context: context,
-                            builder: (ctx) => AlertDialog(
-                                  title: const Text('delete').tr(),
-                                  content: const Text('wantToDelete').tr(),
-                                  actions: [
-                                    FilledButton.tonal(
-                                      onPressed: () =>
-                                          Navigator.pop(ctx, 'cancel'),
-                                      child: const Text('cancel').tr(),
-                                    ),
-                                    FilledButton(
-                                      onPressed: () {
-                                        Navigator.pop(ctx, 'yes');
-                                        context
-                                            .read<DetailBloc>()
-                                            .add(const DetailDeleteEvent());
-                                        context.pop(true);
-                                      },
-                                      child: const Text('yes').tr(),
-                                    ),
-                                  ],
-                                )),
-                        child: Text(
-                          'delete'.tr(),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      FilledButton.tonal(
-                        onPressed: () => state.album.lendee == null
-                            ? lendDialog(context)
-                            : gotBackDialog(context),
-                        child: Text(
-                          state.album.lendee == null
-                              ? 'lend'.tr()
-                              : 'giveBack'.tr(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) => Row(
-                        children: [
-                          Text(state.album.tracks![index].number),
-                          const VerticalDivider(),
-                          Expanded(
-                            child: Text(
-                              state.album.tracks![index].title,
-                              overflow: TextOverflow.fade,
-                              maxLines: 2,
-                            ),
-                          ),
-                          Text(state.album.tracks![index].length ??
-                              'unknown'.tr()),
-                        ],
-                      ),
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemCount: state.album.tracks?.length ?? 0,
                     ),
-                  ),
-                ],
-              ),
-            );
-          } else if (state is DetailLoadingState) {
-            return const LoadingScreen();
-          } else if (state is DetailErrorState) {
-            return ErrorScreen(
-              message: state.message,
-            );
-          } else {
-            return Container();
-          }
-        },
+                  ],
+                ),
+              );
+            } else if (state is DetailLoadingState) {
+              return const LoadingScreen();
+            } else if (state is DetailErrorState) {
+              return ErrorScreen(
+                message: state.message,
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
     );
   }

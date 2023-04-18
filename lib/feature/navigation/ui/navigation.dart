@@ -36,7 +36,9 @@ class Navigation extends StatelessWidget {
         ),
       ),
       onTap: (index) {
-        context.go(routeInfos[index].route);
+        if (currRoute != routeInfos[index].route) {
+          context.go(routeInfos[index].route);
+        }
       },
     );
   }

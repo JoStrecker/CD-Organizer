@@ -75,6 +75,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             }
             emit(DashboardErrorState(UnknownServerError().message));
           }
+        }else{
+          emit(state);
         }
       }
     });
