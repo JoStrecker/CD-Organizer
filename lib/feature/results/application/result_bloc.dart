@@ -24,7 +24,18 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
     on<ResultLoadEvent>((event, emit) async {
       emit(const ResultLoadingState());
 
-      emit(ResultLoadedState(event.result));
+      try {
+        List<Album> albums = await albumFacade.getAllAlbums();
+
+        emit(ResultLoadedState(event.result
+          ..removeWhere(
+              (release) => albums.any((album) => album.id == release.id))));
+      } catch (e) {
+        if (e is CDOrganizerError) {
+          emit(ResultErrorState(e.message));
+        }
+        emit(ResultErrorState(UnknownServerError().message));
+      }
     });
 
     on<ResultSelectAlbumEvent>((event, emit) async {
@@ -38,9 +49,10 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
         try {
           String? coverArt;
 
-          if(selected.coverArt != null && !selected.coverArt.toString().endsWith('.gif')){
+          if (selected.coverArt != null &&
+              !selected.coverArt.toString().endsWith('.gif')) {
             Directory dir = await getApplicationDocumentsDirectory();
-            coverArt ='${dir.path}/${selected.id}';
+            coverArt = '${dir.path}/${selected.id}';
             File image = File(coverArt);
             var response = await http.get(selected.coverArt!);
             await image.writeAsBytes(response.bodyBytes);

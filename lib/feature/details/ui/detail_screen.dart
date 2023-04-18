@@ -232,6 +232,7 @@ Future lendDialog(BuildContext context) {
               }
             },
             controller: controller,
+            autofocus: true,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
