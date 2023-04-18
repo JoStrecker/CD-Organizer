@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 
 class AlbumList extends StatelessWidget {
   final List<Album> albums;
-  final Function(Album) deleteAlbum;
 
-  const AlbumList({super.key, required this.albums, required this.deleteAlbum});
+  const AlbumList({super.key, required this.albums});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class AlbumList extends StatelessWidget {
           padding: const EdgeInsets.only(
             top: 8,
           ),
-          child: AlbumListItem(album: albums[index], deleteAlbum: deleteAlbum,),
+          child: AlbumListItem(album: albums[index],),
         );
       },
     );

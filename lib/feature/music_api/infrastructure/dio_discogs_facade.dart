@@ -62,7 +62,7 @@ class DioDiscogsFacade extends IMusicAPIFacade{
   Future<Album> getAlbumForID({required String id}) async {
     try {
       Response response = await Dio().get(
-        '$musicRootURL/releases/$id',
+        '$musicRootURL/releases/$id?eur',
         options: Options(
           headers: {
             'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',

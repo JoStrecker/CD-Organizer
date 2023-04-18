@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cd_organizer/feature/albums/domain/track.dart';
 import 'package:cd_organizer/generated/assets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 
@@ -50,6 +49,9 @@ class Album {
   @HiveField(12)
   String? trackCount;
 
+  @HiveField(13)
+  double? worth;
+
   Album({
     required this.id,
     required this.title,
@@ -64,6 +66,7 @@ class Album {
     this.lended,
     required this.wishlist,
     this.trackCount,
+    this.worth,
   });
 
   static Album fromJson(Map<String, dynamic> json) {
@@ -85,6 +88,7 @@ class Album {
       country: json['country'],
       wishlist: false,
       trackCount: json['tracklist']?.length.toString(),
+      worth: json['lowest_price'],
     );
   }
 
@@ -102,6 +106,7 @@ class Album {
     DateTime? lended,
     bool? wishlist,
     String? trackCount,
+    double? worth,
   }) {
     return Album(
       id: id ?? this.id,
@@ -117,6 +122,7 @@ class Album {
       lended: lended ?? this.lended,
       wishlist: wishlist ?? this.wishlist,
       trackCount: trackCount ?? this.trackCount,
+      worth: worth ?? this.worth,
     );
   }
 

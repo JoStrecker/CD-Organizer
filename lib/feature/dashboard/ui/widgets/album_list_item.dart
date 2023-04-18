@@ -1,18 +1,15 @@
 import 'package:cd_organizer/core/ui/container_text_element.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
+import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AlbumListItem extends StatelessWidget {
   final Album album;
-  final Function(Album) deleteAlbum;
 
-  const AlbumListItem({
-    super.key,
-    required this.album,
-    required this.deleteAlbum,
-  });
+  const AlbumListItem({super.key, required this.album});
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +20,25 @@ class AlbumListItem extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        onTap: () => context.goNamed("details", extra: album),
+        onTap: () async {
+          context.read<DashboardBloc>().add(DashboardRefreshEvent(await context.pushNamed('details', extra: album)));
+        },
         onLongPress: () => showDialog(
             context: context,
-            builder: (context) => AlertDialog(
+            builder: (ctx) => AlertDialog(
                   title: const Text('delete').tr(),
                   content: const Text('wantToDelete').tr(),
                   actions: [
                     FilledButton.tonal(
-                      onPressed: () => Navigator.pop(context, 'cancel'),
+                      onPressed: () => Navigator.pop(ctx, 'cancel'),
                       child: const Text('cancel').tr(),
                     ),
                     FilledButton(
                       onPressed: () {
-                        Navigator.pop(context, 'yes');
-                        deleteAlbum(album);
+                        Navigator.pop(ctx, 'yes');
+                        context
+                            .read<DashboardBloc>()
+                            .add(DashboardDeleteAlbumEvent(album));
                       },
                       child: const Text('yes').tr(),
                     )

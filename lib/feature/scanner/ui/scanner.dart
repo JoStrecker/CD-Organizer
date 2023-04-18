@@ -6,23 +6,20 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Scanner extends StatelessWidget {
-  final String? search;
-
-  const Scanner({super.key, this.search});
+  const Scanner({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller =
-        TextEditingController(text: search);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         TextField(
           onSubmitted: (query) =>
-              {context.read<ScannerBloc>().add(ScannerSearchAlbumEvent(query))},
-          controller: controller,
+              context.read<ScannerBloc>().add(ScannerSearchAlbumEvent(query)),
+          controller:
+              (context.read<ScannerBloc>().state as ScannerControlledState)
+                  .controller,
           textCapitalization: TextCapitalization.sentences,
           textInputAction: TextInputAction.search,
           decoration: InputDecoration(
@@ -30,7 +27,9 @@ class Scanner extends StatelessWidget {
             hintText: 'search'.tr(),
             suffixIcon: IconButton(
               onPressed: () {
-                controller.clear;
+                context
+                    .read<ScannerBloc>()
+                    .add(const ScannerClearSearchEvent());
                 unfocusCurrWidget(context);
               },
               icon: const Icon(Icons.clear),

@@ -1,11 +1,11 @@
 import 'package:cd_organizer/core/ui/container_text_element.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/details/application/detail_bloc.dart';
+import 'package:cd_organizer/feature/error/ui/error_screen.dart';
 import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
 import 'package:cd_organizer/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,12 +21,6 @@ class DetailScreen extends StatelessWidget {
       child: BlocBuilder<DetailBloc, DetailState>(
         builder: (context, state) {
           if (state is DetailLoadedState) {
-            deleteAlbum(BuildContext bc) {
-              context.read<DetailBloc>().add(DetailDeleteEvent(bc));
-              Navigator.pop(bc, 'yes');
-              bc.goNamed('collection');
-            }
-
             return Padding(
               padding: const EdgeInsets.only(
                 top: 16,
@@ -86,7 +80,8 @@ class DetailScreen extends StatelessWidget {
                               icon: Icons.album,
                             ),
                             ContainerTextElement(
-                              text: state.price?.toString() ?? 'unknown'.tr(),
+                              text: state.price?.toStringAsFixed(2) ??
+                                  'unknown'.tr(),
                               icon: Icons.euro,
                             ),
                             ContainerTextElement(
@@ -110,17 +105,23 @@ class DetailScreen extends StatelessWidget {
                       OutlinedButton(
                         onPressed: () => showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
+                            builder: (ctx) => AlertDialog(
                                   title: const Text('delete').tr(),
                                   content: const Text('wantToDelete').tr(),
                                   actions: [
                                     FilledButton.tonal(
                                       onPressed: () =>
-                                          Navigator.pop(context, 'cancel'),
+                                          Navigator.pop(ctx, 'cancel'),
                                       child: const Text('cancel').tr(),
                                     ),
                                     FilledButton(
-                                      onPressed: () => deleteAlbum(context),
+                                      onPressed: () {
+                                        Navigator.pop(ctx, 'yes');
+                                        context
+                                            .read<DetailBloc>()
+                                            .add(const DetailDeleteEvent());
+                                        context.pop(true);
+                                      },
                                       child: const Text('yes').tr(),
                                     ),
                                   ],
@@ -173,6 +174,10 @@ class DetailScreen extends StatelessWidget {
             );
           } else if (state is DetailLoadingState) {
             return const LoadingScreen();
+          } else if (state is DetailErrorState) {
+            return ErrorScreen(
+              message: state.message,
+            );
           } else {
             return Container();
           }

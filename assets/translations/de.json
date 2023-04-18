@@ -17,5 +17,7 @@
   "lendedTo": "Verliehen an: ",
   "since": "Seit: ",
   "giveBack": "Zurück bekommen",
-  "gotBackDialog": "Hast du dieses Album zurück bekommen?"
+  "gotBackDialog": "Hast du dieses Album zurück bekommen?",
+  "count": "Menge: ",
+  "worth": "Wert: "
 }

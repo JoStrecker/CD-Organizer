@@ -9,14 +9,6 @@ class DashboardLoadEvent extends DashboardEvent {
   const DashboardLoadEvent();
 }
 
-class DashboardSelectAlbumEvent extends DashboardEvent {
-  final Album selectedAlbum;
-
-  const DashboardSelectAlbumEvent(
-    this.selectedAlbum,
-  );
-}
-
 class DashboardDeleteAlbumEvent extends DashboardEvent {
   final Album selectedAlbum;
 
@@ -26,7 +18,9 @@ class DashboardDeleteAlbumEvent extends DashboardEvent {
 }
 
 class DashboardRefreshEvent extends DashboardEvent {
-  const DashboardRefreshEvent();
+  final bool? reload;
+
+  const DashboardRefreshEvent(this.reload);
 }
 
 class DashboardSearchAlbumEvent extends DashboardEvent {

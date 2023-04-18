@@ -7,4 +7,5 @@ abstract class IAlbumFacade{
   Future<void> deleteAlbum(Album album);
   Future<void> lendAlbum(Album album, String name);
   Future<void> gotBackAlbum(Album album);
+  Future<void> updateAlbum(Album album, Album updatedAlbum);
 }

@@ -25,14 +25,6 @@ class DashboardLoadedState extends DashboardState {
   );
 }
 
-class DashboardLoadedDetailState extends DashboardState {
-  final Album album;
-
-  const DashboardLoadedDetailState(
-    this.album,
-  );
-}
-
 class DashboardEmptyState extends DashboardState {
   const DashboardEmptyState();
 }

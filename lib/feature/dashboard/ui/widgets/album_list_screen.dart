@@ -39,7 +39,6 @@ class AlbumListScreen extends StatelessWidget {
               hintText: 'search'.tr(),
               suffixIcon: IconButton(
                 onPressed: () {
-                  controller.clear;
                   unfocusCurrWidget(context);
                   context.read<DashboardBloc>().add(const DashboardLoadEvent());
                 },
@@ -76,14 +75,26 @@ class AlbumListScreen extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Text('count').tr(),
+              Text(albums.length.toString()),
+              const Expanded(
+                child: SizedBox(
+                  height: 1,
+                ),
+              ),
+              const Text('worth').tr(),
+              Text(
+                  '${albums.fold(0.0, (previousValue, album) => previousValue + (album.worth ?? 0.0)).toStringAsFixed(2)}€'),
+            ],
+          ),
           Expanded(
             child: albums.isEmpty
                 ? const EmptyScreen()
                 : AlbumList(
                     albums: albums,
-                    deleteAlbum: (Album album) => context
-                        .read<DashboardBloc>()
-                        .add(DashboardDeleteAlbumEvent(album)),
                   ),
           ),
         ],

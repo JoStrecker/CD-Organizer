@@ -21,7 +21,7 @@ class DashboardScreen extends StatelessWidget {
               onRefresh: () {
                 context
                     .read<DashboardBloc>()
-                    .add(const DashboardRefreshEvent());
+                    .add(const DashboardRefreshEvent(true));
                 return context
                     .read<DashboardBloc>()
                     .stream

@@ -14,10 +14,10 @@ class ScannerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ScannerBloc>(
-      create: (context) => sl<ScannerBloc>(),
+      create: (context) => sl<ScannerBloc>()..add(const ScannerLoadEvent()),
       child: BlocBuilder<ScannerBloc, ScannerState>(
         builder: (context, state) {
-          if (state is ScannerInitialState) {
+          if (state is ScannerLoadedState) {
             return Padding(
                 padding: const EdgeInsets.only(
                   top: 16,
@@ -43,7 +43,7 @@ class ScannerScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Scanner(search: state.search),
+                  const Scanner(),
                   Expanded(
                     child: ResultScreen(
                       releases: state.results,

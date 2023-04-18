@@ -24,6 +24,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         double? price =
             await musicAPIFacade.getCurrentPriceForID(id: event.album.id);
 
+        await albumFacade.updateAlbum(event.album, event.album.copyWith(worth: price));
+
         emit(DetailLoadedState(
           event.album,
           price: price,
@@ -41,6 +43,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
 
         try {
           await albumFacade.deleteAlbum(state.album);
+
+          emit(const DetailLoadingState());
         } catch (e) {
           if (e is CDOrganizerError) {
             emit(DetailErrorState(e.message));

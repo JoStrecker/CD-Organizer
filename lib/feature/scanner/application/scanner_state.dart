@@ -9,19 +9,31 @@ class ScannerInitialState extends ScannerState {
   const ScannerInitialState();
 }
 
-class ScannerResultState extends ScannerState {
-  final List<Release> results;
-  final String? search;
+class ScannerControlledState extends ScannerState {
+  final TextEditingController controller;
 
-  const ScannerResultState(this.results, this.search);
+  const ScannerControlledState(this.controller);
+}
+
+class ScannerLoadedState extends ScannerControlledState {
+  const ScannerLoadedState(TextEditingController controller)
+      : super(controller);
+}
+
+class ScannerResultState extends ScannerControlledState {
+  final List<Release> results;
+
+  const ScannerResultState(this.results, TextEditingController controller)
+      : super(controller);
 }
 
 class ScannerLoadingState extends ScannerState {
   const ScannerLoadingState();
 }
 
-class ScannerErrorState extends ScannerState {
+class ScannerErrorState extends ScannerControlledState {
   final String errorMessage;
 
-  const ScannerErrorState(this.errorMessage);
+  const ScannerErrorState(this.errorMessage, TextEditingController controller)
+      : super(controller);
 }

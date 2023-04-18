@@ -12,9 +12,7 @@ class DetailLoadEvent extends DetailEvent{
 }
 
 class DetailDeleteEvent extends DetailEvent{
-  final BuildContext bc;
-
-  const DetailDeleteEvent(this.bc);
+  const DetailDeleteEvent();
 }
 
 class DetailLendEvent extends DetailEvent{

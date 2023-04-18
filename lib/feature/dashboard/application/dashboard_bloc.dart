@@ -40,44 +40,42 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       if (state is DashboardLoadedState) {
         emit(const DashboardLoadingState());
 
-        try {
-          List<Album> albums = await albumFacade.getAllAlbums();
-          albums.sort((a, b) => a.title.compareTo(b.title));
-          albums = state.filter == MediaTypeFilter.vinyl
-              ? albums.where((album) => album.type.contains('Vinyl')).toList()
-              : state.filter == MediaTypeFilter.cd
-              ? albums.where((album) => album.type.contains('CD')).toList()
-              : albums;
-          albums = state.search != null
-              ? albums
-              .where((album) =>
-          album.title.contains(state.search!) ||
-              album.artists
-                  .any((artist) => artist.contains(state.search!)))
-              .toList()
-              : albums;
+        if (event.reload ?? false) {
+          try {
+            List<Album> albums = await albumFacade.getAllAlbums();
+            albums.sort((a, b) => a.title.compareTo(b.title));
+            albums = state.filter == MediaTypeFilter.vinyl
+                ? albums.where((album) => album.type.contains('Vinyl')).toList()
+                : state.filter == MediaTypeFilter.cd
+                    ? albums
+                        .where((album) => album.type.contains('CD'))
+                        .toList()
+                    : albums;
+            albums = state.search != null
+                ? albums
+                    .where((album) =>
+                        album.title.contains(state.search!) ||
+                        album.artists
+                            .any((artist) => artist.contains(state.search!)))
+                    .toList()
+                : albums;
 
-          if (albums.isEmpty) {
-            emit(const DashboardEmptyState());
-          } else {
-            emit(DashboardLoadedState(
-              albums,
-              state.filter,
-              state.search,
-            ));
+            if (albums.isEmpty) {
+              emit(const DashboardEmptyState());
+            } else {
+              emit(DashboardLoadedState(
+                albums,
+                state.filter,
+                state.search,
+              ));
+            }
+          } catch (e) {
+            if (e is CDOrganizerError) {
+              emit(DashboardErrorState(e.message));
+            }
+            emit(DashboardErrorState(UnknownServerError().message));
           }
-        } catch (e) {
-          if (e is CDOrganizerError) {
-            emit(DashboardErrorState(e.message));
-          }
-          emit(DashboardErrorState(UnknownServerError().message));
         }
-      }
-    });
-
-    on<DashboardSelectAlbumEvent>((event, emit) {
-      if (state is DashboardLoadedState) {
-        emit(DashboardLoadedDetailState(event.selectedAlbum));
       }
     });
 

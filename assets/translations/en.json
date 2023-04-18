@@ -17,5 +17,7 @@
   "lendedTo": "Lent to: ",
   "since": "Since: ",
   "giveBack": "Got Back",
-  "gotBackDialog": "Did you get this Album back?"
+  "gotBackDialog": "Did you get this Album back?",
+  "count": "Amount: ",
+  "worth": "Worth: "
 }
