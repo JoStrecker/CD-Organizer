@@ -17,22 +17,25 @@ class AlbumAdapter extends TypeAdapter<Album> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Album(
-      coverArt: fields[6] as String?,
-      trackCount: fields[5] as int,
-      label: fields[4] as String,
-      date: fields[3] as DateTime,
       id: fields[0] as String,
-      artists: (fields[2] as List).cast<String>(),
       title: fields[1] as String,
-      type: fields[8] as String,
-      tracks: (fields[7] as List?)?.cast<Track>(),
+      artists: (fields[2] as List).cast<String>(),
+      year: fields[3] as String?,
+      label: fields[4] as String?,
+      coverArt: fields[5] as String?,
+      tracks: (fields[6] as List?)?.cast<Track>(),
+      type: fields[7] as String,
+      country: fields[8] as String?,
+      lendee: fields[9] as String?,
+      lended: fields[10] as DateTime?,
+      wishlist: fields[11] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Album obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -40,17 +43,23 @@ class AlbumAdapter extends TypeAdapter<Album> {
       ..writeByte(2)
       ..write(obj.artists)
       ..writeByte(3)
-      ..write(obj.date)
+      ..write(obj.year)
       ..writeByte(4)
       ..write(obj.label)
       ..writeByte(5)
-      ..write(obj.trackCount)
-      ..writeByte(6)
       ..write(obj.coverArt)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.tracks)
+      ..writeByte(7)
+      ..write(obj.type)
       ..writeByte(8)
-      ..write(obj.type);
+      ..write(obj.country)
+      ..writeByte(9)
+      ..write(obj.lendee)
+      ..writeByte(10)
+      ..write(obj.lended)
+      ..writeByte(11)
+      ..write(obj.wishlist);
   }
 
   @override

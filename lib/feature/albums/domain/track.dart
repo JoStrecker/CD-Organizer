@@ -19,11 +19,26 @@ class Track {
     required this.number,
   });
 
-  static Track fromJson(Map<String, dynamic> json) {
-    return Track(
-      title: json['title'],
-      number: json['position'],
-      length: json['duration'],
-    );
+  static List<Track> fromJson(Map<String, dynamic> json) {
+    if (json['type_'] == 'track') {
+      return List.of([
+        Track(
+          title: json['title'],
+          number: json['position'],
+          length: json['duration'],
+        ),
+      ]);
+    } else if (json['type_'] == 'index') {
+      return List.of([
+        Track(
+          title: json['title'],
+          number: json['position'],
+          length: json['duration'],
+        ),
+        ...json['sub_tracks'].expand((subtrack) => Track.fromJson(subtrack)),
+      ]);
+    } else {
+      return List.empty();
+    }
   }
 }

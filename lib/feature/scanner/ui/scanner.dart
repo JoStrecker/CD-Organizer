@@ -1,3 +1,4 @@
+import 'package:cd_organizer/core/ui/dismiss_keyboard.dart';
 import 'package:cd_organizer/feature/scanner/application/scanner_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,10 @@ class Scanner extends StatelessWidget {
             border: InputBorder.none,
             hintText: 'search'.tr(),
             suffixIcon: IconButton(
-              onPressed: controller.clear,
+              onPressed: () {
+                controller.clear;
+                unfocusCurrWidget(context);
+              },
               icon: const Icon(Icons.clear),
             ),
             prefixIcon: const Icon(Icons.search),

@@ -15,8 +15,9 @@ class DetailLoadingState extends DetailState {
 
 class DetailLoadedState extends DetailState {
   final Album album;
+  final double? price;
 
-  const DetailLoadedState(this.album);
+  const DetailLoadedState(this.album, {this.price});
 }
 
 class DetailErrorState extends DetailState {

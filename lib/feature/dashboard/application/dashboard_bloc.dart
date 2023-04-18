@@ -46,7 +46,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           albums = state.filter == MediaTypeFilter.vinyl
               ? albums.where((album) => album.type.contains('Vinyl')).toList()
               : state.filter == MediaTypeFilter.cd
-              ? albums.where((album) => album.type.contains('Cd')).toList()
+              ? albums.where((album) => album.type.contains('CD')).toList()
               : albums;
           albums = state.search != null
               ? albums
@@ -95,7 +95,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           albums = state.filter == MediaTypeFilter.vinyl
               ? albums.where((album) => album.type.contains('Vinyl')).toList()
               : state.filter == MediaTypeFilter.cd
-                  ? albums.where((album) => album.type.contains('Cd')).toList()
+                  ? albums.where((album) => album.type.contains('CD')).toList()
                   : albums;
           albums = state.search != null
               ? albums
@@ -132,7 +132,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           albums = state.filter == MediaTypeFilter.vinyl
               ? albums.where((album) => album.type.contains('Vinyl')).toList()
               : state.filter == MediaTypeFilter.cd
-                  ? albums.where((album) => album.type.contains('Cd')).toList()
+                  ? albums.where((album) => album.type.contains('CD')).toList()
                   : albums;
           albums = albums
               .where((album) =>
@@ -166,7 +166,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           albums = event.filter == MediaTypeFilter.vinyl
               ? albums.where((album) => album.type.contains('Vinyl')).toList()
               : event.filter == MediaTypeFilter.cd
-                  ? albums.where((album) => album.type.contains('Cd')).toList()
+                  ? albums.where((album) => album.type.contains('CD')).toList()
                   : albums;
           albums = state.search != null
               ? albums

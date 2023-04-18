@@ -32,5 +32,6 @@ void initInjection() {
       ));
   sl.registerFactory<DetailBloc>(() => DetailBloc(
         albumFacade: sl<IAlbumFacade>(),
+        musicAPIFacade: sl<IMusicAPIFacade>(),
       ));
 }

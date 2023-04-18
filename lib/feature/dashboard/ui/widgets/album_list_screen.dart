@@ -1,3 +1,4 @@
+import 'package:cd_organizer/core/ui/dismiss_keyboard.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list.dart';
@@ -39,6 +40,7 @@ class AlbumListScreen extends StatelessWidget {
               suffixIcon: IconButton(
                 onPressed: () {
                   controller.clear;
+                  unfocusCurrWidget(context);
                   context.read<DashboardBloc>().add(const DashboardLoadEvent());
                 },
                 icon: const Icon(Icons.clear),
@@ -70,6 +72,9 @@ class AlbumListScreen extends StatelessWidget {
                   .read<DashboardBloc>()
                   .add(DashboardFilterAlbumEvent(selected.first)),
             ),
+          ),
+          const SizedBox(
+            height: 8,
           ),
           Expanded(
             child: albums.isEmpty

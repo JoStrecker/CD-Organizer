@@ -80,8 +80,8 @@ class AlbumListItem extends StatelessWidget {
                           Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                     ContainerTextElement(
-                      text: album.trackCount.toString(),
-                      icon: Icons.format_list_numbered,
+                      text: album.year ?? 'unknown'.tr(),
+                      icon: Icons.access_time,
                       textColor:
                           Theme.of(context).colorScheme.onSecondaryContainer,
                     ),

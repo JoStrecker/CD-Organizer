@@ -68,20 +68,28 @@ class DetailScreen extends StatelessWidget {
                               icon: Icons.people,
                             ),
                             ContainerTextElement(
-                              text: album.label,
+                              text: album.label ?? 'unknown'.tr(),
                               icon: Icons.label,
                             ),
                             ContainerTextElement(
-                              text: album.date.year.toString(),
+                              text: album.year ?? 'unknown'.tr(),
                               icon: Icons.access_time,
                             ),
                             ContainerTextElement(
-                              text: album.trackCount.toString(),
-                              icon: Icons.format_list_numbered,
+                              text: album.country ?? 'unknown'.tr(),
+                              icon: Icons.language,
                             ),
                             ContainerTextElement(
                               text: album.type,
                               icon: Icons.album,
+                            ),
+                            ContainerTextElement(
+                              text: state.price?.toString() ?? 'unknown'.tr(),
+                              icon: Icons.euro,
+                            ),
+                            ContainerTextElement(
+                              text: album.trackCount ?? 'unknown'.tr(),
+                              icon: Icons.format_list_numbered,
                             ),
                           ],
                         ),

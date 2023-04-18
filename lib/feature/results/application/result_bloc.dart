@@ -25,21 +25,6 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       emit(const ResultLoadingState());
 
       emit(ResultLoadedState(event.result));
-
-      /*try {
-        List<Release> releases =
-            await musicBrainzFacade.searchByArtist(artistName: 'Queen');
-        if (releases.isEmpty) {
-          emit(const ResultEmptyState());
-        } else {
-          emit(ResultLoadedState(releases));
-        }
-      } catch (e) {
-        if (e is CDOrganizerError) {
-          emit(ResultErrorState(e.message));
-        }
-        emit(ResultErrorState(UnknownServerError().message));
-      }*/
     });
 
     on<ResultSelectAlbumEvent>((event, emit) async {

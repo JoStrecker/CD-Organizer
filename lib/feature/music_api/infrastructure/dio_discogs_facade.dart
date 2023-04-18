@@ -80,4 +80,25 @@ class DioDiscogsFacade extends IMusicAPIFacade{
     }
   }
 
+  @override
+  Future<double?> getCurrentPriceForID({required String id}) async {
+    try {
+      Response response = await Dio().get(
+        '$musicRootURL/releases/$id?eur',
+        options: Options(
+          headers: {
+            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      return dioResponseHandler(response)['lowest_price'];
+    } catch (e) {
+      if (e is DioError && e.response != null) {
+        dioResponseHandler(e.response!);
+      }
+      throw UnknownServerError();
+    }
+  }
 }
