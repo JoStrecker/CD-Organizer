@@ -38,7 +38,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
         try {
           String? coverArt;
 
-          if(selected.coverArt != null){
+          if(selected.coverArt != null && !selected.coverArt.toString().endsWith('.gif')){
             Directory dir = await getApplicationDocumentsDirectory();
             coverArt ='${dir.path}/${selected.id}';
             File image = File(coverArt);

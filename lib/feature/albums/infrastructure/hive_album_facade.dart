@@ -28,4 +28,32 @@ class HiveAlbumFacade implements IAlbumFacade {
     return await albumBox.delete(
         albumBox.keys.firstWhere((element) => albumBox.get(element) == album));
   }
+
+  @override
+  Future<void> lendAlbum(Album album, String name) async {
+    var albumBox = await Hive.openBox<Album>('albumBox');
+    return await albumBox.put(
+        albumBox.keys.firstWhere((element) => albumBox.get(element) == album),
+        album.copyWith(
+          lended: DateTime.now(),
+          lendee: name,
+        ));
+  }
+
+  @override
+  Future<Album?> getAlbum(String id) async {
+    var albumBox = await Hive.openBox<Album>('albumBox');
+    return albumBox.get(
+        albumBox.keys.firstWhere((element) => albumBox.get(element)?.id == id));
+  }
+
+  @override
+  Future<void> gotBackAlbum(Album album) async {
+    var albumBox = await Hive.openBox<Album>('albumBox');
+    return await albumBox.put(
+        albumBox.keys.firstWhere((element) => albumBox.get(element) == album),
+        album.copyWith(
+          lendee: null,
+        ));
+  }
 }

@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:cd_organizer/feature/albums/domain/track.dart';
 import 'package:cd_organizer/generated/assets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 
 part 'album.g.dart';
@@ -70,7 +72,7 @@ class Album {
       title: json['title'],
       artists:
           (json['artists'] as List).map((e) => e['name'].toString()).toList(),
-      year: json['year']?.toString(),
+      year: (json['year'] ?? 0) > 0 ? json['year'].toString() : null,
       label: json['labels'] != null
           ? (json['labels'] as List)
               .map((e) => e['name'])
@@ -86,15 +88,56 @@ class Album {
     );
   }
 
+  Album copyWith({
+    String? id,
+    String? title,
+    List<String>? artists,
+    String? year,
+    String? label,
+    String? coverArt,
+    List<Track>? tracks,
+    String? type,
+    String? country,
+    String? lendee,
+    DateTime? lended,
+    bool? wishlist,
+    String? trackCount,
+  }) {
+    return Album(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      artists: artists ?? this.artists,
+      year: year ?? this.year,
+      label: label ?? this.label,
+      coverArt: coverArt ?? this.coverArt,
+      tracks: tracks ?? this.tracks,
+      type: type ?? this.type,
+      country: country ?? this.country,
+      lendee: lendee,
+      lended: lended ?? this.lended,
+      wishlist: wishlist ?? this.wishlist,
+      trackCount: trackCount ?? this.trackCount,
+    );
+  }
+
   String getAllArtists() {
     return artists.reduce((value, element) => '$value, $element');
   }
 
-  Image getCoverArt() {
+  Widget getCoverArt({Color? tint}) {
     if (coverArt == null) {
-      return Image.asset(Assets.imagesMissingImage);
+      return SvgPicture.asset(
+        Assets.imagesNoImage,
+        colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
+      );
     } else {
-      return Image.file(File(coverArt!));
+      return Image.file(
+        File(coverArt!),
+        errorBuilder: (context, child, x) => SvgPicture.asset(
+          Assets.imagesNoImage,
+          colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
+        ),
+      );
     }
   }
 }

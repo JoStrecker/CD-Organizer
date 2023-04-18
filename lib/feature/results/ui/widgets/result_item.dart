@@ -32,7 +32,8 @@ class ResultItem extends StatelessWidget {
               child: SizedBox(
                 width: 96,
                 height: 96,
-                child: release.getThumbnail(),
+                child: release.getThumbnail(
+                    tint: Theme.of(context).colorScheme.onSecondaryContainer),
               ),
             ),
           ),

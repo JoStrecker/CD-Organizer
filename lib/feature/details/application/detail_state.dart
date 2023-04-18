@@ -18,6 +18,16 @@ class DetailLoadedState extends DetailState {
   final double? price;
 
   const DetailLoadedState(this.album, {this.price});
+
+  DetailLoadedState copyWith({
+    Album? album,
+    double? price,
+  }) {
+    return DetailLoadedState(
+      album ?? this.album,
+      price: price ?? this.price,
+    );
+  }
 }
 
 class DetailErrorState extends DetailState {

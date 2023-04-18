@@ -10,5 +10,6 @@ ThemeData getLightTheme(CorePalette? palette) {
           seedColor: Colors.tealAccent,
           brightness: Brightness.light,
         ),
+    textTheme: const TextTheme().apply(fontFamily: 'Sora'),
   );
 }

@@ -57,7 +57,8 @@ class AlbumListItem extends StatelessWidget {
                 child: SizedBox(
                   width: 96,
                   height: 96,
-                  child: album.getCoverArt(),
+                  child: album.getCoverArt(
+                      tint: Theme.of(context).colorScheme.onSecondaryContainer),
                 ),
               ),
             ),

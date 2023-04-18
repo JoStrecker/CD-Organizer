@@ -22,3 +22,7 @@ class DetailLendEvent extends DetailEvent{
 
   const DetailLendEvent(this.lendee);
 }
+
+class DetailGotBackEvent extends DetailEvent{
+  const DetailGotBackEvent();
+}

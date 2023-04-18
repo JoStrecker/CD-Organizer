@@ -1,6 +1,7 @@
 import 'package:cd_organizer/generated/assets.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Release extends Equatable {
   final String id;
@@ -32,7 +33,8 @@ class Release extends Equatable {
       country: json['country'],
       formats: (json['format'] as List).map((e) => e as String).toList(),
       thumbnail: json['thumb'] != null ? Uri.parse(json['thumb']) : null,
-      coverArt: json['cover_image'] != null ? Uri.parse(json['cover_image']) : null,
+      coverArt:
+          json['cover_image'] != null ? Uri.parse(json['cover_image']) : null,
     );
   }
 
@@ -45,7 +47,7 @@ class Release extends Equatable {
         formats,
       ];
 
-  Image getThumbnail() {
+  Widget getThumbnail({Color? tint}) {
     return Image.network(
       thumbnail.toString(),
       frameBuilder: (BuildContext context, Widget child, int? frame,
@@ -68,7 +70,10 @@ class Release extends Equatable {
       },
       errorBuilder:
           (BuildContext context, Object exception, StackTrace? stackTrace) {
-        return Image.asset(Assets.imagesMissingImage);
+        return SvgPicture.asset(
+          Assets.imagesNoImage,
+          colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
+        );
       },
       fit: BoxFit.fill,
       cacheHeight: 80,

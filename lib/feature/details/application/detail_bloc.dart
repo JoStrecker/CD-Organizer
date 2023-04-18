@@ -21,7 +21,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       emit(const DetailLoadingState());
 
       try {
-        double? price = await musicAPIFacade.getCurrentPriceForID(id: event.album.id);
+        double? price =
+            await musicAPIFacade.getCurrentPriceForID(id: event.album.id);
 
         emit(DetailLoadedState(
           event.album,
@@ -45,6 +46,42 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
             emit(DetailErrorState(e.message));
           }
           emit(DetailErrorState(UnknownServerError().message));
+        }
+      }
+    });
+
+    on<DetailLendEvent>((event, emit) async {
+      DetailState state = this.state;
+
+      if (state is DetailLoadedState) {
+        emit(const DetailLoadingState());
+
+        try {
+          await albumFacade.lendAlbum(state.album, event.lendee);
+          Album newAlbum =
+              await albumFacade.getAlbum(state.album.id) ?? state.album;
+
+          emit(state.copyWith(album: newAlbum));
+        } catch (e) {
+          emit(state);
+        }
+      }
+    });
+
+    on<DetailGotBackEvent>((event, emit) async {
+      DetailState state = this.state;
+
+      if (state is DetailLoadedState) {
+        emit(const DetailLoadingState());
+
+        try {
+          await albumFacade.gotBackAlbum(state.album);
+          Album newAlbum =
+              await albumFacade.getAlbum(state.album.id) ?? state.album;
+
+          emit(state.copyWith(album: newAlbum));
+        } catch (e) {
+          emit(state);
         }
       }
     });

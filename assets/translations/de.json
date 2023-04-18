@@ -12,5 +12,10 @@
   "yes": "Ja",
   "all": "Alles",
   "vinyl": "Vinyl",
-  "cd": "CD"
+  "cd": "CD",
+  "name": "Name",
+  "lendedTo": "Verliehen an: ",
+  "since": "Seit: ",
+  "giveBack": "Zurück bekommen",
+  "gotBackDialog": "Hast du dieses Album zurück bekommen?"
 }
