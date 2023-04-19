@@ -15,46 +15,46 @@ class AlbumListFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SegmentedButton<MediaTypeFilter>(
-          multiSelectionEnabled: true,
-          segments: List<ButtonSegment<MediaTypeFilter>>.of([
-            ...MediaTypeFilter.values.map(
-              (e) => ButtonSegment<MediaTypeFilter>(
-                value: e,
-                label: Text(e.name).tr(),
-                icon: const Icon(Icons.album),
-              ),
-            ),
-          ]),
-          selected: filter,
-          onSelectionChanged: (selected) =>
-              context.read<DashboardBloc>().add(DashboardFilterAlbumEvent(
-                    selected,
-                    lentFilter,
-                  )),
-        ),
-        const SizedBox(height: 8),
-        SegmentedButton<LentFilter>(
-          multiSelectionEnabled: true,
-          segments: List<ButtonSegment<LentFilter>>.of([
-            ...LentFilter.values.map(
-              (e) => ButtonSegment<LentFilter>(
-                value: e,
-                label: Text(e.name).tr(),
-                icon: const Icon(Icons.handshake),
-              ),
-            ),
-          ]),
-          selected: lentFilter,
-          onSelectionChanged: (selected) =>
-              context.read<DashboardBloc>().add(DashboardFilterAlbumEvent(
-                    filter,
-                    selected,
-                  )),
-        ),
-      ],
+    List<String> labels = [
+      ...MediaTypeFilter.values.map((e) => e.name),
+      ...LentFilter.values.map((e) => e.name),
+    ];
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemCount: labels.length,
+      itemBuilder: (ctx, index) => FilterChip(
+        label: Text(labels[index]).tr(),
+        selected: filter.map((e) => e.name).contains(labels[index]) ||
+            lentFilter.map((e) => e.name).contains(labels[index]),
+        onSelected: (selected) {
+          List<MediaTypeFilter> newFilter = [...filter];
+          List<LentFilter> newLentFilter = [...lentFilter];
+          if (index < MediaTypeFilter.values.length) {
+            if (selected) {
+              newFilter.add(MediaTypeFilter.values[index]);
+            } else {
+              if (newFilter.length == 1) return;
+              newFilter.remove(MediaTypeFilter.values[index]);
+            }
+          } else {
+            if (selected) {
+              newLentFilter.add(
+                  LentFilter.values[index - MediaTypeFilter.values.length]);
+            } else {
+              if (newLentFilter.length == 1) return;
+              newLentFilter.remove(
+                  LentFilter.values[index - MediaTypeFilter.values.length]);
+            }
+          }
+          context.read<DashboardBloc>().add(
+                DashboardFilterAlbumEvent(
+                    newFilter.toSet(), newLentFilter.toSet()),
+              );
+        },
+      ),
+      separatorBuilder: (ctx, index) => const SizedBox(
+        width: 4,
+      ),
     );
   }
 }

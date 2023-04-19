@@ -54,14 +54,12 @@ class AlbumListScreen extends StatelessWidget {
               prefixIcon: const Icon(Icons.search),
             ),
           ),
-          Center(
+          SizedBox(
+            height: 48,
             child: AlbumListFilter(
               filter: filter,
               lentFilter: lentFilter,
             ),
-          ),
-          const SizedBox(
-            height: 8,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
