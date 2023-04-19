@@ -25,7 +25,7 @@ class DetailLoadedScreen extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  context.pop(false);
+                  context.pop(true);
                 },
                 icon: const Icon(Icons.arrow_back_ios_new),
                 alignment: Alignment.topCenter,
@@ -54,7 +54,7 @@ class DetailLoadedScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  album.lendee != null
+                  album.isLent()
                       ? DetailLendingRow(album: album)
                       : Container(),
                   DetailOptionsRow(album: album),

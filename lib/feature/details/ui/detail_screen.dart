@@ -17,7 +17,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        context.pop(false);
+        context.pop(true);
         return false;
       },
       child: BlocProvider<DetailBloc>(

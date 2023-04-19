@@ -15,13 +15,15 @@ class DashboardLoadingState extends DashboardState {
 
 class DashboardLoadedState extends DashboardState {
   final List<Album> albums;
-  final MediaTypeFilter filter;
+  final Set<MediaTypeFilter> filter;
+  final Set<LentFilter> lentFilter;
   final String? search;
 
   const DashboardLoadedState(
     this.albums,
-    this.filter,
     this.search,
+    this.filter,
+    this.lentFilter,
   );
 }
 

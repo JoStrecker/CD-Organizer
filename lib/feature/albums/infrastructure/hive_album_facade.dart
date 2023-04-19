@@ -53,7 +53,7 @@ class HiveAlbumFacade implements IAlbumFacade {
     return await albumBox.put(
       albumBox.keys.firstWhere((element) => albumBox.get(element)?.id == album.id),
       album.copyWith(
-        lendee: null,
+        lendee: 'thisAlbumIsNotLent',
       ),
     );
   }

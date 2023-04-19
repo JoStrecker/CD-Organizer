@@ -16,32 +16,32 @@ class ContainerTextElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: (maxLines ?? 1) > 1
-          ? CrossAxisAlignment.start
-          : CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            bottom: 4,
-            right: 4,
-          ),
-          child: Icon(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Row(
+        crossAxisAlignment: (maxLines ?? 1) > 1
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.center,
+        children: [
+          Icon(
             icon,
             color: textColor,
           ),
-        ),
-        Expanded(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.labelLarge?.apply(
-                  color: textColor,
-                ),
-            maxLines: maxLines,
-            overflow: TextOverflow.ellipsis,
+          const SizedBox(
+            width: 4,
           ),
-        ),
-      ],
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.labelLarge?.apply(
+                    color: textColor,
+                  ),
+              maxLines: maxLines,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

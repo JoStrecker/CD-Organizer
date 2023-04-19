@@ -2,6 +2,7 @@ import 'package:cd_organizer/core/ui/dismiss_keyboard.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list.dart';
+import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list_filter.dart';
 import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AlbumListScreen extends StatelessWidget {
   final List<Album> albums;
   final String? search;
-  final MediaTypeFilter filter;
+  final Set<MediaTypeFilter> filter;
+  final Set<LentFilter> lentFilter;
 
-  const AlbumListScreen(
-      {super.key, required this.albums, this.search, required this.filter});
+  const AlbumListScreen({
+    super.key,
+    required this.albums,
+    this.search,
+    required this.filter,
+    required this.lentFilter,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,28 +55,9 @@ class AlbumListScreen extends StatelessWidget {
             ),
           ),
           Center(
-            child: SegmentedButton(
-              segments: List<ButtonSegment>.of([
-                ButtonSegment(
-                  value: MediaTypeFilter.all,
-                  label: const Text('all').tr(),
-                  icon: const Icon(Icons.album),
-                ),
-                ButtonSegment(
-                  value: MediaTypeFilter.vinyl,
-                  label: const Text('vinyl').tr(),
-                  icon: const Icon(Icons.album),
-                ),
-                ButtonSegment(
-                  value: MediaTypeFilter.cd,
-                  label: const Text('cd').tr(),
-                  icon: const Icon(Icons.album),
-                ),
-              ]),
-              selected: {filter},
-              onSelectionChanged: (selected) => context
-                  .read<DashboardBloc>()
-                  .add(DashboardFilterAlbumEvent(selected.first)),
+            child: AlbumListFilter(
+              filter: filter,
+              lentFilter: lentFilter,
             ),
           ),
           const SizedBox(

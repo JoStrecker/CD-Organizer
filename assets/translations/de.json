@@ -19,5 +19,8 @@
   "giveBack": "Zurück bekommen",
   "gotBackDialog": "Hast du dieses Album zurück bekommen?",
   "count": "Menge: ",
-  "worth": "Wert: "
+  "worth": "Wert: ",
+  "lent": "Verliehen",
+  "notLent": "Nicht Verliehen",
+  "other": "Anderes"
 }

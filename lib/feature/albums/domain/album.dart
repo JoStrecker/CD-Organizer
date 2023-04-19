@@ -118,12 +118,16 @@ class Album {
       tracks: tracks ?? this.tracks,
       type: type ?? this.type,
       country: country ?? this.country,
-      lendee: lendee,
+      lendee: lendee ?? this.lendee,
       lended: lended ?? this.lended,
       wishlist: wishlist ?? this.wishlist,
       trackCount: trackCount ?? this.trackCount,
       worth: worth ?? this.worth,
     );
+  }
+
+  bool isLent(){
+    return (lendee ?? 'thisAlbumIsNotLent') != 'thisAlbumIsNotLent';
   }
 
   String getAllArtists() {

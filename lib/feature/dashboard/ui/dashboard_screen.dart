@@ -31,6 +31,7 @@ class DashboardScreen extends StatelessWidget {
                 albums: state.albums,
                 search: state.search,
                 filter: state.filter,
+                lentFilter: state.lentFilter,
               ),
             );
           } else if (state is DashboardLoadingState) {

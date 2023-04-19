@@ -44,9 +44,12 @@ Future lendDialog(BuildContext context) {
         children: [
           TextField(
             onSubmitted: (query) {
-              if (query.isNotEmpty) {
-                context.read<DetailBloc>().add(DetailLendEvent(query));
+              if (controller.text.isNotEmpty) {
+                context
+                    .read<DetailBloc>()
+                    .add(DetailLendEvent(controller.text));
               }
+              Navigator.pop(ctx, 'lend');
             },
             controller: controller,
             autofocus: true,

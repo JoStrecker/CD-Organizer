@@ -22,11 +22,10 @@ class DetailOptionsRow extends StatelessWidget {
           child: SizedBox(),
         ),
         FilledButton.tonal(
-          onPressed: () => album.lendee == null
-              ? lendDialog(context)
-              : gotBackDialog(context),
+          onPressed: () =>
+              album.isLent() ? gotBackDialog(context) : lendDialog(context),
           child: Text(
-            album.lendee == null ? 'lend'.tr() : 'giveBack'.tr(),
+            album.isLent() ? 'giveBack'.tr() : 'lend'.tr(),
           ),
         ),
       ],

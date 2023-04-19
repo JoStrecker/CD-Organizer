@@ -24,7 +24,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         if (albums.isEmpty) {
           emit(const DashboardEmptyState());
         } else {
-          emit(DashboardLoadedState(albums, MediaTypeFilter.all, null));
+          emit(DashboardLoadedState(
+            albums,
+            null,
+            const {...MediaTypeFilter.values},
+            const {...LentFilter.values},
+          ));
         }
       } catch (e) {
         if (e is CDOrganizerError) {
@@ -43,30 +48,16 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         if (event.reload ?? false) {
           try {
             List<Album> albums = await albumFacade.getAllAlbums();
-            albums.sort((a, b) => a.title.compareTo(b.title));
-            albums = state.filter == MediaTypeFilter.vinyl
-                ? albums.where((album) => album.type.contains('Vinyl')).toList()
-                : state.filter == MediaTypeFilter.cd
-                    ? albums
-                        .where((album) => album.type.contains('CD'))
-                        .toList()
-                    : albums;
-            albums = state.search != null
-                ? albums
-                    .where((album) =>
-                        album.title.contains(state.search!) ||
-                        album.artists
-                            .any((artist) => artist.contains(state.search!)))
-                    .toList()
-                : albums;
 
             if (albums.isEmpty) {
               emit(const DashboardEmptyState());
             } else {
               emit(DashboardLoadedState(
-                albums,
-                state.filter,
+                filterAlbums(
+                    albums, state.search, state.filter, state.lentFilter),
                 state.search,
+                state.filter,
+                state.lentFilter,
               ));
             }
           } catch (e) {
@@ -75,7 +66,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             }
             emit(DashboardErrorState(UnknownServerError().message));
           }
-        }else{
+        } else {
           emit(state);
         }
       }
@@ -91,25 +82,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           await albumFacade.deleteAlbum(event.selectedAlbum);
 
           List<Album> albums = await albumFacade.getAllAlbums();
-          albums.sort((a, b) => a.title.compareTo(b.title));
-          albums = state.filter == MediaTypeFilter.vinyl
-              ? albums.where((album) => album.type.contains('Vinyl')).toList()
-              : state.filter == MediaTypeFilter.cd
-                  ? albums.where((album) => album.type.contains('CD')).toList()
-                  : albums;
-          albums = state.search != null
-              ? albums
-                  .where((album) =>
-                      album.title.contains(state.search!) ||
-                      album.artists
-                          .any((artist) => artist.contains(state.search!)))
-                  .toList()
-              : albums;
 
           if (albums.isEmpty) {
             emit(const DashboardEmptyState());
           } else {
-            emit(DashboardLoadedState(albums, state.filter, state.search));
+            emit(DashboardLoadedState(
+              filterAlbums(
+                  albums, state.search, state.filter, state.lentFilter),
+              state.search,
+              state.filter,
+              state.lentFilter,
+            ));
           }
         } catch (e) {
           if (e is CDOrganizerError) {
@@ -128,22 +111,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
         try {
           List<Album> albums = await albumFacade.getAllAlbums();
-          albums.sort((a, b) => a.title.compareTo(b.title));
-          albums = state.filter == MediaTypeFilter.vinyl
-              ? albums.where((album) => album.type.contains('Vinyl')).toList()
-              : state.filter == MediaTypeFilter.cd
-                  ? albums.where((album) => album.type.contains('CD')).toList()
-                  : albums;
-          albums = albums
-              .where((album) =>
-                  album.title.toLowerCase().contains(event.search.toLowerCase()) ||
-                  album.artists.any((artist) => artist.toLowerCase().contains(event.search.toLowerCase())))
-              .toList();
 
           emit(DashboardLoadedState(
-            albums,
-            state.filter,
+            filterAlbums(albums, event.search, state.filter, state.lentFilter),
             event.search,
+            state.filter,
+            state.lentFilter,
           ));
         } catch (e) {
           if (e is CDOrganizerError) {
@@ -162,22 +135,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
         try {
           List<Album> albums = await albumFacade.getAllAlbums();
-          albums.sort((a, b) => a.title.compareTo(b.title));
-          albums = event.filter == MediaTypeFilter.vinyl
-              ? albums.where((album) => album.type.contains('Vinyl')).toList()
-              : event.filter == MediaTypeFilter.cd
-                  ? albums.where((album) => album.type.contains('CD')).toList()
-                  : albums;
-          albums = state.search != null
-              ? albums
-                  .where((album) =>
-                      album.title.toLowerCase().contains(state.search!.toLowerCase()) ||
-                      album.artists
-                          .any((artist) => artist.toLowerCase().contains(state.search!.toLowerCase())))
-                  .toList()
-              : albums;
 
-          emit(DashboardLoadedState(albums, event.filter, state.search));
+          emit(DashboardLoadedState(
+            filterAlbums(albums, state.search, event.filter, event.lentFilter),
+            state.search,
+            event.filter,
+            event.lentFilter,
+          ));
         } catch (e) {
           if (e is CDOrganizerError) {
             emit(DashboardErrorState(e.message));
@@ -189,8 +153,45 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   }
 }
 
+List<Album> filterAlbums(
+  List<Album> albums,
+  String? search,
+  Set<MediaTypeFilter> filter,
+  Set<LentFilter> lentFilter,
+) {
+  albums.sort((a, b) => a.title.compareTo(b.title));
+  albums = albums
+      .where((album) => filter.any((filter) =>
+          album.type.toLowerCase().contains(filter.name) ||
+          (filter == MediaTypeFilter.other &&
+              !MediaTypeFilter.values.any((element) =>
+                  album.type.toLowerCase().contains(element.name)))))
+      .toList();
+
+  albums = albums
+      .where((album) =>
+          (album.isLent() && lentFilter.contains(LentFilter.lent) ||
+              (!album.isLent() && lentFilter.contains(LentFilter.notLent))))
+      .toList();
+
+  albums = search != null
+      ? albums
+          .where((album) =>
+              album.title.toLowerCase().contains(search.toLowerCase()) ||
+              album.artists.any((artist) =>
+                  artist.toLowerCase().contains(search.toLowerCase())))
+          .toList()
+      : albums;
+  return albums;
+}
+
 enum MediaTypeFilter {
-  all,
   vinyl,
   cd,
+  other,
+}
+
+enum LentFilter {
+  notLent,
+  lent,
 }

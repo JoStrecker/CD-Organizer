@@ -12,9 +12,7 @@ class DashboardLoadEvent extends DashboardEvent {
 class DashboardDeleteAlbumEvent extends DashboardEvent {
   final Album selectedAlbum;
 
-  const DashboardDeleteAlbumEvent(
-    this.selectedAlbum,
-  );
+  const DashboardDeleteAlbumEvent(this.selectedAlbum);
 }
 
 class DashboardRefreshEvent extends DashboardEvent {
@@ -26,15 +24,12 @@ class DashboardRefreshEvent extends DashboardEvent {
 class DashboardSearchAlbumEvent extends DashboardEvent {
   final String search;
 
-  const DashboardSearchAlbumEvent(
-    this.search,
-  );
+  const DashboardSearchAlbumEvent(this.search);
 }
 
 class DashboardFilterAlbumEvent extends DashboardEvent {
-  final MediaTypeFilter filter;
+  final Set<MediaTypeFilter> filter;
+  final Set<LentFilter> lentFilter;
 
-  const DashboardFilterAlbumEvent(
-    this.filter,
-  );
+  const DashboardFilterAlbumEvent(this.filter, this.lentFilter);
 }
