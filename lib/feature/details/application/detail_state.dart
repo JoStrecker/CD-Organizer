@@ -15,17 +15,15 @@ class DetailLoadingState extends DetailState {
 
 class DetailLoadedState extends DetailState {
   final Album album;
-  final double? price;
 
-  const DetailLoadedState(this.album, {this.price});
+  const DetailLoadedState(this.album);
 
   DetailLoadedState copyWith({
     Album? album,
-    double? price,
+
   }) {
     return DetailLoadedState(
       album ?? this.album,
-      price: price ?? this.price,
     );
   }
 }

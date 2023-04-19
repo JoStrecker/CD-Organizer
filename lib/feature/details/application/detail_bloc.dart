@@ -27,8 +27,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         await albumFacade.updateAlbum(event.album, event.album.copyWith(worth: price));
 
         emit(DetailLoadedState(
-          event.album,
-          price: price,
+          event.album.copyWith(worth: price),
         ));
       } catch (e) {
         emit(DetailLoadedState(event.album));

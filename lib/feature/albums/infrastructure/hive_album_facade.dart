@@ -33,7 +33,7 @@ class HiveAlbumFacade implements IAlbumFacade {
   Future<void> lendAlbum(Album album, String name) async {
     var albumBox = await Hive.openBox<Album>('albumBox');
     return await albumBox.put(
-        albumBox.keys.firstWhere((element) => albumBox.get(element) == album),
+        albumBox.keys.firstWhere((element) => albumBox.get(element)?.id == album.id),
         album.copyWith(
           lended: DateTime.now(),
           lendee: name,
@@ -51,7 +51,7 @@ class HiveAlbumFacade implements IAlbumFacade {
   Future<void> gotBackAlbum(Album album) async {
     var albumBox = await Hive.openBox<Album>('albumBox');
     return await albumBox.put(
-      albumBox.keys.firstWhere((element) => albumBox.get(element) == album),
+      albumBox.keys.firstWhere((element) => albumBox.get(element)?.id == album.id),
       album.copyWith(
         lendee: null,
       ),
@@ -62,7 +62,7 @@ class HiveAlbumFacade implements IAlbumFacade {
   Future<void> updateAlbum(Album album, Album updatedAlbum) async {
     var albumBox = await Hive.openBox<Album>('albumBox');
     return await albumBox.put(
-      albumBox.keys.firstWhere((element) => albumBox.get(element) == album),
+      albumBox.keys.firstWhere((element) => albumBox.get(element)?.id == album.id),
       updatedAlbum,
     );
   }

@@ -136,8 +136,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
                   : albums;
           albums = albums
               .where((album) =>
-                  album.title.contains(event.search) ||
-                  album.artists.any((artist) => artist.contains(event.search)))
+                  album.title.toLowerCase().contains(event.search.toLowerCase()) ||
+                  album.artists.any((artist) => artist.toLowerCase().contains(event.search.toLowerCase())))
               .toList();
 
           emit(DashboardLoadedState(
@@ -171,9 +171,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           albums = state.search != null
               ? albums
                   .where((album) =>
-                      album.title.contains(state.search!) ||
+                      album.title.toLowerCase().contains(state.search!.toLowerCase()) ||
                       album.artists
-                          .any((artist) => artist.contains(state.search!)))
+                          .any((artist) => artist.toLowerCase().contains(state.search!.toLowerCase())))
                   .toList()
               : albums;
 
