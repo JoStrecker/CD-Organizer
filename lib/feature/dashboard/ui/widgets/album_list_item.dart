@@ -21,7 +21,8 @@ class AlbumListItem extends StatelessWidget {
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         onTap: () async {
-          context.read<DashboardBloc>().add(DashboardRefreshEvent(await context.pushNamed('details', extra: album)));
+          context.read<DashboardBloc>().add(DashboardRefreshEvent(
+              await context.pushNamed('details', extra: album)));
         },
         onLongPress: () => showDialog(
             context: context,
@@ -81,18 +82,38 @@ class AlbumListItem extends StatelessWidget {
                       textColor:
                           Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
-                    ContainerTextElement(
-                      text: album.year ?? 'unknown'.tr(),
-                      icon: Icons.access_time,
-                      textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ContainerTextElement(
+                            text: album.year ?? 'unknown'.tr(),
+                            icon: Icons.access_time,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                        ),
+                        Expanded(
+                          child: ContainerTextElement(
+                            text: album.type,
+                            icon: Icons.album,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                        ),
+                      ],
                     ),
-                    ContainerTextElement(
-                      text: album.type,
-                      icon: Icons.album,
-                      textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
-                    )
+                    album.isLent()
+                        ? ContainerTextElement(
+                            text:
+                                '${album.lendee} (${album.lended!.toLocal().day}.${album.lended!.toLocal().month}.${album.lended!.toLocal().year})',
+                            icon: Icons.handshake,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          )
+                        : Container(),
                   ],
                 ),
               ),

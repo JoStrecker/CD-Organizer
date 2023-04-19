@@ -19,7 +19,6 @@ class AlbumListFilter extends StatelessWidget {
       children: [
         SegmentedButton<MediaTypeFilter>(
           multiSelectionEnabled: true,
-          emptySelectionAllowed: true,
           segments: List<ButtonSegment<MediaTypeFilter>>.of([
             ...MediaTypeFilter.values.map(
               (e) => ButtonSegment<MediaTypeFilter>(
