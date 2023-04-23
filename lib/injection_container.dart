@@ -6,6 +6,7 @@ import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:cd_organizer/feature/music_api/infrastructure/dio_discogs_facade.dart';
 import 'package:cd_organizer/feature/results/application/result_bloc.dart';
 import 'package:cd_organizer/feature/scanner/application/scanner_bloc.dart';
+import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -33,5 +34,8 @@ void initInjection() {
   sl.registerFactory<DetailBloc>(() => DetailBloc(
         albumFacade: sl<IAlbumFacade>(),
         musicAPIFacade: sl<IMusicAPIFacade>(),
+      ));
+  sl.registerFactory<WishlistBloc>(() => WishlistBloc(
+        albumFacade: sl<IAlbumFacade>(),
       ));
 }

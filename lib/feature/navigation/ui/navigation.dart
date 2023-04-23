@@ -21,11 +21,11 @@ class Navigation extends StatelessWidget {
       unselectedIconTheme:
           IconThemeData(color: Theme.of(context).colorScheme.onSurfaceVariant),
       showUnselectedLabels: true,
-      currentIndex: currRoute.startsWith('/collection')
+      currentIndex: currRoute.startsWith(RouteInfo.getNavRoutes()[0].route)
           ? 0
-          : currRoute.startsWith('/scanner')
+          : currRoute.startsWith(RouteInfo.getNavRoutes()[1].route)
               ? 1
-              : currRoute.startsWith('/settings')
+              : currRoute.startsWith(RouteInfo.getNavRoutes()[2].route)
                   ? 2
                   : 0,
       items: List.generate(

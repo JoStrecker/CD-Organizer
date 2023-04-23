@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 
 class AlbumList extends StatelessWidget {
   final List<Album> albums;
+  final bool wishlist;
 
-  const AlbumList({super.key, required this.albums});
+  const AlbumList({
+    super.key,
+    required this.albums,
+    required this.wishlist,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,10 @@ class AlbumList extends StatelessWidget {
           padding: const EdgeInsets.only(
             top: 8,
           ),
-          child: AlbumListItem(album: albums[index],),
+          child: AlbumListItem(
+            album: albums[index],
+            wishlist: wishlist,
+          ),
         );
       },
     );

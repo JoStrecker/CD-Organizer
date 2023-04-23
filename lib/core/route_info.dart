@@ -22,19 +22,20 @@ class RouteInfo {
   });
 
   static List<RouteInfo> get routes => [
-    collection,
-    scanner,
-    settings,
-    details,
-    error,
-  ];
+        collection,
+        wishlist,
+        scanner,
+        settings,
+        details,
+        error,
+      ];
 
   static RouteInfo getRouteInfoByRoute(String? route) {
     if (route == null) {
       return error;
     }
     return routes.firstWhere(
-          (pageInfo) => route.contains(pageInfo.route),
+      (pageInfo) => route.contains(pageInfo.route),
     );
   }
 
@@ -43,7 +44,7 @@ class RouteInfo {
       return error;
     }
     return routes.firstWhere(
-          (pageInfo) => route.contains(pageInfo.name),
+      (pageInfo) => route.contains(pageInfo.name),
     );
   }
 
@@ -61,6 +62,13 @@ class RouteInfo {
     isNavigationRoute: true,
   );
 
+  static RouteInfo wishlist = RouteInfo._(
+    route: '/wishlist',
+    name: 'wishlist',
+    icon: Icons.bookmark,
+    isNavigationRoute: true,
+  );
+
   static RouteInfo settings = RouteInfo._(
     route: '/settings',
     name: "settings",
@@ -69,15 +77,26 @@ class RouteInfo {
   );
 
   static RouteInfo scanner = RouteInfo._(
-    route: '/scanner',
+    route: 'scanner',
     name: "scanner",
     icon: Icons.qr_code_scanner,
-    isNavigationRoute: true,
   );
 
   static RouteInfo details = RouteInfo._(
     route: 'details',
     name: "details",
+    icon: Icons.album,
+  );
+
+  static RouteInfo wishScanner = RouteInfo._(
+    route: 'wishScanner',
+    name: "wishScanner",
+    icon: Icons.qr_code_scanner,
+  );
+
+  static RouteInfo wishDetails = RouteInfo._(
+    route: 'wishDetails',
+    name: "wishDetails",
     icon: Icons.album,
   );
 

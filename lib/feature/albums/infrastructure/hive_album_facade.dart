@@ -4,13 +4,17 @@ import 'package:hive/hive.dart';
 
 class HiveAlbumFacade implements IAlbumFacade {
   @override
-  Future<List<Album>> getAllAlbums() async {
+  Future<List<Album>> getAllAlbums(bool? wishlist) async {
     var albumBox = await Hive.openBox<Album>('albumBox');
 
     List<Album> albums = List.empty(growable: true);
 
     for (var album in albumBox.values) {
-      albums.add(album);
+      if(wishlist == null){
+        albums.add(album);
+      }else if(album.wishlist == wishlist) {
+        albums.add(album);
+      }
     }
 
     return albums;

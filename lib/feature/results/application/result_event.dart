@@ -15,8 +15,10 @@ class ResultLoadEvent extends ResultEvent {
 
 class ResultSelectAlbumEvent extends ResultEvent {
   final Release selectedAlbum;
+  final bool wishlist;
 
   const ResultSelectAlbumEvent(
     this.selectedAlbum,
+    this.wishlist,
   );
 }

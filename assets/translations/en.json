@@ -22,5 +22,12 @@
   "worth": "Worth: ",
   "lent": "Lent",
   "notLent": "Not Lent",
-  "other": "Other"
+  "other": "Other",
+  "wishlist": "Wishlist",
+  "addFirstAlbum": "Add First Album",
+  "tryAddingFirst": "Nothing here yet!\nTry adding your first Album!",
+  "trySearching": "Try searching for an Album or Artist or scan the barcode of an Album!",
+  "addAlbum": "Add Album",
+  "addToCollection": "Add to Collection",
+  "addCollectionDialog": "Add this Album to your Collection."
 }

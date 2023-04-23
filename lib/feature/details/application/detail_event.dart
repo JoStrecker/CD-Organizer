@@ -24,3 +24,7 @@ class DetailLendEvent extends DetailEvent{
 class DetailGotBackEvent extends DetailEvent{
   const DetailGotBackEvent();
 }
+
+class DetailAddCollectionEvent extends DetailEvent{
+  const DetailAddCollectionEvent();
+}

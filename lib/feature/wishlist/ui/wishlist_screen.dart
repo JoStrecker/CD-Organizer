@@ -1,52 +1,52 @@
 import 'package:cd_organizer/core/route_info.dart';
-import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list_screen.dart';
 import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
 import 'package:cd_organizer/feature/error/ui/error_screen.dart';
 import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
+import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:cd_organizer/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class WishlistScreen extends StatelessWidget {
+  const WishlistScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DashboardBloc>(
-      create: (context) => sl<DashboardBloc>()..add(const DashboardLoadEvent()),
-      child: BlocBuilder<DashboardBloc, DashboardState>(
+    return BlocProvider<WishlistBloc>(
+      create: (context) => sl<WishlistBloc>()..add(const WishlistLoadEvent()),
+      child: BlocBuilder<WishlistBloc, WishlistState>(
         builder: (context, state) {
-          if (state is DashboardLoadedState) {
+          if (state is WishlistLoadedState) {
             return Stack(
               children: [
                 RefreshIndicator(
                   onRefresh: () {
                     context
-                        .read<DashboardBloc>()
-                        .add(const DashboardRefreshEvent(true));
-                    return context.read<DashboardBloc>().stream.firstWhere(
-                        (element) => element is DashboardLoadingState);
+                        .read<WishlistBloc>()
+                        .add(const WishlistRefreshEvent(true));
+                    return context.read<WishlistBloc>().stream.firstWhere(
+                        (element) => element is WishlistLoadingState);
                   },
                   child: AlbumListScreen(
                     albums: state.albums,
                     search: state.search,
                     filter: state.filter,
                     lentFilter: state.lentFilter,
-                    wishlist: false,
+                    wishlist: true,
                   ),
                 ),
                 Positioned(
                   right: 16,
                   bottom: 16,
                   child: FloatingActionButton(
-                    onPressed: () async => context.read<DashboardBloc>().add(
-                          DashboardRefreshEvent(
+                    onPressed: () async => context.read<WishlistBloc>().add(
+                          WishlistRefreshEvent(
                             await context.pushNamed(
-                              RouteInfo.scanner.name,
-                              extra: false,
+                              RouteInfo.wishScanner.name,
+                              extra: true,
                             ),
                           ),
                         ),
@@ -55,36 +55,34 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ],
             );
-          } else if (state is DashboardLoadingState) {
+          } else if (state is WishlistLoadingState) {
             return const LoadingScreen();
-          } else if (state is DashboardEmptyState) {
+          } else if (state is WishlistEmptyState) {
             return EmptyScreen(
               child: Column(
                 children: [
-                  const Text(
-                    'tryAddingFirst',
-                    textAlign: TextAlign.center,
-                  ).tr(),
+                  const Text('tryAddingFirst', textAlign: TextAlign.center,).tr(),
                   const SizedBox(
                     height: 16,
                   ),
                   FilledButton(
-                      onPressed: () async => context.read<DashboardBloc>().add(
-                            DashboardRefreshEvent(
-                              await context.pushNamed(
-                                RouteInfo.scanner.name,
-                                extra: false,
-                              ),
+                    onPressed: () async => context.read<WishlistBloc>().add(
+                          WishlistRefreshEvent(
+                            await context.pushNamed(
+                              RouteInfo.wishScanner.name,
+                              extra: true,
                             ),
                           ),
-                      child: const Text(
-                        'addFirstAlbum',
-                        textAlign: TextAlign.center,
-                      ).tr()),
+                        ),
+                    child: const Text(
+                      'addFirstAlbum',
+                      textAlign: TextAlign.center,
+                    ).tr(),
+                  ),
                 ],
               ),
             );
-          } else if (state is DashboardErrorState) {
+          } else if (state is WishlistErrorState) {
             return ErrorScreen(
               message: state.errorMessage,
             );

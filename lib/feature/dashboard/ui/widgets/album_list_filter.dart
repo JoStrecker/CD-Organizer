@@ -1,4 +1,5 @@
 import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
+import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,19 +7,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AlbumListFilter extends StatelessWidget {
   final Set<MediaTypeFilter> filter;
   final Set<LentFilter> lentFilter;
+  final bool wishlist;
 
   const AlbumListFilter({
     super.key,
     required this.filter,
     required this.lentFilter,
+    required this.wishlist,
   });
 
   @override
   Widget build(BuildContext context) {
-    List<String> labels = [
-      ...MediaTypeFilter.values.map((e) => e.name),
-      ...LentFilter.values.map((e) => e.name),
-    ];
+    List<String> labels = wishlist
+        ? [
+            ...MediaTypeFilter.values.map((e) => e.name),
+          ]
+        : [
+            ...MediaTypeFilter.values.map((e) => e.name),
+            ...LentFilter.values.map((e) => e.name),
+          ];
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: labels.length,
@@ -46,10 +53,19 @@ class AlbumListFilter extends StatelessWidget {
                   LentFilter.values[index - MediaTypeFilter.values.length]);
             }
           }
-          context.read<DashboardBloc>().add(
-                DashboardFilterAlbumEvent(
-                    newFilter.toSet(), newLentFilter.toSet()),
-              );
+          wishlist
+              ? context.read<WishlistBloc>().add(
+                    WishlistFilterAlbumEvent(
+                      newFilter.toSet(),
+                      newLentFilter.toSet(),
+                    ),
+                  )
+              : context.read<DashboardBloc>().add(
+                    DashboardFilterAlbumEvent(
+                      newFilter.toSet(),
+                      newLentFilter.toSet(),
+                    ),
+                  );
         },
       ),
       separatorBuilder: (ctx, index) => const SizedBox(

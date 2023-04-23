@@ -18,7 +18,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       emit(const DashboardLoadingState());
 
       try {
-        List<Album> albums = await albumFacade.getAllAlbums();
+        List<Album> albums = await albumFacade.getAllAlbums(false);
         albums.sort((a, b) => a.title.compareTo(b.title));
 
         if (albums.isEmpty) {
@@ -42,13 +42,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     on<DashboardRefreshEvent>((event, emit) async {
       DashboardState state = this.state;
 
-      if (state is DashboardLoadedState) {
-        emit(const DashboardLoadingState());
+      emit(const DashboardLoadingState());
 
-        if (event.reload ?? false) {
-          try {
-            List<Album> albums = await albumFacade.getAllAlbums();
+      if (event.reload ?? false) {
+        try {
+          List<Album> albums = await albumFacade.getAllAlbums(false);
 
+          if (state is DashboardLoadedState) {
             if (albums.isEmpty) {
               emit(const DashboardEmptyState());
             } else {
@@ -60,14 +60,30 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
                 state.lentFilter,
               ));
             }
-          } catch (e) {
-            if (e is CDOrganizerError) {
-              emit(DashboardErrorState(e.message));
+          } else if (state is DashboardEmptyState) {
+            if (albums.isEmpty) {
+              emit(const DashboardEmptyState());
+            } else {
+              emit(DashboardLoadedState(
+                filterAlbums(
+                  albums,
+                  null,
+                  const {...MediaTypeFilter.values},
+                  const {...LentFilter.values},
+                ),
+                null,
+                const {...MediaTypeFilter.values},
+                const {...LentFilter.values},
+              ));
             }
-            emit(DashboardErrorState(UnknownServerError().message));
+          } else {
+            emit(state);
           }
-        } else {
-          emit(state);
+        } catch (e) {
+          if (e is CDOrganizerError) {
+            emit(DashboardErrorState(e.message));
+          }
+          emit(DashboardErrorState(UnknownServerError().message));
         }
       }
     });
@@ -81,7 +97,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         try {
           await albumFacade.deleteAlbum(event.selectedAlbum);
 
-          List<Album> albums = await albumFacade.getAllAlbums();
+          List<Album> albums = await albumFacade.getAllAlbums(false);
 
           if (albums.isEmpty) {
             emit(const DashboardEmptyState());
@@ -110,7 +126,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         emit(const DashboardLoadingState());
 
         try {
-          List<Album> albums = await albumFacade.getAllAlbums();
+          List<Album> albums = await albumFacade.getAllAlbums(false);
 
           emit(DashboardLoadedState(
             filterAlbums(albums, event.search, state.filter, state.lentFilter),
@@ -134,7 +150,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         emit(const DashboardLoadingState());
 
         try {
-          List<Album> albums = await albumFacade.getAllAlbums();
+          List<Album> albums = await albumFacade.getAllAlbums(false);
 
           emit(DashboardLoadedState(
             filterAlbums(albums, state.search, event.filter, event.lentFilter),

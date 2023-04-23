@@ -1,6 +1,7 @@
 import 'package:cd_organizer/core/ui/container_text_element.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
+import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,21 +9,31 @@ import 'package:go_router/go_router.dart';
 
 class AlbumListItem extends StatelessWidget {
   final Album album;
+  final bool wishlist;
 
-  const AlbumListItem({super.key, required this.album});
+  const AlbumListItem({
+    super.key,
+    required this.album,
+    required this.wishlist,
+  });
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer,
+        color: Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         onTap: () async {
-          context.read<DashboardBloc>().add(DashboardRefreshEvent(
-              await context.pushNamed('details', extra: album)));
+          wishlist
+              ? context.read<WishlistBloc>().add(WishlistRefreshEvent(
+                    await context.pushNamed('wishDetails', extra: album),
+                  ))
+              : context.read<DashboardBloc>().add(DashboardRefreshEvent(
+                    await context.pushNamed('details', extra: album),
+                  ));
         },
         onLongPress: () => showDialog(
             context: context,
@@ -37,9 +48,13 @@ class AlbumListItem extends StatelessWidget {
                     FilledButton(
                       onPressed: () {
                         Navigator.pop(ctx, 'yes');
-                        context
-                            .read<DashboardBloc>()
-                            .add(DashboardDeleteAlbumEvent(album));
+                        wishlist
+                            ? context
+                                .read<WishlistBloc>()
+                                .add(WishlistDeleteAlbumEvent(album))
+                            : context
+                                .read<DashboardBloc>()
+                                .add(DashboardDeleteAlbumEvent(album));
                       },
                       child: const Text('yes').tr(),
                     )
@@ -60,7 +75,7 @@ class AlbumListItem extends StatelessWidget {
                   width: 96,
                   height: 96,
                   child: album.getCoverArt(
-                      tint: Theme.of(context).colorScheme.onSecondaryContainer),
+                      tint: Theme.of(context).colorScheme.onTertiaryContainer),
                 ),
               ),
             ),
@@ -74,13 +89,13 @@ class AlbumListItem extends StatelessWidget {
                       text: album.title,
                       icon: Icons.title,
                       textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                     ContainerTextElement(
                       text: album.getAllArtists(),
                       icon: Icons.people,
                       textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                     Row(
                       children: [
@@ -90,7 +105,7 @@ class AlbumListItem extends StatelessWidget {
                             icon: Icons.access_time,
                             textColor: Theme.of(context)
                                 .colorScheme
-                                .onSecondaryContainer,
+                                .onTertiaryContainer,
                           ),
                         ),
                         Expanded(
@@ -99,7 +114,7 @@ class AlbumListItem extends StatelessWidget {
                             icon: Icons.album,
                             textColor: Theme.of(context)
                                 .colorScheme
-                                .onSecondaryContainer,
+                                .onTertiaryContainer,
                           ),
                         ),
                       ],
@@ -111,7 +126,7 @@ class AlbumListItem extends StatelessWidget {
                             icon: Icons.handshake,
                             textColor: Theme.of(context)
                                 .colorScheme
-                                .onSecondaryContainer,
+                                .onTertiaryContainer,
                           )
                         : Container(),
                   ],

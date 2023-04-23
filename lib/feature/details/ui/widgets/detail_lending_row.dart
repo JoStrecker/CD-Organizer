@@ -13,6 +13,7 @@ class DetailLendingRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Text(
         '${'lendedTo'.tr()}${album.lendee} (${'since'.tr()}${album.lended!.toLocal().day}.${album.lended!.toLocal().month}.${album.lended!.toLocal().year})',
+        style: Theme.of(context).textTheme.bodyMedium?.apply(color: Theme.of(context).colorScheme.onSecondaryContainer),
       ),
     );
   }

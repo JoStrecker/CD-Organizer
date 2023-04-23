@@ -22,5 +22,12 @@
   "worth": "Wert: ",
   "lent": "Verliehen",
   "notLent": "Nicht Verliehen",
-  "other": "Anderes"
+  "other": "Anderes",
+  "wishlist": "Wunschliste",
+  "addFirstAlbum": "Erstes Album hinzufügen",
+  "tryAddingFirst": "Hier gibt's noch nichts!\nFüge jetzt dein erstes Album hinzu!",
+  "trySearching": "Suche nach einem Album oder Künstler oder scanne den  Barcode eines Albums!",
+  "addAlbum": "Album hinzufügen",
+  "addToCollection": "Zur Sammlung hinzufügen",
+  "addCollectionDialog": "Fügt dieses Album zu deiner Sammlung hinzu."
 }

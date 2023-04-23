@@ -25,7 +25,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       emit(const ResultLoadingState());
 
       try {
-        List<Album> albums = await albumFacade.getAllAlbums();
+        List<Album> albums = await albumFacade.getAllAlbums(null);
 
         emit(ResultLoadedState(event.result
           ..removeWhere(
@@ -60,6 +60,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
 
           Album newAlbum = await musicApiFacade.getAlbumForID(id: selected.id);
           newAlbum.coverArt = coverArt;
+          newAlbum.wishlist = event.wishlist;
 
           await albumFacade.addAlbum(newAlbum);
 

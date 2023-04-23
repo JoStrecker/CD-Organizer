@@ -1,10 +1,10 @@
+import 'package:cd_organizer/core/ui/back_bar.dart';
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/details/ui/widgets/detail_album_details.dart';
 import 'package:cd_organizer/feature/details/ui/widgets/detail_lending_row.dart';
 import 'package:cd_organizer/feature/details/ui/widgets/detail_options_row.dart';
 import 'package:cd_organizer/feature/details/ui/widgets/detail_track_list.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class DetailLoadedScreen extends StatelessWidget {
   final Album album;
@@ -13,63 +13,39 @@ class DetailLoadedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 16,
-        right: 16,
-      ),
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  context.pop(true);
-                },
-                icon: const Icon(Icons.arrow_back_ios_new),
-                alignment: Alignment.topCenter,
-                padding: const EdgeInsets.only(top: 4),
-              ),
-              Expanded(
-                child: Text(
-                  album.title,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          Expanded(
+    return Column(
+      children: [
+        BackBar(ctx: context, text: album.title),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 16,
-                left: 16,
-              ),
+              padding: const EdgeInsets.all(6),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DetailAlbumDetails(album: album),
-                  const SizedBox(
-                    height: 8,
-                  ),
                   album.isLent()
                       ? DetailLendingRow(album: album)
-                      : Container(),
+                      : const SizedBox(height: 8),
                   DetailOptionsRow(album: album),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Expanded(
-                    child: DetailTrackList(album: album),
-                  ),
                 ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: DetailTrackList(album: album),
+          ),
+        ),
+      ],
     );
   }
 }

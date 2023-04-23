@@ -116,3 +116,29 @@ Future gotBackDialog(BuildContext context) {
     },
   );
 }
+
+Future addCollectionDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (ctx) {
+      return AlertDialog(
+        title: const Text('addToCollection').tr(),
+        content: const Text('addCollectionDialog').tr(),
+        actions: [
+          FilledButton.tonal(
+            onPressed: () => Navigator.pop(ctx, 'cancel'),
+            child: const Text('cancel').tr(),
+          ),
+          FilledButton(
+            onPressed: () {
+              context.read<DetailBloc>().add(const DetailAddCollectionEvent());
+              Navigator.pop(ctx, 'yes');
+              context.pop(true);
+            },
+            child: const Text('yes').tr(),
+          ),
+        ],
+      );
+    },
+  );
+}

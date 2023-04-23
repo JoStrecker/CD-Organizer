@@ -7,6 +7,7 @@ import 'package:cd_organizer/feature/framework/ui/framework.dart';
 import 'package:cd_organizer/feature/scanner/ui/scanner_screen.dart';
 import 'package:cd_organizer/feature/settings/ui/settings_screen.dart';
 import 'package:cd_organizer/feature/splash/ui/splash_screen.dart';
+import 'package:cd_organizer/feature/wishlist/ui/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,6 +46,47 @@ class CDOrganizerRouter {
                     child: DetailScreen(album: state.extra as Album),
                   ),
                 ),
+                GoRoute(
+                  name: RouteInfo.scanner.name,
+                  path: RouteInfo.scanner.route,
+                  pageBuilder: (context, state) =>
+                      buildPageWithTransition<void>(
+                    state: state,
+                    context: context,
+                    child: const ScannerScreen(wishlist: false),
+                  ),
+                ),
+              ],
+            ),
+            GoRoute(
+              name: RouteInfo.wishlist.name,
+              path: RouteInfo.wishlist.route,
+              pageBuilder: (context, state) =>
+                  buildPageWithDefaultTransition<void>(
+                state: state,
+                context: context,
+                child: const WishlistScreen(),
+              ),
+              routes: [
+                GoRoute(
+                  name: RouteInfo.wishDetails.name,
+                  path: RouteInfo.details.route,
+                  pageBuilder: (context, state) => buildPageWithTransition(
+                    context: context,
+                    state: state,
+                    child: DetailScreen(album: state.extra as Album),
+                  ),
+                ),
+                GoRoute(
+                  name: RouteInfo.wishScanner.name,
+                  path: RouteInfo.scanner.route,
+                  pageBuilder: (context, state) =>
+                      buildPageWithTransition<void>(
+                        state: state,
+                        context: context,
+                        child: const ScannerScreen(wishlist: true),
+                      ),
+                ),
               ],
             ),
             GoRoute(
@@ -55,16 +97,6 @@ class CDOrganizerRouter {
                 state: state,
                 context: context,
                 child: const SettingsScreen(),
-              ),
-            ),
-            GoRoute(
-              name: RouteInfo.scanner.name,
-              path: RouteInfo.scanner.route,
-              pageBuilder: (context, state) =>
-                  buildPageWithDefaultTransition<void>(
-                state: state,
-                context: context,
-                child: const ScannerScreen(),
               ),
             ),
           ],

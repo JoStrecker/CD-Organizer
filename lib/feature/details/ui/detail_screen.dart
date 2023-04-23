@@ -1,6 +1,7 @@
 import 'package:cd_organizer/feature/albums/domain/album.dart';
 import 'package:cd_organizer/feature/details/application/detail_bloc.dart';
 import 'package:cd_organizer/feature/details/ui/widgets/detail_loaded_screen.dart';
+import 'package:cd_organizer/feature/details/ui/widgets/detail_loaded_screen_landscape.dart';
 import 'package:cd_organizer/feature/error/ui/error_screen.dart';
 import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
 import 'package:cd_organizer/injection_container.dart';
@@ -25,7 +26,11 @@ class DetailScreen extends StatelessWidget {
         child: BlocBuilder<DetailBloc, DetailState>(
           builder: (context, state) {
             if (state is DetailLoadedState) {
-              return DetailLoadedScreen(album: state.album);
+              return OrientationBuilder(builder: (context, orientation) {
+                return orientation == Orientation.portrait
+                    ? DetailLoadedScreen(album: state.album)
+                    : DetailLoadedScreenLandscape(album: state.album);
+              });
             } else if (state is DetailLoadingState) {
               return const LoadingScreen();
             } else if (state is DetailErrorState) {

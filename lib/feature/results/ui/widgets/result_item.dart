@@ -8,8 +8,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ResultItem extends StatelessWidget {
   final Release release;
   final int index;
+  final bool wishlist;
 
-  const ResultItem({super.key, required this.release, required this.index});
+  const ResultItem({
+    super.key,
+    required this.release,
+    required this.index,
+    required this.wishlist,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +87,7 @@ class ResultItem extends StatelessWidget {
           MaterialButton(
             onPressed: () => {
               BlocProvider.of<ResultBloc>(context)
-                  .add(ResultSelectAlbumEvent(release))
+                  .add(ResultSelectAlbumEvent(release, wishlist))
             },
             minWidth: 16,
             height: 80,

@@ -19,7 +19,8 @@ class DetailAlbumDetails extends StatelessWidget {
             width: 160,
             height: 160,
             child: album.getCoverArt(
-                tint: Theme.of(context).colorScheme.onSurface),
+              tint: Theme.of(context).colorScheme.onSecondaryContainer,
+            ),
           ),
         ),
         const SizedBox(
@@ -33,19 +34,23 @@ class DetailAlbumDetails extends StatelessWidget {
                 text: album.getAllArtists(),
                 icon: Icons.people,
                 maxLines: 2,
+                textColor: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
               ContainerTextElement(
                 text: album.label ?? 'unknown'.tr(),
                 icon: Icons.label,
                 maxLines: 2,
+                textColor: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
               ContainerTextElement(
                 text: album.year ?? 'unknown'.tr(),
                 icon: Icons.access_time,
+                textColor: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
               ContainerTextElement(
                 text: album.country ?? 'unknown'.tr(),
                 icon: Icons.language,
+                textColor: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
               Row(
                 children: [
@@ -53,12 +58,14 @@ class DetailAlbumDetails extends StatelessWidget {
                     child: ContainerTextElement(
                       text: album.type,
                       icon: Icons.album,
+                      textColor: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                   ),
                   Expanded(
                     child: ContainerTextElement(
                       text: album.worth?.toStringAsFixed(2) ?? 'unknown'.tr(),
                       icon: Icons.euro,
+                      textColor: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                   ),
                 ],

@@ -10,8 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ResultScreen extends StatelessWidget {
   final List<Release> releases;
+  final bool wishlist;
 
-  const ResultScreen({super.key, required this.releases});
+  const ResultScreen(
+      {super.key, required this.releases, required this.wishlist});
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +22,23 @@ class ResultScreen extends StatelessWidget {
       child: BlocBuilder<ResultBloc, ResultState>(
         builder: (context, state) {
           if (state is ResultLoadedState) {
-            return ListView.builder(
-              itemCount: releases.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                  ),
-                  child: ResultItem(
-                    release: releases[index],
-                    index: index,
-                  ),
-                );
-              },
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListView.builder(
+                itemCount: releases.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                    ),
+                    child: ResultItem(
+                      release: releases[index],
+                      index: index,
+                      wishlist: wishlist,
+                    ),
+                  );
+                },
+              ),
             );
           } else if (state is ResultLoadingState) {
             return const LoadingScreen();

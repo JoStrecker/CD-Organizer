@@ -88,5 +88,24 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         }
       }
     });
+
+    on<DetailAddCollectionEvent>((event, emit) async {
+      DetailState state = this.state;
+
+      if (state is DetailLoadedState) {
+        emit(const DetailLoadingState());
+
+        try {
+          await albumFacade.updateAlbum(state.album, state.album.copyWith(wishlist: false));
+
+          emit(const DetailLoadingState());
+        } catch (e) {
+          if (e is CDOrganizerError) {
+            emit(DetailErrorState(e.message));
+          }
+          emit(DetailErrorState(UnknownServerError().message));
+        }
+      }
+    });
   }
 }

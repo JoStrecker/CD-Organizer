@@ -4,6 +4,7 @@ import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list.dart';
 import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list_filter.dart';
 import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
+import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ class AlbumListScreen extends StatelessWidget {
   final String? search;
   final Set<MediaTypeFilter> filter;
   final Set<LentFilter> lentFilter;
+  final bool wishlist;
 
   const AlbumListScreen({
     super.key,
@@ -20,6 +22,7 @@ class AlbumListScreen extends StatelessWidget {
     this.search,
     required this.filter,
     required this.lentFilter,
+    required this.wishlist,
   });
 
   @override
@@ -35,9 +38,13 @@ class AlbumListScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
-            onSubmitted: (query) => context
-                .read<DashboardBloc>()
-                .add(DashboardSearchAlbumEvent(query)),
+            onSubmitted: (query) => wishlist
+                ? context
+                    .read<WishlistBloc>()
+                    .add(WishlistSearchAlbumEvent(query))
+                : context
+                    .read<DashboardBloc>()
+                    .add(DashboardSearchAlbumEvent(query)),
             controller: controller,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.search,
@@ -47,7 +54,13 @@ class AlbumListScreen extends StatelessWidget {
               suffixIcon: IconButton(
                 onPressed: () {
                   unfocusCurrWidget(context);
-                  context.read<DashboardBloc>().add(const DashboardLoadEvent());
+                  wishlist
+                      ? context
+                          .read<WishlistBloc>()
+                          .add(const WishlistLoadEvent())
+                      : context
+                          .read<DashboardBloc>()
+                          .add(const DashboardLoadEvent());
                 },
                 icon: const Icon(Icons.clear),
               ),
@@ -59,6 +72,7 @@ class AlbumListScreen extends StatelessWidget {
             child: AlbumListFilter(
               filter: filter,
               lentFilter: lentFilter,
+              wishlist: wishlist,
             ),
           ),
           Row(
@@ -81,6 +95,7 @@ class AlbumListScreen extends StatelessWidget {
                 ? const EmptyScreen()
                 : AlbumList(
                     albums: albums,
+                    wishlist: wishlist,
                   ),
           ),
         ],
