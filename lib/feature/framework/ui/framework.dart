@@ -1,4 +1,4 @@
-import 'package:cd_organizer/feature/navigation/ui/navigation.dart';
+import 'package:music_collection/feature/navigation/ui/navigation.dart';
 import 'package:flutter/material.dart';
 
 class Framework extends StatelessWidget {

@@ -1,11 +1,11 @@
-import 'package:cd_organizer/core/ui/back_bar.dart';
-import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
-import 'package:cd_organizer/feature/error/ui/error_screen.dart';
-import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
-import 'package:cd_organizer/feature/results/ui/result_screen.dart';
-import 'package:cd_organizer/feature/scanner/application/scanner_bloc.dart';
-import 'package:cd_organizer/feature/scanner/ui/scanner.dart';
-import 'package:cd_organizer/injection_container.dart';
+import 'package:music_collection/core/ui/back_bar.dart';
+import 'package:music_collection/feature/empty/ui/empty_screen.dart';
+import 'package:music_collection/feature/error/ui/error_screen.dart';
+import 'package:music_collection/feature/loading/ui/loading_screen.dart';
+import 'package:music_collection/feature/results/ui/result_screen.dart';
+import 'package:music_collection/feature/scanner/application/scanner_bloc.dart';
+import 'package:music_collection/feature/scanner/ui/scanner.dart';
+import 'package:music_collection/injection_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +31,12 @@ class ScannerScreen extends StatelessWidget {
               return Column(
                 children: [
                   BackBar(ctx: context, text: 'addAlbum'.tr()),
-                  const Scanner(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Scanner(
+                    autofocus: true,
+                  ),
                   Expanded(
                     child: EmptyScreen(
                       child: const Text(
@@ -48,7 +53,12 @@ class ScannerScreen extends StatelessWidget {
               return Column(
                 children: [
                   BackBar(ctx: context, text: 'addAlbum'.tr()),
-                  const Scanner(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Scanner(
+                    autofocus: false,
+                  ),
                   Expanded(
                     child: ResultScreen(
                       releases: state.results,
@@ -60,7 +70,13 @@ class ScannerScreen extends StatelessWidget {
             } else if (state is ScannerErrorState) {
               return Column(
                 children: [
-                  const Scanner(),
+                  BackBar(ctx: context, text: 'addAlbum'.tr()),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Scanner(
+                    autofocus: true,
+                  ),
                   Expanded(
                     child: ErrorScreen(
                       message: state.errorMessage,

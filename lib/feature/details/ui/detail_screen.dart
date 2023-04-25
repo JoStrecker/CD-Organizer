@@ -1,18 +1,18 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/details/application/detail_bloc.dart';
-import 'package:cd_organizer/feature/details/ui/widgets/detail_loaded_screen.dart';
-import 'package:cd_organizer/feature/details/ui/widgets/detail_loaded_screen_landscape.dart';
-import 'package:cd_organizer/feature/error/ui/error_screen.dart';
-import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
-import 'package:cd_organizer/injection_container.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/details/application/detail_bloc.dart';
+import 'package:music_collection/feature/details/ui/widgets/detail_loaded_screen.dart';
+import 'package:music_collection/feature/details/ui/widgets/detail_loaded_screen_landscape.dart';
+import 'package:music_collection/feature/error/ui/error_screen.dart';
+import 'package:music_collection/feature/loading/ui/loading_screen.dart';
+import 'package:music_collection/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class DetailScreen extends StatelessWidget {
-  final Album album;
+  final String id;
 
-  const DetailScreen({super.key, required this.album});
+  const DetailScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class DetailScreen extends StatelessWidget {
         return false;
       },
       child: BlocProvider<DetailBloc>(
-        create: (context) => sl<DetailBloc>()..add(DetailLoadEvent(album)),
+        create: (context) => sl<DetailBloc>()..add(DetailLoadEvent(id)),
         child: BlocBuilder<DetailBloc, DetailState>(
           builder: (context, state) {
             if (state is DetailLoadedState) {

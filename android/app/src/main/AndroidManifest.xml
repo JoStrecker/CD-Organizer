@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.jstrecker.cd_organizer.cd_organizer">
+    package="de.jstrecker.music_collection.app.music_collection">
    <application
-        android:label="CD-Organizer"
+        android:label="Music Collection"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

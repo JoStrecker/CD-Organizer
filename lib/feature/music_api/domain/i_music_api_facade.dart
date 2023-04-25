@@ -1,5 +1,5 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/music_api/domain/release.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
 
 abstract class IMusicAPIFacade{
   Future<List<Release>> searchByQuery({required String query});

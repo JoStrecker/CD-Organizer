@@ -1,5 +1,5 @@
-import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
+import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 
-class UnauthorizedError extends CDOrganizerError {
+class UnauthorizedError extends MusicCollectionError {
   UnauthorizedError({super.message = 'unauthorized_error', super.description});
 }

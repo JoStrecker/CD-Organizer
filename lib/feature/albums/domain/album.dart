@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:cd_organizer/feature/albums/domain/track.dart';
-import 'package:cd_organizer/generated/assets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:music_collection/feature/albums/domain/track.dart';
+import 'package:music_collection/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
@@ -26,7 +27,7 @@ class Album {
   String? label;
 
   @HiveField(5)
-  String? coverArt;
+  Uint8List? coverArt;
 
   @HiveField(6)
   List<Track>? tracks;
@@ -98,7 +99,7 @@ class Album {
     List<String>? artists,
     String? year,
     String? label,
-    String? coverArt,
+    Uint8List? coverArt,
     List<Track>? tracks,
     String? type,
     String? country,
@@ -141,8 +142,8 @@ class Album {
         colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
       );
     } else {
-      return Image.file(
-        File(coverArt!),
+      return Image.memory(
+        coverArt!,
         errorBuilder: (context, child, x) => SvgPicture.asset(
           Assets.imagesNoImage,
           colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),

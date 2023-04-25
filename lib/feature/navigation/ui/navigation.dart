@@ -1,4 +1,4 @@
-import 'package:cd_organizer/core/route_info.dart';
+import 'package:music_collection/core/route_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

@@ -1,5 +1,5 @@
-import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
+import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 
-class ForbiddenError extends CDOrganizerError {
+class ForbiddenError extends MusicCollectionError {
   ForbiddenError({super.message = 'forbidden_error', super.description});
 }

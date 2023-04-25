@@ -1,13 +1,13 @@
-import 'package:cd_organizer/core/route_info.dart';
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/dashboard/ui/dashboard_screen.dart';
-import 'package:cd_organizer/feature/details/ui/detail_screen.dart';
-import 'package:cd_organizer/feature/error/ui/error_screen.dart';
-import 'package:cd_organizer/feature/framework/ui/framework.dart';
-import 'package:cd_organizer/feature/scanner/ui/scanner_screen.dart';
-import 'package:cd_organizer/feature/settings/ui/settings_screen.dart';
-import 'package:cd_organizer/feature/splash/ui/splash_screen.dart';
-import 'package:cd_organizer/feature/wishlist/ui/wishlist_screen.dart';
+import 'package:music_collection/core/route_info.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/dashboard/ui/dashboard_screen.dart';
+import 'package:music_collection/feature/details/ui/detail_screen.dart';
+import 'package:music_collection/feature/error/ui/error_screen.dart';
+import 'package:music_collection/feature/framework/ui/framework.dart';
+import 'package:music_collection/feature/scanner/ui/scanner_screen.dart';
+import 'package:music_collection/feature/settings/ui/settings_screen.dart';
+import 'package:music_collection/feature/splash/ui/splash_screen.dart';
+import 'package:music_collection/feature/wishlist/ui/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,7 +43,7 @@ class CDOrganizerRouter {
                   pageBuilder: (context, state) => buildPageWithTransition(
                     context: context,
                     state: state,
-                    child: DetailScreen(album: state.extra as Album),
+                    child: DetailScreen(id: state.params['id']!),
                   ),
                 ),
                 GoRoute(
@@ -70,16 +70,16 @@ class CDOrganizerRouter {
               routes: [
                 GoRoute(
                   name: RouteInfo.wishDetails.name,
-                  path: RouteInfo.details.route,
+                  path: RouteInfo.wishDetails.route,
                   pageBuilder: (context, state) => buildPageWithTransition(
                     context: context,
                     state: state,
-                    child: DetailScreen(album: state.extra as Album),
+                    child: DetailScreen(id: state.params['id']!),
                   ),
                 ),
                 GoRoute(
                   name: RouteInfo.wishScanner.name,
-                  path: RouteInfo.scanner.route,
+                  path: RouteInfo.wishScanner.route,
                   pageBuilder: (context, state) =>
                       buildPageWithTransition<void>(
                         state: state,

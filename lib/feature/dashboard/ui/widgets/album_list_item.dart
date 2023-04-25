@@ -1,7 +1,7 @@
-import 'package:cd_organizer/core/ui/container_text_element.dart';
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
-import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
+import 'package:music_collection/core/ui/container_text_element.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/dashboard/application/dashboard_bloc.dart';
+import 'package:music_collection/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,10 +29,10 @@ class AlbumListItem extends StatelessWidget {
         onTap: () async {
           wishlist
               ? context.read<WishlistBloc>().add(WishlistRefreshEvent(
-                    await context.pushNamed('wishDetails', extra: album),
+                    await context.pushNamed<bool>('wishDetails', params: {'id': album.id}),
                   ))
               : context.read<DashboardBloc>().add(DashboardRefreshEvent(
-                    await context.pushNamed('details', extra: album),
+                    await context.pushNamed<bool>('details', params: {'id': album.id}),
                   ));
         },
         onLongPress: () => showDialog(

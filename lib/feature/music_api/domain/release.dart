@@ -1,4 +1,7 @@
-import 'package:cd_organizer/generated/assets.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'package:image_network/image_network.dart';
+import 'package:music_collection/generated/assets.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,37 +50,28 @@ class Release extends Equatable {
         formats,
       ];
 
+  Future<Uint8List?> getCoverArt() async {
+    if (coverArt == null) return null;
+    try {
+      final Response response = await get(coverArt!);
+      return response.bodyBytes;
+    } catch (e) {
+      return null;
+    }
+  }
+
   Widget getThumbnail({Color? tint}) {
-    return Image.network(
-      thumbnail.toString(),
-      frameBuilder: (BuildContext context, Widget child, int? frame,
-          bool wasSynchronislyLoaded) {
-        return child;
-      },
-      loadingBuilder: (BuildContext context, Widget child,
-          ImageChunkEvent? loadingProgress) {
-        return Center(
-          child: Stack(
-            children: [
-              child,
-              CircularProgressIndicator(
-                value: ((loadingProgress?.cumulativeBytesLoaded ?? 0) /
-                    (loadingProgress?.expectedTotalBytes ?? 1)),
-              ),
-            ],
-          ),
-        );
-      },
-      errorBuilder:
-          (BuildContext context, Object exception, StackTrace? stackTrace) {
-        return SvgPicture.asset(
-          Assets.imagesNoImage,
-          colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
-        );
-      },
-      fit: BoxFit.fill,
-      cacheHeight: 80,
-      cacheWidth: 80,
+    return ImageNetwork(
+      image: thumbnail.toString(),
+      onLoading: const CircularProgressIndicator(),
+      onError: SvgPicture.asset(
+        Assets.imagesNoImage,
+        colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
+      ),
+      fitWeb: BoxFitWeb.fill,
+      fitAndroidIos: BoxFit.fill,
+      height: 96,
+      width: 96,
     );
   }
 }

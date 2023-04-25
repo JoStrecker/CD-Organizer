@@ -1,6 +1,6 @@
-# cd_organizer
+# music_collection
 
-An app to organize CD's by scanning barcodes.
+An App to organize a collection of Vinyl, CDs and co.
 
 ## Getting Started
 

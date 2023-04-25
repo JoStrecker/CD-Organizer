@@ -22,7 +22,7 @@ class AlbumAdapter extends TypeAdapter<Album> {
       artists: (fields[2] as List).cast<String>(),
       year: fields[3] as String?,
       label: fields[4] as String?,
-      coverArt: fields[5] as String?,
+      coverArt: fields[5] as Uint8List?,
       tracks: (fields[6] as List?)?.cast<Track>(),
       type: fields[7] as String,
       country: fields[8] as String?,

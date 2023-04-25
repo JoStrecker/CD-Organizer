@@ -1,5 +1,5 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/dashboard/ui/widgets/album_list_item.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/dashboard/ui/widgets/album_list_item.dart';
 import 'package:flutter/material.dart';
 
 class AlbumList extends StatelessWidget {

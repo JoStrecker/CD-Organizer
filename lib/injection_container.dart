@@ -1,13 +1,13 @@
-import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
-import 'package:cd_organizer/feature/albums/infrastructure/hive_album_facade.dart';
-import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
-import 'package:cd_organizer/feature/details/application/detail_bloc.dart';
-import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
-import 'package:cd_organizer/feature/music_api/infrastructure/dio_discogs_facade.dart';
-import 'package:cd_organizer/feature/results/application/result_bloc.dart';
-import 'package:cd_organizer/feature/scanner/application/scanner_bloc.dart';
-import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
+import 'package:music_collection/feature/albums/infrastructure/hive_album_facade.dart';
+import 'package:music_collection/feature/dashboard/application/dashboard_bloc.dart';
+import 'package:music_collection/feature/details/application/detail_bloc.dart';
+import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
+import 'package:music_collection/feature/music_api/infrastructure/dio_discogs_facade.dart';
+import 'package:music_collection/feature/results/application/result_bloc.dart';
+import 'package:music_collection/feature/scanner/application/scanner_bloc.dart';
+import 'package:music_collection/feature/wishlist/application/wishlist_bloc.dart';
 
 final sl = GetIt.instance;
 

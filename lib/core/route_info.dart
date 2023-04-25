@@ -83,7 +83,7 @@ class RouteInfo {
   );
 
   static RouteInfo details = RouteInfo._(
-    route: 'details',
+    route: 'details/:id',
     name: "details",
     icon: Icons.album,
   );
@@ -95,7 +95,7 @@ class RouteInfo {
   );
 
   static RouteInfo wishDetails = RouteInfo._(
-    route: 'wishDetails',
+    route: 'wishDetails/:id',
     name: "wishDetails",
     icon: Icons.album,
   );

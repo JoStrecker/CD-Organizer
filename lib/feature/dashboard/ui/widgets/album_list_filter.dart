@@ -1,5 +1,5 @@
-import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
-import 'package:cd_organizer/feature/wishlist/application/wishlist_bloc.dart';
+import 'package:music_collection/feature/dashboard/application/dashboard_bloc.dart';
+import 'package:music_collection/feature/wishlist/application/wishlist_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

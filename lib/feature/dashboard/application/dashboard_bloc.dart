@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
-import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
+import 'package:music_collection/core/domain/errors/music_collection_error.dart';
+import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
 import 'package:flutter/foundation.dart';
 
 part 'dashboard_event.dart';
@@ -32,7 +32,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           ));
         }
       } catch (e) {
-        if (e is CDOrganizerError) {
+        if (e is MusicCollectionError) {
           emit(DashboardErrorState(e.message));
         }
         emit(DashboardErrorState(UnknownServerError().message));
@@ -80,7 +80,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             emit(state);
           }
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(DashboardErrorState(e.message));
           }
           emit(DashboardErrorState(UnknownServerError().message));
@@ -111,7 +111,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             ));
           }
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(DashboardErrorState(e.message));
           }
           emit(DashboardErrorState(UnknownServerError().message));
@@ -135,7 +135,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             state.lentFilter,
           ));
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(DashboardErrorState(e.message));
           }
           emit(DashboardErrorState(UnknownServerError().message));
@@ -159,7 +159,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             event.lentFilter,
           ));
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(DashboardErrorState(e.message));
           }
           emit(DashboardErrorState(UnknownServerError().message));

@@ -1,8 +1,8 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/details/ui/widgets/detail_album_details.dart';
-import 'package:cd_organizer/feature/details/ui/widgets/detail_lending_row.dart';
-import 'package:cd_organizer/feature/details/ui/widgets/detail_options_row.dart';
-import 'package:cd_organizer/feature/details/ui/widgets/detail_track_list.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/details/ui/widgets/detail_album_details.dart';
+import 'package:music_collection/feature/details/ui/widgets/detail_lending_row.dart';
+import 'package:music_collection/feature/details/ui/widgets/detail_options_row.dart';
+import 'package:music_collection/feature/details/ui/widgets/detail_track_list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

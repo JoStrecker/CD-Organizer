@@ -1,10 +1,10 @@
-import 'package:cd_organizer/feature/empty/ui/empty_screen.dart';
-import 'package:cd_organizer/feature/error/ui/error_screen.dart';
-import 'package:cd_organizer/feature/loading/ui/loading_screen.dart';
-import 'package:cd_organizer/feature/music_api/domain/release.dart';
-import 'package:cd_organizer/feature/results/application/result_bloc.dart';
-import 'package:cd_organizer/feature/results/ui/widgets/result_item.dart';
-import 'package:cd_organizer/injection_container.dart';
+import 'package:music_collection/feature/empty/ui/empty_screen.dart';
+import 'package:music_collection/feature/error/ui/error_screen.dart';
+import 'package:music_collection/feature/loading/ui/loading_screen.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
+import 'package:music_collection/feature/results/application/result_bloc.dart';
+import 'package:music_collection/feature/results/ui/widgets/result_item.dart';
+import 'package:music_collection/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

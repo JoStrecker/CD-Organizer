@@ -6,9 +6,9 @@ abstract class DetailEvent {
 }
 
 class DetailLoadEvent extends DetailEvent{
-  final Album album;
+  final String albumId;
 
-  const DetailLoadEvent(this.album);
+  const DetailLoadEvent(this.albumId);
 }
 
 class DetailDeleteEvent extends DetailEvent{

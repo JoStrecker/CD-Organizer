@@ -1,4 +1,4 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

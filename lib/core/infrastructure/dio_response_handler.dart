@@ -1,10 +1,10 @@
-import 'package:cd_organizer/core/domain/errors/client_error.dart';
-import 'package:cd_organizer/core/domain/errors/forbidden_error.dart';
-import 'package:cd_organizer/core/domain/errors/not_found_error.dart';
-import 'package:cd_organizer/core/domain/errors/too_many_requests_error.dart';
-import 'package:cd_organizer/core/domain/errors/unauthorized_error.dart';
-import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
-import 'package:cd_organizer/core/domain/errors/unreachable_server_error.dart';
+import 'package:music_collection/core/domain/errors/client_error.dart';
+import 'package:music_collection/core/domain/errors/forbidden_error.dart';
+import 'package:music_collection/core/domain/errors/not_found_error.dart';
+import 'package:music_collection/core/domain/errors/too_many_requests_error.dart';
+import 'package:music_collection/core/domain/errors/unauthorized_error.dart';
+import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
+import 'package:music_collection/core/domain/errors/unreachable_server_error.dart';
 import 'package:dio/dio.dart';
 
 dynamic dioResponseHandler(Response response) {

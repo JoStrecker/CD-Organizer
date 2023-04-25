@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
-import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
-import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
+import 'package:music_collection/core/domain/errors/music_collection_error.dart';
+import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
+import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -21,16 +21,23 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       emit(const DetailLoadingState());
 
       try {
-        double? price =
-            await musicAPIFacade.getCurrentPriceForID(id: event.album.id);
+        Album? album = await albumFacade.getAlbum(event.albumId);
 
-        await albumFacade.updateAlbum(event.album, event.album.copyWith(worth: price));
+        if (album == null){
+          emit(const DetailErrorState('no such Album!'));
+          return;
+        }
+
+        double? price =
+            await musicAPIFacade.getCurrentPriceForID(id: event.albumId);
+
+        await albumFacade.updateAlbum(album, album.copyWith(worth: price));
 
         emit(DetailLoadedState(
-          event.album.copyWith(worth: price),
+          album.copyWith(worth: price),
         ));
       } catch (e) {
-        emit(DetailLoadedState(event.album));
+        emit(DetailErrorState(UnknownServerError().message));
       }
     });
 
@@ -45,7 +52,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
 
           emit(const DetailLoadingState());
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(DetailErrorState(e.message));
           }
           emit(DetailErrorState(UnknownServerError().message));
@@ -100,7 +107,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
 
           emit(const DetailLoadingState());
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(DetailErrorState(e.message));
           }
           emit(DetailErrorState(UnknownServerError().message));

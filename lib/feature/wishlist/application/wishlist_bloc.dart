@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
-import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
-import 'package:cd_organizer/feature/dashboard/application/dashboard_bloc.dart';
+import 'package:music_collection/core/domain/errors/music_collection_error.dart';
+import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
+import 'package:music_collection/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:flutter/foundation.dart';
 
 part 'wishlist_event.dart';
@@ -31,7 +31,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           ));
         }
       } catch (e) {
-        if (e is CDOrganizerError) {
+        if (e is MusicCollectionError) {
           emit(WishlistErrorState(e.message));
         }
         emit(WishlistErrorState(UnknownServerError().message));
@@ -79,7 +79,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             emit(state);
           }
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(WishlistErrorState(e.message));
           }
           emit(WishlistErrorState(UnknownServerError().message));
@@ -110,7 +110,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             ));
           }
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(WishlistErrorState(e.message));
           }
           emit(WishlistErrorState(UnknownServerError().message));
@@ -134,7 +134,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             state.lentFilter,
           ));
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(WishlistErrorState(e.message));
           }
           emit(WishlistErrorState(UnknownServerError().message));
@@ -158,7 +158,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             event.lentFilter,
           ));
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(WishlistErrorState(e.message));
           }
           emit(WishlistErrorState(UnknownServerError().message));

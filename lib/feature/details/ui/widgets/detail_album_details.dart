@@ -1,5 +1,5 @@
-import 'package:cd_organizer/core/ui/container_text_element.dart';
-import 'package:cd_organizer/feature/albums/domain/album.dart';
+import 'package:music_collection/core/ui/container_text_element.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

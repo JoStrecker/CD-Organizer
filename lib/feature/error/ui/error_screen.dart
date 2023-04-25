@@ -1,4 +1,4 @@
-import 'package:cd_organizer/generated/assets.dart';
+import 'package:music_collection/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

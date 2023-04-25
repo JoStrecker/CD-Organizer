@@ -1,4 +1,4 @@
-import 'package:cd_organizer/feature/music_api/domain/release.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
 import 'package:equatable/equatable.dart';
 
 class ReleaseInitial extends Equatable {

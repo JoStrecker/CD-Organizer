@@ -1,4 +1,4 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
 
 abstract class IAlbumFacade{
   Future<List<Album>> getAllAlbums(bool? wishlist);

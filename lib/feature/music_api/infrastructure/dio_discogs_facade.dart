@@ -1,31 +1,29 @@
-import 'package:cd_organizer/core/application/env.dart';
-import 'package:cd_organizer/core/application/global_vars.dart';
-import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
-import 'package:cd_organizer/core/infrastructure/dio_response_handler.dart';
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
-import 'package:cd_organizer/feature/music_api/domain/release.dart';
-import 'package:cd_organizer/feature/music_api/domain/release_initial.dart';
+import 'package:music_collection/core/application/env.dart';
+import 'package:music_collection/core/application/global_vars.dart';
+import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
+import 'package:music_collection/core/infrastructure/dio_response_handler.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
+import 'package:music_collection/feature/music_api/domain/release_initial.dart';
 import 'package:dio/dio.dart';
 
-class DioDiscogsFacade extends IMusicAPIFacade{
+class DioDiscogsFacade extends IMusicAPIFacade {
   @override
   Future<List<Release>> searchByQuery({required String query}) async {
     try {
       Response response = await Dio().get(
-        '$musicRootURL/database/search?query=${query.replaceAll(' ',
-            '%20')}&type=release',
+        '$musicRootURL/database/search?query=${query.replaceAll(' ', '%20')}&type=release',
         options: Options(
           headers: {
-            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
+            'Authorization':
+                'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
             'Accept': 'application/json',
           },
         ),
       );
 
-      return ReleaseInitial
-          .fromJson(dioResponseHandler(response))
-          .results;
+      return ReleaseInitial.fromJson(dioResponseHandler(response)).results;
     } catch (e) {
       if (e is DioError && e.response != null) {
         dioResponseHandler(e.response!);
@@ -41,15 +39,14 @@ class DioDiscogsFacade extends IMusicAPIFacade{
         '$musicRootURL/database/search?barcode=$barcode&type=release',
         options: Options(
           headers: {
-            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
+            'Authorization':
+                'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
             'Accept': 'application/json',
           },
         ),
       );
 
-      return ReleaseInitial
-          .fromJson(dioResponseHandler(response))
-          .results;
+      return ReleaseInitial.fromJson(dioResponseHandler(response)).results;
     } catch (e) {
       if (e is DioError && e.response != null) {
         dioResponseHandler(e.response!);
@@ -65,7 +62,8 @@ class DioDiscogsFacade extends IMusicAPIFacade{
         '$musicRootURL/releases/$id?eur',
         options: Options(
           headers: {
-            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
+            'Authorization':
+                'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
             'Accept': 'application/json',
           },
         ),
@@ -87,7 +85,8 @@ class DioDiscogsFacade extends IMusicAPIFacade{
         '$musicRootURL/releases/$id?eur',
         options: Options(
           headers: {
-            'Authorization': 'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
+            'Authorization':
+                'Discogs key=${Env.apiKey}, secret=${Env.apiSecret}',
             'Accept': 'application/json',
           },
         ),

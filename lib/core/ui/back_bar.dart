@@ -22,15 +22,21 @@ class BackBar extends StatelessWidget {
               ctx.pop(true);
             },
             icon: const Icon(Icons.arrow_back_ios_new),
-            alignment: Alignment.topCenter,
-            padding: const EdgeInsets.only(top: 4),
           ),
           Expanded(
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.headlineLarge,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  text,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
           ),
         ],

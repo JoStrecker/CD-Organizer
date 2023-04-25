@@ -1,5 +1,5 @@
-import 'package:cd_organizer/feature/albums/domain/album.dart';
-import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
+import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
 import 'package:hive/hive.dart';
 
 class HiveAlbumFacade implements IAlbumFacade {

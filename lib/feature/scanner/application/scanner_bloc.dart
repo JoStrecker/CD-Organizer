@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
-import 'package:cd_organizer/core/domain/errors/unknown_server_error.dart';
-import 'package:cd_organizer/feature/albums/domain/i_album_facade.dart';
-import 'package:cd_organizer/feature/music_api/domain/release.dart';
-import 'package:cd_organizer/feature/music_api/domain/i_music_api_facade.dart';
+import 'package:music_collection/core/domain/errors/music_collection_error.dart';
+import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
+import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
+import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:flutter/material.dart';
 
 part 'scanner_event.dart';
@@ -40,7 +40,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
             emit(ScannerResultState(releases, state.controller));
           }
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(ScannerErrorState(e.message, state.controller));
           }
           emit(ScannerErrorState(
@@ -71,7 +71,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
             emit(ScannerResultState(releases, state.controller));
           }
         } catch (e) {
-          if (e is CDOrganizerError) {
+          if (e is MusicCollectionError) {
             emit(ScannerErrorState(e.message, state.controller));
           }
           emit(ScannerErrorState(

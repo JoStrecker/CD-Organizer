@@ -1,5 +1,5 @@
-import 'package:cd_organizer/core/domain/errors/cd_organizer_error.dart';
+import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 
-class UnreachableServerError extends CDOrganizerError {
+class UnreachableServerError extends MusicCollectionError {
   UnreachableServerError({super.message = 'server_not_reach', super.description});
 }
