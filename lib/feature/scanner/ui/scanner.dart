@@ -1,7 +1,6 @@
 import 'package:music_collection/core/ui/dismiss_keyboard.dart';
 import 'package:music_collection/core/ui/search_bar.dart';
 import 'package:music_collection/feature/scanner/application/scanner_bloc.dart';
-import 'package:music_collection/feature/scanner/ui/barcode_scanner.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';

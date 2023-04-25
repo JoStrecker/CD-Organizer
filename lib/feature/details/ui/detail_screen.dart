@@ -1,4 +1,3 @@
-import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/details/application/detail_bloc.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_loaded_screen.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_loaded_screen_landscape.dart';

@@ -1,5 +1,4 @@
 import 'package:music_collection/core/route_info.dart';
-import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/dashboard/ui/dashboard_screen.dart';
 import 'package:music_collection/feature/details/ui/detail_screen.dart';
 import 'package:music_collection/feature/error/ui/error_screen.dart';

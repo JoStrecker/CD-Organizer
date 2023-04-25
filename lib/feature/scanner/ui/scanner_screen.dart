@@ -32,7 +32,7 @@ class ScannerScreen extends StatelessWidget {
                 children: [
                   BackBar(ctx: context, text: 'addAlbum'.tr()),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   const Scanner(
                     autofocus: true,
@@ -54,7 +54,7 @@ class ScannerScreen extends StatelessWidget {
                 children: [
                   BackBar(ctx: context, text: 'addAlbum'.tr()),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   const Scanner(
                     autofocus: false,
@@ -72,7 +72,7 @@ class ScannerScreen extends StatelessWidget {
                 children: [
                   BackBar(ctx: context, text: 'addAlbum'.tr()),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   const Scanner(
                     autofocus: true,
