@@ -1,0 +1,1 @@
+const String musicRootURL = "https://api.discogs.com";
