@@ -29,5 +29,8 @@
   "trySearching": "Try searching for an Album or Artist or scan the barcode of an Album!",
   "addAlbum": "Add Album",
   "addToCollection": "Add to Collection",
-  "addCollectionDialog": "Add this Album to your Collection."
+  "addCollectionDialog": "Add this Album to your Collection.",
+  "prefColor": "Accent Color",
+  "pickColor": "Pick a Color",
+  "gotIt": "Got It"
 }

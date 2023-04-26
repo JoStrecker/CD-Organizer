@@ -121,7 +121,6 @@
 				34FE5967D533D3C67E476B60 /* Pods-Runner.release.xcconfig */,
 				12037ECAA6539D8DC7401479 /* Pods-Runner.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -369,7 +368,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = de.jstrecker.musiccollection.app.musicCollection;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.jstrecker.music-collection.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -502,7 +501,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = de.jstrecker.musiccollection.app.musicCollection;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.jstrecker.music-collection.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -529,7 +528,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = de.jstrecker.musiccollection.app.musicCollection;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.jstrecker.music-collection.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

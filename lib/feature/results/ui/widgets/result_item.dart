@@ -27,22 +27,22 @@ class ResultItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 4,
-              top: 4,
-              bottom: 4,
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              child: SizedBox(
-                width: 96,
-                height: 96,
-                child: release.getThumbnail(
-                    tint: Theme.of(context).colorScheme.onSecondaryContainer),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 4,
+                top: 4,
+                bottom: 4,
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                child: SizedBox(
+                  width: 96,
+                  height: 96,
+                  child: release.getThumbnail(
+                      tint: Theme.of(context).colorScheme.onSecondaryContainer),
+                ),
               ),
             ),
-          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -90,7 +90,7 @@ class ResultItem extends StatelessWidget {
                   .add(ResultSelectAlbumEvent(release, wishlist))
             },
             minWidth: 16,
-            height: 80,
+            height: 128,
             child: Icon(
               Icons.add,
               color: Theme.of(context).colorScheme.primary,

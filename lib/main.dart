@@ -8,6 +8,7 @@ import 'package:music_collection/core/ui/app_widget.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/albums/domain/track.dart';
 import 'package:music_collection/injection_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,12 @@ Future<void> main() async {
   //Get Color Palette on Android >12 for a Dynamic Color Scheme
   CorePalette? palette = await DynamicColorPlugin.getCorePalette();
 
+  //Get SharedPreferences for saved color
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  Color? prefColor = (prefs.getInt('prefColor') != null)
+      ? Color(prefs.getInt('prefColor')!)
+      : null;
+
   //Initialize objects for dependency injection
   initInjection();
 
@@ -37,6 +44,6 @@ Future<void> main() async {
     path: 'assets/translations',
     fallbackLocale: const Locale('de', 'DE'),
     useOnlyLangCode: true,
-    child: AppWidget(palette: palette),
+    child: AppWidget(palette: palette, prefColor: prefColor),
   ));
 }

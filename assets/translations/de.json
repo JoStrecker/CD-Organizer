@@ -29,5 +29,8 @@
   "trySearching": "Suche nach einem Album oder Künstler oder scanne den  Barcode eines Albums!",
   "addAlbum": "Album hinzufügen",
   "addToCollection": "Zur Sammlung hinzufügen",
-  "addCollectionDialog": "Fügt dieses Album zu deiner Sammlung hinzu."
+  "addCollectionDialog": "Fügt dieses Album zu deiner Sammlung hinzu.",
+  "prefColor": "Akzent Farbe",
+  "pickColor": "Wähle eine Farbe",
+  "gotIt": "Fertig"
 }

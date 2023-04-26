@@ -70,8 +70,8 @@ class Release extends Equatable {
       ),
       fitWeb: BoxFitWeb.fill,
       fitAndroidIos: BoxFit.fill,
-      height: 96,
-      width: 96,
+      height: 152,
+      width: 152,
     );
   }
 }
