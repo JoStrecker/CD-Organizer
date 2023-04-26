@@ -1,10 +1,10 @@
+import 'package:music_collection/core/ui/back_bar.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_album_details.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_lending_row.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_options_row.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_track_list.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class DetailLoadedScreenLandscape extends StatelessWidget {
   final Album album;
@@ -15,35 +15,10 @@ class DetailLoadedScreenLandscape extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 8,
-            right: 16,
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  context.pop(true);
-                },
-                icon: const Icon(Icons.arrow_back_ios_new),
-                alignment: Alignment.topCenter,
-                padding: const EdgeInsets.only(top: 4),
-              ),
-              Expanded(
-                child: Text(
-                  album.title,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
+        BackBar(ctx: context, text: album.title),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 8, right: 16, left: 16),
+            padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -62,14 +37,18 @@ class DetailLoadedScreenLandscape extends StatelessWidget {
                           DetailAlbumDetails(album: album),
                           album.isLent()
                               ? DetailLendingRow(album: album)
-                              : const SizedBox(height: 8,),
+                              : const SizedBox(
+                                  height: 8,
+                                ),
                           DetailOptionsRow(album: album),
                         ],
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 16,),
+                const SizedBox(
+                  width: 16,
+                ),
                 Expanded(child: DetailTrackList(album: album)),
               ],
             ),
