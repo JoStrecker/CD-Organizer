@@ -32,5 +32,8 @@
   "addCollectionDialog": "Add this Album to your Collection.",
   "prefColor": "Accent Color",
   "pickColor": "Pick a Color",
-  "gotIt": "Got It"
+  "gotIt": "Got It",
+  "sendNotifications": "Notifications for lent Albums",
+  "saved": "Saved Changes",
+  "error": "An Error occurred"
 }

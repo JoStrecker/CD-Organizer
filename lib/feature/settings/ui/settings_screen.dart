@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_collection/core/ui/snack_bars.dart';
 import 'package:music_collection/feature/empty/ui/empty_screen.dart';
 import 'package:music_collection/feature/loading/ui/loading_screen.dart';
 import 'package:music_collection/feature/settings/application/settings_bloc.dart';
@@ -25,7 +27,24 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ColorPicker(color: state.color),
+                  state.usesMaterialYou
+                      ? Container()
+                      : ColorPicker(color: state.color),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    children: [
+                      const Text('sendNotifications').tr(),
+                      const Expanded(child: SizedBox()),
+                      Switch(
+                        value: state.sendNotifications,
+                        onChanged: (change) => context.read<SettingsBloc>().add(
+                            SettingsChangeNotificationsEvent(
+                                showSnackBar, context, change)),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             );

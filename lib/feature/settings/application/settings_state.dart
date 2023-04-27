@@ -15,6 +15,12 @@ class SettingsLoadingState extends SettingsState {
 
 class SettingsLoadedState extends SettingsState {
   final Color color;
+  final bool usesMaterialYou;
+  final bool sendNotifications;
 
-  const SettingsLoadedState(this.color);
+  const SettingsLoadedState({
+    required this.color,
+    required this.usesMaterialYou,
+    required this.sendNotifications,
+  });
 }

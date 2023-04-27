@@ -32,5 +32,8 @@
   "addCollectionDialog": "Fügt dieses Album zu deiner Sammlung hinzu.",
   "prefColor": "Akzent Farbe",
   "pickColor": "Wähle eine Farbe",
-  "gotIt": "Fertig"
+  "gotIt": "Fertig",
+  "sendNotifications": "Benachrichtigungen für verliehene Alben",
+  "saved": "Änderungen gespeichert",
+  "error": "Es ist ein Fehler aufgetreten"
 }

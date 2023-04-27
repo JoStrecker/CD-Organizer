@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:music_collection/core/ui/snack_bars.dart';
 import 'package:music_collection/feature/settings/application/settings_bloc.dart';
 
 class ColorPicker extends StatelessWidget {
@@ -41,9 +42,11 @@ Future colorDialog(BuildContext context, Color color) {
         ElevatedButton(
           child: const Text('gotIt').tr(),
           onPressed: () {
-            context
-                .read<SettingsBloc>()
-                .add(SettingsSaveChangesEvent(newColor));
+            context.read<SettingsBloc>().add(SettingsChangeColorEvent(
+                  showSnackBar,
+                  context,
+                  newColor,
+                ));
             Navigator.pop(ctx);
           },
         ),
