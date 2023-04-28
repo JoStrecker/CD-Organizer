@@ -13,6 +13,10 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBar(
+        String message) =>
+        showSnackBar(message, context);
+
     return BlocProvider<SettingsBloc>(
       create: (context) => sl<SettingsBloc>()..add(const SettingsLoadEvent()),
       child: BlocBuilder<SettingsBloc, SettingsState>(
@@ -41,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
                         value: state.sendNotifications,
                         onChanged: (change) => context.read<SettingsBloc>().add(
                             SettingsChangeNotificationsEvent(
-                                showSnackBar, context, change)),
+                                snackBar, change)),
                       ),
                     ],
                   ),

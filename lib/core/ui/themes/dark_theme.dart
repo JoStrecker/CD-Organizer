@@ -7,7 +7,7 @@ ThemeData getDarkTheme(CorePalette? palette, Color? prefColor) {
     useMaterial3: true,
     colorScheme: palette?.toColorScheme(brightness: Brightness.dark) ??
         ColorScheme.fromSeed(
-          seedColor: prefColor ?? Colors.tealAccent,
+          seedColor: prefColor ?? const Color(0xff009688),
           brightness: Brightness.dark,
         ),
     textTheme: const TextTheme().apply(fontFamily: 'Sora'),

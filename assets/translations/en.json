@@ -35,5 +35,6 @@
   "gotIt": "Got It",
   "sendNotifications": "Notifications for lent Albums",
   "saved": "Saved Changes",
-  "error": "An Error occurred"
+  "error": "An Error occurred",
+  "restartApp": "Restart App to apply changes"
 }

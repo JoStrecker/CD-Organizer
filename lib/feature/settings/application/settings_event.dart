@@ -10,17 +10,15 @@ class SettingsLoadEvent extends SettingsEvent {
 }
 
 class SettingsChangeColorEvent extends SettingsEvent {
-  final Function(String message, BuildContext ctx) callback;
-  final BuildContext ctx;
+  final Function(String message) callback;
   final Color newColor;
 
-  const SettingsChangeColorEvent(this.callback, this.ctx, this.newColor);
+  const SettingsChangeColorEvent(this.callback, this.newColor);
 }
 
 class SettingsChangeNotificationsEvent extends SettingsEvent {
-  final Function(String message, BuildContext ctx) callback;
-  final BuildContext ctx;
+  final Function(String message) callback;
   final bool change;
 
-  const SettingsChangeNotificationsEvent(this.callback, this.ctx, this.change);
+  const SettingsChangeNotificationsEvent(this.callback, this.change);
 }

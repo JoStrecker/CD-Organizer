@@ -57,7 +57,7 @@ class RouteInfo {
   // Definition of the routes for the navigation
   static RouteInfo collection = RouteInfo._(
     route: '/collection',
-    name: "collection",
+    name: 'collection',
     icon: Icons.album,
     isNavigationRoute: true,
   );
@@ -71,44 +71,44 @@ class RouteInfo {
 
   static RouteInfo settings = RouteInfo._(
     route: '/settings',
-    name: "settings",
+    name: 'settings',
     icon: Icons.settings,
     isNavigationRoute: true,
   );
 
   static RouteInfo scanner = RouteInfo._(
     route: 'scanner',
-    name: "scanner",
+    name: 'scanner',
     icon: Icons.qr_code_scanner,
   );
 
   static RouteInfo details = RouteInfo._(
     route: 'details/:id',
-    name: "details",
+    name: 'details',
     icon: Icons.album,
   );
 
   static RouteInfo wishScanner = RouteInfo._(
     route: 'wishScanner',
-    name: "wishScanner",
+    name: 'wishScanner',
     icon: Icons.qr_code_scanner,
   );
 
   static RouteInfo wishDetails = RouteInfo._(
     route: 'wishDetails/:id',
-    name: "wishDetails",
+    name: 'wishDetails',
     icon: Icons.album,
   );
 
   static RouteInfo splash = RouteInfo._(
     route: '/splash',
-    name: "splash",
+    name: 'splash',
     icon: Icons.supervised_user_circle_rounded,
   );
 
   static RouteInfo error = RouteInfo._(
     route: '/report',
-    name: "report",
+    name: 'report',
     icon: Icons.report,
   );
 }

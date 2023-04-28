@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,7 +22,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
       Color prefColor = (prefs.getInt('prefColor') != null)
           ? Color(prefs.getInt('prefColor')!)
-          : Colors.tealAccent;
+          : const Color(0xff009688);
       bool sendNotifications = prefs.getBool('sendNotifications') ?? false;
 
       emit(SettingsLoadedState(
@@ -38,7 +40,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         if (state.color == event.newColor) {
           emit(state);
         } else {
-          try{
+          try {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setInt('prefColor', event.newColor.value);
 
@@ -48,14 +50,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
               sendNotifications: state.sendNotifications,
             ));
 
-            event.callback('saved'.tr(), event.ctx);
-
-            //restart app to load new color as theme
-            Restart.restartApp();
-          }catch(e){
+            if (Platform.isIOS) {
+              //iOS does not allow app restarting
+              event.callback('restartApp'.tr());
+            } else {
+              //restart app to load new color as theme
+              Restart.restartApp();
+            }
+          } catch (e) {
             emit(state);
 
-            event.callback('error'.tr(), event.ctx);
+            event.callback('error'.tr());
           }
         }
       } else {
@@ -68,7 +73,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(const SettingsLoadingState());
 
       if (state is SettingsLoadedState) {
-        try{
+        try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setBool('sendNotifications', event.change);
 
@@ -78,11 +83,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             sendNotifications: event.change,
           ));
 
-          event.callback('saved'.tr(), event.ctx);
-        }catch(e){
+          event.callback('saved'.tr());
+        } catch (e) {
           emit(state);
 
-          event.callback('error'.tr(), event.ctx);
+          event.callback('error'.tr());
         }
       } else {
         emit(state);

@@ -28,6 +28,10 @@ class ColorPicker extends StatelessWidget {
 Future colorDialog(BuildContext context, Color color) {
   Color newColor = color;
 
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBar(
+          String message) =>
+      showSnackBar(message, context);
+
   return showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
@@ -43,8 +47,7 @@ Future colorDialog(BuildContext context, Color color) {
           child: const Text('gotIt').tr(),
           onPressed: () {
             context.read<SettingsBloc>().add(SettingsChangeColorEvent(
-                  showSnackBar,
-                  context,
+                  snackBar,
                   newColor,
                 ));
             Navigator.pop(ctx);
