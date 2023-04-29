@@ -2,7 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String fontsSoraVariableFontWght = 'assets/fonts/Sora-VariableFont_wght.ttf';
   static const String imagesNoImage = 'assets/images/no_image.svg';
   static const String lottiesEmptyAnim = 'assets/lotties/empty_anim.json';
   static const String lottiesErrorAnim = 'assets/lotties/error_anim.json';

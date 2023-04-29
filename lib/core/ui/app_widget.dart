@@ -15,6 +15,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = CDOrganizerRouter.getRouter();
+
     return DismissKeyboard(
       child: MaterialApp.router(
         title: 'CD Organizer',

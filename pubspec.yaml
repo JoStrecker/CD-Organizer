@@ -64,4 +64,4 @@ flutter:
   fonts:
     - family: Sora
       fonts:
-        - asset: assets/fonts/Sora-VariableFont_wght.ttf
+        - asset: fonts/Sora-VariableFont_wght.ttf
