@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,7 +51,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
               sendNotifications: state.sendNotifications,
             ));
 
-            if (Platform.isIOS) {
+            if(kIsWeb){
+              //restart app to load new color as theme
+              Restart.restartApp();
+            }else if (Platform.isIOS) {
               //iOS does not allow app restarting
               event.callback('restartApp'.tr());
             } else {

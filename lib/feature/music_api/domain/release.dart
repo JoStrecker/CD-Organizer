@@ -68,7 +68,7 @@ class Release extends Equatable {
         Assets.imagesNoImage,
         colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
       ),
-      fitWeb: BoxFitWeb.fill,
+      fitWeb: BoxFitWeb.scaleDown,
       fitAndroidIos: BoxFit.fill,
       height: 152,
       width: 152,
