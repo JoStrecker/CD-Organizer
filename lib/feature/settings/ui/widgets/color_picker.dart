@@ -12,13 +12,21 @@ class ColorPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        const Text('prefColor').tr(),
-        const Expanded(child: SizedBox()),
-        FilledButton(
-          onPressed: () => colorDialog(context, color),
-          child: const Icon(Icons.color_lens),
+        Row(
+          children: [
+            Expanded(
+              child: const Text('prefColor').tr(),
+            ),
+            FilledButton(
+              onPressed: () => colorDialog(context, color),
+              child: const Icon(Icons.color_lens),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
         ),
       ],
     );

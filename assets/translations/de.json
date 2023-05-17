@@ -36,5 +36,6 @@
   "sendNotifications": "Benachrichtigungen für verliehene Alben",
   "saved": "Änderungen gespeichert",
   "error": "Es ist ein Fehler aufgetreten",
-  "restartApp": "App neu starten um Änderungen anzuwenden"
+  "restartApp": "App neu starten um Änderungen anzuwenden",
+  "add": "Hinzufügen"
 }

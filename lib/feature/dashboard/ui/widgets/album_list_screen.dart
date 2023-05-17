@@ -16,6 +16,7 @@ class AlbumListScreen extends StatelessWidget {
   final Set<MediaTypeFilter> filter;
   final Set<LentFilter> lentFilter;
   final bool wishlist;
+  final ScrollController scrollController;
 
   const AlbumListScreen({
     super.key,
@@ -24,6 +25,7 @@ class AlbumListScreen extends StatelessWidget {
     required this.filter,
     required this.lentFilter,
     required this.wishlist,
+    required this.scrollController,
   });
 
   @override
@@ -88,6 +90,7 @@ class AlbumListScreen extends StatelessWidget {
                 : AlbumList(
                     albums: albums,
                     wishlist: wishlist,
+                    controller: scrollController,
                   ),
           ),
         ],

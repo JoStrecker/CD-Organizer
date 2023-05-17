@@ -36,21 +36,40 @@ class WishlistScreen extends StatelessWidget {
                     filter: state.filter,
                     lentFilter: state.lentFilter,
                     wishlist: true,
+                    scrollController: ScrollController(),
                   ),
                 ),
                 Positioned(
                   right: 16,
                   bottom: 16,
-                  child: FloatingActionButton(
-                    onPressed: () async => context.read<WishlistBloc>().add(
-                          WishlistRefreshEvent(
-                            await context.pushNamed(
-                              RouteInfo.wishScanner.name,
-                              extra: true,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return SizeTransition(
+                        axis: Axis.horizontal,
+                        sizeFactor: animation,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: FloatingActionButton.extended(
+                      key: ValueKey<bool>(state.isAtTop),
+                      isExtended: state.isAtTop,
+                      onPressed: () async => context.read<WishlistBloc>().add(
+                            WishlistRefreshEvent(
+                              await context.pushNamed(
+                                RouteInfo.scanner.name,
+                                extra: false,
+                              ),
                             ),
                           ),
-                        ),
-                    child: const Icon(Icons.add),
+                      tooltip: 'add'.tr(),
+                      label: const Text('add').tr(),
+                      icon: const Icon(Icons.add),
+                    ),
                   ),
                 ),
               ],
@@ -61,7 +80,10 @@ class WishlistScreen extends StatelessWidget {
             return EmptyScreen(
               child: Column(
                 children: [
-                  const Text('tryAddingFirst', textAlign: TextAlign.center,).tr(),
+                  const Text(
+                    'tryAddingFirst',
+                    textAlign: TextAlign.center,
+                  ).tr(),
                   const SizedBox(
                     height: 16,
                   ),

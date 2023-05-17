@@ -36,21 +36,40 @@ class DashboardScreen extends StatelessWidget {
                     filter: state.filter,
                     lentFilter: state.lentFilter,
                     wishlist: false,
+                    scrollController: state.controller,
                   ),
                 ),
                 Positioned(
-                  right: 16,
-                  bottom: 16,
-                  child: FloatingActionButton(
-                    onPressed: () async => context.read<DashboardBloc>().add(
-                          DashboardRefreshEvent(
-                            await context.pushNamed(
-                              RouteInfo.scanner.name,
-                              extra: false,
+                  right: 0,
+                  bottom: 0,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return SizeTransition(
+                        axis: Axis.horizontal,
+                        sizeFactor: animation,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: FloatingActionButton.extended(
+                      key: ValueKey<bool>(state.isAtTop),
+                      isExtended: state.isAtTop,
+                      onPressed: () async => context.read<DashboardBloc>().add(
+                            DashboardRefreshEvent(
+                              await context.pushNamed(
+                                RouteInfo.scanner.name,
+                                extra: false,
+                              ),
                             ),
                           ),
-                        ),
-                    child: const Icon(Icons.add),
+                      tooltip: 'add'.tr(),
+                      label: const Text('add').tr(),
+                      icon: const Icon(Icons.add),
+                    ),
                   ),
                 ),
               ],

@@ -5,16 +5,19 @@ import 'package:flutter/material.dart';
 class AlbumList extends StatelessWidget {
   final List<Album> albums;
   final bool wishlist;
+  final ScrollController controller;
 
   const AlbumList({
     super.key,
     required this.albums,
     required this.wishlist,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: controller,
       itemCount: albums.length,
       itemBuilder: (context, index) {
         return Padding(

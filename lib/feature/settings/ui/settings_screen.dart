@@ -14,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBar(
-        String message) =>
+            String message) =>
         showSnackBar(message, context);
 
     return BlocProvider<SettingsBloc>(
@@ -34,18 +34,15 @@ class SettingsScreen extends StatelessWidget {
                   state.usesMaterialYou
                       ? Container()
                       : ColorPicker(color: state.color),
-                  const SizedBox(
-                    height: 8,
-                  ),
                   Row(
                     children: [
-                      const Text('sendNotifications').tr(),
-                      const Expanded(child: SizedBox()),
+                      Expanded(
+                        child: const Text('sendNotifications').tr(),
+                      ),
                       Switch(
                         value: state.sendNotifications,
                         onChanged: (change) => context.read<SettingsBloc>().add(
-                            SettingsChangeNotificationsEvent(
-                                snackBar, change)),
+                            SettingsChangeNotificationsEvent(snackBar, change)),
                       ),
                     ],
                   ),

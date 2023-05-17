@@ -34,3 +34,8 @@ class WishlistFilterAlbumEvent extends WishlistEvent {
   const WishlistFilterAlbumEvent(this.filter, this.lentFilter);
 }
 
+class WishlistScrollAlbumListEvent extends WishlistEvent {
+  final bool atEdge;
+
+  const WishlistScrollAlbumListEvent(this.atEdge);
+}

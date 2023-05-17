@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
