@@ -1,5 +1,5 @@
 import 'package:music_collection/core/ui/dismiss_keyboard.dart';
-import 'package:music_collection/core/ui/search_bar.dart';
+import 'package:music_collection/core/ui/music_search_bar.dart';
 import 'package:music_collection/feature/scanner/application/scanner_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class Scanner extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: SearchBar(
+                child: MusicSearchBar(
                   onSubmitted: (query) => context
                       .read<ScannerBloc>()
                       .add(ScannerSearchAlbumEvent(query)),

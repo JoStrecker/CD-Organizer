@@ -1,5 +1,5 @@
 import 'package:music_collection/core/ui/dismiss_keyboard.dart';
-import 'package:music_collection/core/ui/search_bar.dart';
+import 'package:music_collection/core/ui/music_search_bar.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:music_collection/feature/dashboard/ui/widgets/album_list.dart';
@@ -38,7 +38,7 @@ class AlbumListScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SearchBar(
+          MusicSearchBar(
             onSubmitted: (query) => wishlist
                 ? context
                     .read<WishlistBloc>()

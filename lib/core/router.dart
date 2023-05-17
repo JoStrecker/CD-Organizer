@@ -42,7 +42,7 @@ class CDOrganizerRouter {
                   pageBuilder: (context, state) => buildPageWithTransition(
                     context: context,
                     state: state,
-                    child: DetailScreen(id: state.params['id']!),
+                    child: DetailScreen(id: state.pathParameters['id']!),
                   ),
                 ),
                 GoRoute(
@@ -73,7 +73,7 @@ class CDOrganizerRouter {
                   pageBuilder: (context, state) => buildPageWithTransition(
                     context: context,
                     state: state,
-                    child: DetailScreen(id: state.params['id']!),
+                    child: DetailScreen(id: state.pathParameters['id']!),
                   ),
                 ),
                 GoRoute(

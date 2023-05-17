@@ -17,7 +17,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
   ScannerBloc({required this.musicAPIFacade, required this.albumFacade})
       : super(const ScannerInitialState()) {
     on<ScannerLoadEvent>(
-        (event, emit) => {emit(ScannerLoadedState(TextEditingController()))});
+        (event, emit) => emit(ScannerLoadedState(TextEditingController())));
 
     on<ScannerScanCodeEvent>((event, emit) async {
       ScannerState state = this.state;

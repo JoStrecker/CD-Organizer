@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatelessWidget {
+class MusicSearchBar extends StatelessWidget {
   final Function(String) onSubmitted;
   final void Function() onPressed;
   final TextEditingController controller;
   final bool? autofocus;
 
-  const SearchBar({
+  const MusicSearchBar({
     super.key,
     required this.onSubmitted,
     required this.onPressed,
