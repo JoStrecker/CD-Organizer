@@ -30,8 +30,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           Debouncer(duration: const Duration(milliseconds: 50));
           controller.addListener(() {
             debouncer.run(() {
-              add(DashboardScrollAlbumListEvent(
-                  controller.position.atEdge));
+              add(const DashboardScrollAlbumListEvent());
             });
           });
           emit(DashboardLoadedState(
@@ -82,8 +81,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
                   Debouncer(duration: const Duration(milliseconds: 50));
               controller.addListener(() {
                 debouncer.run(() {
-                  add(DashboardScrollAlbumListEvent(
-                      controller.position.atEdge));
+                  add(const DashboardScrollAlbumListEvent());
                 });
               });
               emit(DashboardLoadedState(
@@ -203,7 +201,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       DashboardState state = this.state;
 
       if (state is DashboardLoadedState) {
-        emit(state.copyWith(isAtTop: event.atEdge));
+        emit(state.copyWith(isAtTop: state.controller.offset == 0));
       }
     });
   }

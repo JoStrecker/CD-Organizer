@@ -35,7 +35,5 @@ class DashboardFilterAlbumEvent extends DashboardEvent {
 }
 
 class DashboardScrollAlbumListEvent extends DashboardEvent {
-  final bool atEdge;
-
-  const DashboardScrollAlbumListEvent(this.atEdge);
+  const DashboardScrollAlbumListEvent();
 }

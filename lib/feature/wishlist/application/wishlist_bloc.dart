@@ -28,11 +28,10 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         } else {
           ScrollController controller = ScrollController();
           Debouncer debouncer =
-          Debouncer(duration: const Duration(milliseconds: 50));
+              Debouncer(duration: const Duration(milliseconds: 50));
           controller.addListener(() {
             debouncer.run(() {
-              add(WishlistScrollAlbumListEvent(
-                  controller.position.atEdge));
+              add(const WishlistScrollAlbumListEvent());
             });
           });
           emit(WishlistLoadedState(
@@ -80,11 +79,10 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             } else {
               ScrollController controller = ScrollController();
               Debouncer debouncer =
-              Debouncer(duration: const Duration(milliseconds: 50));
+                  Debouncer(duration: const Duration(milliseconds: 50));
               controller.addListener(() {
                 debouncer.run(() {
-                  add(WishlistScrollAlbumListEvent(
-                      controller.position.atEdge));
+                  add(const WishlistScrollAlbumListEvent());
                 });
               });
               emit(WishlistLoadedState(
@@ -197,6 +195,14 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           }
           emit(WishlistErrorState(UnknownServerError().message));
         }
+      }
+    });
+
+    on<WishlistScrollAlbumListEvent>((event, emit) {
+      WishlistState state = this.state;
+
+      if (state is WishlistLoadedState) {
+        emit(state.copyWith(isAtTop: state.controller.offset == 0));
       }
     });
   }
