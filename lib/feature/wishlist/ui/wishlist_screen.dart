@@ -40,8 +40,8 @@ class WishlistScreen extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: 16,
-                  bottom: 16,
+                  right: 0,
+                  bottom: 0,
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 500),
                     transitionBuilder:
