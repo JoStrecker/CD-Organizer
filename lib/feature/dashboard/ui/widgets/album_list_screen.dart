@@ -84,6 +84,9 @@ class AlbumListScreen extends StatelessWidget {
                   '${albums.fold(0.0, (previousValue, album) => previousValue + (album.worth ?? 0.0)).toStringAsFixed(2)}€'),
             ],
           ),
+          const SizedBox(
+            height: 8,
+          ),
           Expanded(
             child: albums.isEmpty
                 ? const EmptyScreen()

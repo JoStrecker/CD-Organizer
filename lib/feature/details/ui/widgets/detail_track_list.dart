@@ -10,19 +10,26 @@ class DetailTrackList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemBuilder: (context, index) => Row(
-        children: [
-          Text(album.tracks![index].number),
-          const VerticalDivider(),
-          Expanded(
-            child: Text(
-              album.tracks![index].title,
-              overflow: TextOverflow.fade,
-              maxLines: 2,
+      itemBuilder: (context, index) => Padding(
+        padding: EdgeInsets.only(
+          bottom: (index + 1 == album.tracks?.length) ? 16 : 0,
+        ),
+        child: Row(
+          children: [
+            Text(album.tracks![index].number),
+            const SizedBox(
+              width: 16,
             ),
-          ),
-          Text(album.tracks![index].length ?? 'unknown'.tr()),
-        ],
+            Expanded(
+              child: Text(
+                album.tracks![index].title,
+                overflow: TextOverflow.fade,
+                maxLines: 2,
+              ),
+            ),
+            Text(album.tracks![index].length ?? 'unknown'.tr()),
+          ],
+        ),
       ),
       separatorBuilder: (context, index) => const Divider(),
       itemCount: album.tracks?.length ?? 0,

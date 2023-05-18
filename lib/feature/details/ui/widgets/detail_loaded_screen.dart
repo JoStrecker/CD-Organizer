@@ -18,23 +18,27 @@ class DetailLoadedScreen extends StatelessWidget {
         BackBar(ctx: context, text: album.title),
         Padding(
           padding: const EdgeInsets.all(16),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondaryContainer,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(6),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DetailAlbumDetails(album: album),
-                  album.isLent()
-                      ? DetailLendingRow(album: album)
-                      : const SizedBox(height: 8),
-                  DetailOptionsRow(album: album),
-                ],
+          child: Material(
+            elevation: 2,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            child: Ink(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(6),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DetailAlbumDetails(album: album),
+                    album.isLent()
+                        ? DetailLendingRow(album: album)
+                        : const SizedBox(height: 8),
+                    DetailOptionsRow(album: album),
+                  ],
+                ),
               ),
             ),
           ),

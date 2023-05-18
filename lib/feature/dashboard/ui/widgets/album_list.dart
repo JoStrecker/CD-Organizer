@@ -21,8 +21,9 @@ class AlbumList extends StatelessWidget {
       itemCount: albums.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             top: 8,
+            bottom: (index+1 == albums.length) ? 80 : 8,
           ),
           child: AlbumListItem(
             album: albums[index],

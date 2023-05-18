@@ -30,6 +30,7 @@ class ResultScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(
                       top: 8,
+                      bottom: 8,
                     ),
                     child: ResultItem(
                       release: releases[index],

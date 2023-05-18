@@ -19,88 +19,92 @@ class ResultItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 4,
-                top: 4,
-                bottom: 4,
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minWidth: 96,
-                    minHeight: 96,
-                    maxWidth: (MediaQuery.of(context).size.width/4 > 152) ? 152 : MediaQuery.of(context).size.width/4,
-                    maxHeight: (MediaQuery.of(context).size.width/4 > 152) ? 152 : MediaQuery.of(context).size.width/4,
+    return Material(
+      elevation: 2,
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
+      child: Ink(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.tertiaryContainer,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 4,
+                  top: 4,
+                  bottom: 4,
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minWidth: 96,
+                      minHeight: 96,
+                      maxWidth: (MediaQuery.of(context).size.width/4 > 152) ? 152 : MediaQuery.of(context).size.width/4,
+                      maxHeight: (MediaQuery.of(context).size.width/4 > 152) ? 152 : MediaQuery.of(context).size.width/4,
+                    ),
+                    child: release.getThumbnail(
+                        tint: Theme.of(context).colorScheme.onSecondaryContainer),
                   ),
-                  child: release.getThumbnail(
-                      tint: Theme.of(context).colorScheme.onSecondaryContainer),
+                ),
+              ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ContainerTextElement(
+                      text: release.title,
+                      icon: Icons.people,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                    ContainerTextElement(
+                      text: release.label ?? 'unknown'.tr(),
+                      icon: Icons.label,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                    ContainerTextElement(
+                      text: release.year ?? 'unknown'.tr(),
+                      icon: Icons.access_time,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                    ContainerTextElement(
+                      text: release.country ?? 'unknown'.tr(),
+                      icon: Icons.language,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                    ContainerTextElement(
+                      text: release.formats
+                          .reduce((value, element) => '$value, $element'),
+                      icon: Icons.album,
+                      textColor:
+                          Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                  ],
                 ),
               ),
             ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ContainerTextElement(
-                    text: release.title,
-                    icon: Icons.people,
-                    textColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
-                  ContainerTextElement(
-                    text: release.label ?? 'unknown'.tr(),
-                    icon: Icons.label,
-                    textColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
-                  ContainerTextElement(
-                    text: release.year ?? 'unknown'.tr(),
-                    icon: Icons.access_time,
-                    textColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
-                  ContainerTextElement(
-                    text: release.country ?? 'unknown'.tr(),
-                    icon: Icons.language,
-                    textColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
-                  ContainerTextElement(
-                    text: release.formats
-                        .reduce((value, element) => '$value, $element'),
-                    icon: Icons.album,
-                    textColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
-                ],
+            MaterialButton(
+              onPressed: () => {
+                BlocProvider.of<ResultBloc>(context)
+                    .add(ResultSelectAlbumEvent(release, wishlist))
+              },
+              minWidth: 16,
+              height: 128,
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).colorScheme.primary,
               ),
-            ),
-          ),
-          MaterialButton(
-            onPressed: () => {
-              BlocProvider.of<ResultBloc>(context)
-                  .add(ResultSelectAlbumEvent(release, wishlist))
-            },
-            minWidth: 16,
-            height: 128,
-            child: Icon(
-              Icons.add,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -14,7 +14,6 @@ class Navigation extends StatelessWidget {
             '/collection';
 
     return NavigationBar(
-      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
       selectedIndex: currRoute.startsWith(RouteInfo.getNavRoutes()[0].route)
           ? 0
           : currRoute.startsWith(RouteInfo.getNavRoutes()[1].route)

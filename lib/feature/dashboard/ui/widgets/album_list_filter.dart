@@ -69,7 +69,7 @@ class AlbumListFilter extends StatelessWidget {
         },
       ),
       separatorBuilder: (ctx, index) => const SizedBox(
-        width: 4,
+        width: 8,
       ),
     );
   }
