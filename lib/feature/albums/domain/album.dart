@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:image_network/image_network.dart';
 import 'package:music_collection/feature/albums/domain/track.dart';
 import 'package:music_collection/generated/assets.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,9 @@ class Album {
   @HiveField(13)
   double? worth;
 
+  @HiveField(14)
+  String? coverArtUri;
+
   Album({
     required this.id,
     required this.title,
@@ -66,6 +70,7 @@ class Album {
     required this.wishlist,
     this.trackCount,
     this.worth,
+    this.coverArtUri,
   });
 
   static Album fromJson(Map<String, dynamic> json) {
@@ -106,6 +111,7 @@ class Album {
     bool? wishlist,
     String? trackCount,
     double? worth,
+    String? coverArtUri,
   }) {
     return Album(
       id: id ?? this.id,
@@ -122,10 +128,11 @@ class Album {
       wishlist: wishlist ?? this.wishlist,
       trackCount: trackCount ?? this.trackCount,
       worth: worth ?? this.worth,
+      coverArtUri: coverArtUri ?? this.coverArtUri,
     );
   }
 
-  bool isLent(){
+  bool isLent() {
     return (lendee ?? 'thisAlbumIsNotLent') != 'thisAlbumIsNotLent';
   }
 
@@ -133,12 +140,26 @@ class Album {
     return artists.reduce((value, element) => '$value, $element');
   }
 
-  Widget getCoverArt({Color? tint}) {
+  Widget getCoverArt(double size, {Color? tint}) {
     if (coverArt == null) {
-      return SvgPicture.asset(
-        Assets.imagesNoImage,
-        colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
-      );
+      if (coverArtUri == null) {
+        return SvgPicture.asset(
+          Assets.imagesNoImage,
+          colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
+        );
+      } else {
+        return ImageNetwork(
+          image: coverArtUri ?? '',
+          onLoading: const Center(child: CircularProgressIndicator()),
+          onError: SvgPicture.asset(
+            Assets.imagesNoImage,
+            colorFilter:
+                ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
+          ),
+          height: size,
+          width: size,
+        );
+      }
     } else {
       return Image.memory(
         coverArt!,

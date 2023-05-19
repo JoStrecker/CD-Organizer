@@ -19,6 +19,7 @@ class DetailAlbumDetails extends StatelessWidget {
             width: 160,
             height: 160,
             child: album.getCoverArt(
+              160,
               tint: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
           ),
@@ -58,14 +59,16 @@ class DetailAlbumDetails extends StatelessWidget {
                     child: ContainerTextElement(
                       text: album.type,
                       icon: Icons.album,
-                      textColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                      textColor:
+                          Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
                   ),
                   Expanded(
                     child: ContainerTextElement(
                       text: album.worth?.toStringAsFixed(2) ?? 'unknown'.tr(),
                       icon: Icons.euro,
-                      textColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                      textColor:
+                          Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
                   ),
                 ],

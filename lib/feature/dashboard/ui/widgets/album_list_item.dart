@@ -32,10 +32,12 @@ class AlbumListItem extends StatelessWidget {
           onTap: () async {
             wishlist
                 ? context.read<WishlistBloc>().add(WishlistRefreshEvent(
-                      await context.pushNamed<bool>('wishDetails', pathParameters: {'id': album.id}),
+                      await context.pushNamed<bool>('wishDetails',
+                          pathParameters: {'id': album.id}),
                     ))
                 : context.read<DashboardBloc>().add(DashboardRefreshEvent(
-                      await context.pushNamed<bool>('details', pathParameters: {'id': album.id}),
+                      await context.pushNamed<bool>('details',
+                          pathParameters: {'id': album.id}),
                     ));
           },
           onLongPress: () => showDialog(
@@ -78,7 +80,9 @@ class AlbumListItem extends StatelessWidget {
                     width: 96,
                     height: 96,
                     child: album.getCoverArt(
-                        tint: Theme.of(context).colorScheme.onTertiaryContainer),
+                      96,
+                      tint: Theme.of(context).colorScheme.onTertiaryContainer,
+                    ),
                   ),
                 ),
               ),

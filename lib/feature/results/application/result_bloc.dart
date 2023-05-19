@@ -47,6 +47,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
 
           Album newAlbum = await musicApiFacade.getAlbumForID(id: selected.id);
           newAlbum.coverArt = coverArt;
+          newAlbum.coverArtUri = selected.coverArt?.toString();
           newAlbum.wishlist = event.wishlist;
 
           await albumFacade.addAlbum(newAlbum);
