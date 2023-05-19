@@ -33,7 +33,7 @@ class DetailLoadedScreenLandscape extends StatelessWidget {
                           borderRadius: const BorderRadius.all(Radius.circular(8)),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(6),
+                          padding: const EdgeInsets.all(12),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +42,7 @@ class DetailLoadedScreenLandscape extends StatelessWidget {
                               album.isLent()
                                   ? DetailLendingRow(album: album)
                                   : const SizedBox(
-                                      height: 8,
+                                      height: 16,
                                     ),
                               DetailOptionsRow(album: album),
                             ],

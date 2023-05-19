@@ -17,16 +17,16 @@ class DetailOptionsRow extends StatelessWidget {
         IconButton(
           onPressed: () => deleteDialog(context),
           icon: const Icon(Icons.delete),
-          color: Theme.of(context).colorScheme.onSecondaryContainer,
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
         const Expanded(
           child: SizedBox(),
         ),
         album.wishlist
-            ? FilledButton(
+            ? OutlinedButton(
                 onPressed: () => addCollectionDialog(context),
                 child: const Text('addToCollection').tr())
-            : FilledButton(
+            : OutlinedButton(
                 onPressed: () => album.isLent()
                     ? gotBackDialog(context)
                     : lendDialog(context),

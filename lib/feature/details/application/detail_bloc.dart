@@ -23,19 +23,22 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       try {
         Album? album = await albumFacade.getAlbum(event.albumId);
 
-        if (album == null){
+        if (album == null) {
           emit(const DetailErrorState('no such Album!'));
           return;
         }
 
-        double? price =
-            await musicAPIFacade.getCurrentPriceForID(id: event.albumId);
+        try {
+          double? price =
+              await musicAPIFacade.getCurrentPriceForID(id: event.albumId);
+          await albumFacade.updateAlbum(album, album.copyWith(worth: price));
 
-        await albumFacade.updateAlbum(album, album.copyWith(worth: price));
-
-        emit(DetailLoadedState(
-          album.copyWith(worth: price),
-        ));
+          emit(DetailLoadedState(
+            album.copyWith(worth: price),
+          ));
+        } catch (e) {
+          emit(DetailLoadedState(album));
+        }
       } catch (e) {
         emit(DetailErrorState(UnknownServerError().message));
       }
@@ -103,7 +106,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         emit(const DetailLoadingState());
 
         try {
-          await albumFacade.updateAlbum(state.album, state.album.copyWith(wishlist: false));
+          await albumFacade.updateAlbum(
+              state.album, state.album.copyWith(wishlist: false));
 
           emit(const DetailLoadingState());
         } catch (e) {

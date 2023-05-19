@@ -21,7 +21,7 @@ class ErrorScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset(Assets.lottiesErrorAnim),
+          Expanded(child: Lottie.asset(Assets.lottiesErrorAnim)),
           Text(message ?? ''),
         ],
       ),

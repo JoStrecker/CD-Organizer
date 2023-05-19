@@ -10,10 +10,10 @@ class DetailLendingRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Text(
         '${'lendedTo'.tr()}${album.lendee} (${'since'.tr()}${album.lended!.toLocal().day}.${album.lended!.toLocal().month}.${album.lended!.toLocal().year})',
-        style: Theme.of(context).textTheme.bodyMedium?.apply(color: Theme.of(context).colorScheme.onSecondaryContainer),
+        style: Theme.of(context).textTheme.bodyMedium?.apply(color: Theme.of(context).colorScheme.onPrimaryContainer),
       ),
     );
   }

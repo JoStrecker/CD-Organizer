@@ -46,7 +46,7 @@ class ResultItem extends StatelessWidget {
                       maxHeight: (MediaQuery.of(context).size.width/4 > 152) ? 152 : MediaQuery.of(context).size.width/4,
                     ),
                     child: release.getThumbnail(
-                        tint: Theme.of(context).colorScheme.onSecondaryContainer),
+                        tint: Theme.of(context).colorScheme.onTertiaryContainer),
                   ),
                 ),
               ),
@@ -60,32 +60,32 @@ class ResultItem extends StatelessWidget {
                       text: release.title,
                       icon: Icons.people,
                       textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                     ContainerTextElement(
                       text: release.label ?? 'unknown'.tr(),
                       icon: Icons.label,
                       textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                     ContainerTextElement(
                       text: release.year ?? 'unknown'.tr(),
                       icon: Icons.access_time,
                       textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                     ContainerTextElement(
                       text: release.country ?? 'unknown'.tr(),
                       icon: Icons.language,
                       textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                     ContainerTextElement(
                       text: release.formats
                           .reduce((value, element) => '$value, $element'),
                       icon: Icons.album,
                       textColor:
-                          Theme.of(context).colorScheme.onSecondaryContainer,
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                     ),
                   ],
                 ),
@@ -100,7 +100,7 @@ class ResultItem extends StatelessWidget {
               height: 128,
               child: Icon(
                 Icons.add,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onTertiaryContainer,
               ),
             )
           ],

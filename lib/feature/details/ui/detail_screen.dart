@@ -29,7 +29,7 @@ class DetailScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is DetailLoadedState) {
               return OrientationBuilder(builder: (context, orientation) {
-                return orientation == Orientation.portrait
+                return _isPortrait(orientation, context)
                     ? DetailLoadedScreen(album: state.album)
                     : DetailLoadedScreenLandscape(album: state.album);
               });
@@ -46,5 +46,17 @@ class DetailScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _isPortrait(Orientation orientation, BuildContext ctx){
+    if(orientation == Orientation.portrait){
+      return true;
+    }else{
+      if(MediaQuery.of(ctx).size.width < 750){
+        return true;
+      }else{
+        return false;
+      }
+    }
   }
 }

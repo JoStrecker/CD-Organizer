@@ -27,7 +27,7 @@ class DetailLoadedScreen extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(6),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +35,7 @@ class DetailLoadedScreen extends StatelessWidget {
                     DetailAlbumDetails(album: album),
                     album.isLent()
                         ? DetailLendingRow(album: album)
-                        : const SizedBox(height: 8),
+                        : const SizedBox(height: 16),
                     DetailOptionsRow(album: album),
                   ],
                 ),
