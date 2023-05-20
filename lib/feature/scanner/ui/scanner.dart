@@ -1,10 +1,9 @@
 import 'package:music_collection/core/ui/dismiss_keyboard.dart';
 import 'package:music_collection/core/ui/music_search_bar.dart';
 import 'package:music_collection/feature/scanner/application/scanner_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_collection/feature/scanner/ui/barcode_scanner.dart';
 
 class Scanner extends StatelessWidget {
   final bool autofocus;
@@ -13,8 +12,8 @@ class Scanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    validateCode(String code) {
-      context.read<ScannerBloc>().add(ScannerScanCodeEvent(code));
+    void barcodeDetect(String? code) {
+      context.read<ScannerBloc>().add(ScannerScanCodeEvent(code ?? ''));
     }
 
     return Padding(
@@ -44,16 +43,10 @@ class Scanner extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () async => {
-                  await FlutterBarcodeScanner.scanBarcode(
-                    'red',
-                    'cancel'.tr(),
-                    true,
-                    ScanMode.BARCODE,
-                  ).then(
-                    (code) => context
-                        .read<ScannerBloc>()
-                        .add(ScannerScanCodeEvent(code)),
-                  )
+                  await showBarCodeScannerDialog(
+                    context: context,
+                    barcodeDetect: barcodeDetect,
+                  ),
                 },
                 icon: const Icon(Icons.camera_alt),
               ),

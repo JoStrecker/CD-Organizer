@@ -1,26 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 Future<String?> showBarCodeScannerDialog({
   required BuildContext context,
-  TransitionBuilder? builder,
-  required String? Function(String rawCode) validator,
-  bool optionForCode = false,
+  required Function(String?) barcodeDetect,
 }) async {
-  Widget dialog = MobileScanner(
-    onDetect: (capture) {
-      final List<Barcode> barcodes = capture.barcodes;
-      for (final barcode in barcodes) {
-        validator(barcode.rawValue ?? '');
-        Navigator.pop(context);
-      }
-    },
+  MobileScannerController cameraController = MobileScannerController(
+    formats: [BarcodeFormat.ean13],
   );
   return showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (BuildContext context) {
-      return builder == null ? dialog : builder(context, dialog);
+    builder: (ctx) {
+      return Stack(
+        children: [
+          MobileScanner(
+            controller: cameraController,
+            onDetect: (capture) {
+              barcodeDetect(capture.barcodes.first.rawValue);
+              context.pop();
+            },
+          ),
+          Positioned(
+            bottom: 32,
+            right: 32,
+            child: FloatingActionButton(
+              child: const Icon(Icons.flash_on),
+              onPressed: () => cameraController.toggleTorch(),
+            ),
+          ),
+          Positioned(
+            bottom: 32,
+            left: 32,
+            child: FloatingActionButton(
+              child: const Icon(Icons.cameraswitch),
+              onPressed: () => cameraController.switchCamera(),
+            ),
+          ),
+        ],
+      );
     },
   );
 }
