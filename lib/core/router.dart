@@ -81,10 +81,10 @@ class CDOrganizerRouter {
                   path: RouteInfo.wishScanner.route,
                   pageBuilder: (context, state) =>
                       buildPageWithTransition<void>(
-                        state: state,
-                        context: context,
-                        child: const ScannerScreen(wishlist: true),
-                      ),
+                    state: state,
+                    context: context,
+                    child: const ScannerScreen(wishlist: true),
+                  ),
                 ),
               ],
             ),
@@ -134,11 +134,25 @@ class CDOrganizerRouter {
     required GoRouterState state,
     required Widget child,
   }) {
-    return CustomTransitionPage(
+    return CustomTransitionPage<T>(
+      key: state.pageKey,
       child: child,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          ScaleTransition(
-              scale: animation, alignment: Alignment.topCenter, child: child),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(-1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        final tween = Tween(begin: begin, end: end);
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: curve,
+        );
+
+        return SlideTransition(
+          position: tween.animate(curvedAnimation),
+          child: child,
+        );
+      },
     );
   }
 }

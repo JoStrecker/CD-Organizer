@@ -11,7 +11,7 @@ Future deleteDialog(BuildContext context) {
       title: const Text('delete').tr(),
       content: const Text('wantToDelete').tr(),
       actions: [
-        FilledButton.tonal(
+        OutlinedButton(
           onPressed: () => Navigator.pop(ctx, 'cancel'),
           child: const Text('cancel').tr(),
         ),
@@ -66,7 +66,7 @@ Future lendDialog(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              FilledButton.tonal(
+              OutlinedButton(
                 onPressed: () => Navigator.pop(ctx, 'cancel'),
                 child: const Text('cancel').tr(),
               ),
@@ -100,7 +100,7 @@ Future gotBackDialog(BuildContext context) {
         title: const Text('giveBack').tr(),
         content: const Text('gotBackDialog').tr(),
         actions: [
-          FilledButton.tonal(
+          OutlinedButton(
             onPressed: () => Navigator.pop(ctx, 'cancel'),
             child: const Text('cancel').tr(),
           ),
@@ -125,7 +125,7 @@ Future addCollectionDialog(BuildContext context) {
         title: const Text('addToCollection').tr(),
         content: const Text('addCollectionDialog').tr(),
         actions: [
-          FilledButton.tonal(
+          OutlinedButton(
             onPressed: () => Navigator.pop(ctx, 'cancel'),
             child: const Text('cancel').tr(),
           ),

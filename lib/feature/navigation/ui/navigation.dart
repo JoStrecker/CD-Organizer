@@ -25,6 +25,7 @@ class Navigation extends StatelessWidget {
         routeInfos.length,
         (index) => NavigationDestination(
           icon: Icon(routeInfos[index].icon),
+          selectedIcon: Icon(routeInfos[index].selectedIcon ?? routeInfos[index].icon),
           label: routeInfos[index].name.tr(),
         ),
       ),

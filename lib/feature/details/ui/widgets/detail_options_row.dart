@@ -23,10 +23,10 @@ class DetailOptionsRow extends StatelessWidget {
           child: SizedBox(),
         ),
         album.wishlist
-            ? OutlinedButton(
+            ? FilledButton(
                 onPressed: () => addCollectionDialog(context),
                 child: const Text('addToCollection').tr())
-            : OutlinedButton(
+            : FilledButton(
                 onPressed: () => album.isLent()
                     ? gotBackDialog(context)
                     : lendDialog(context),

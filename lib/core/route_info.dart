@@ -11,6 +11,9 @@ class RouteInfo {
   /// Defines the icon that is displayed in the navigation rail
   final IconData icon;
 
+  /// Defines the selected icon that is displayed in the navigation rail
+  final IconData? selectedIcon;
+
   /// Defines if the route is displayed in the navigation rail ...
   final bool isNavigationRoute;
 
@@ -18,6 +21,7 @@ class RouteInfo {
     required this.route,
     required this.name,
     required this.icon,
+    this.selectedIcon,
     this.isNavigationRoute = false,
   });
 
@@ -58,21 +62,24 @@ class RouteInfo {
   static RouteInfo collection = RouteInfo._(
     route: '/collection',
     name: 'collection',
-    icon: Icons.album,
+    icon: Icons.album_outlined,
+    selectedIcon: Icons.album,
     isNavigationRoute: true,
   );
 
   static RouteInfo wishlist = RouteInfo._(
     route: '/wishlist',
     name: 'wishlist',
-    icon: Icons.bookmark,
+    icon: Icons.bookmark_outline,
+    selectedIcon: Icons.bookmark,
     isNavigationRoute: true,
   );
 
   static RouteInfo settings = RouteInfo._(
     route: '/settings',
     name: 'settings',
-    icon: Icons.settings,
+    icon: Icons.settings_outlined,
+    selectedIcon: Icons.settings,
     isNavigationRoute: true,
   );
 
