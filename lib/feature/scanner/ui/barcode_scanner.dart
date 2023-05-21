@@ -7,6 +7,7 @@ Future<String?> showBarCodeScannerDialog({
   required Function(String?) barcodeDetect,
 }) async {
   MobileScannerController cameraController = MobileScannerController(
+    detectionSpeed: DetectionSpeed.noDuplicates,
     formats: [BarcodeFormat.ean13],
   );
   return showDialog(

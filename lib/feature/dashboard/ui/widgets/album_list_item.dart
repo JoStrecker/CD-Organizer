@@ -1,4 +1,5 @@
 import 'package:music_collection/core/ui/container_text_element.dart';
+import 'package:music_collection/core/ui/dialogs/delete_dialog.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/dashboard/application/dashboard_bloc.dart';
 import 'package:music_collection/feature/wishlist/application/wishlist_bloc.dart';
@@ -40,31 +41,17 @@ class AlbumListItem extends StatelessWidget {
                           pathParameters: {'id': album.id}),
                     ));
           },
-          onLongPress: () => showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                    title: const Text('delete').tr(),
-                    content: const Text('wantToDelete').tr(),
-                    actions: [
-                      FilledButton.tonal(
-                        onPressed: () => Navigator.pop(ctx, 'cancel'),
-                        child: const Text('cancel').tr(),
-                      ),
-                      FilledButton(
-                        onPressed: () {
-                          Navigator.pop(ctx, 'yes');
-                          wishlist
-                              ? context
-                                  .read<WishlistBloc>()
-                                  .add(WishlistDeleteAlbumEvent(album))
-                              : context
-                                  .read<DashboardBloc>()
-                                  .add(DashboardDeleteAlbumEvent(album));
-                        },
-                        child: const Text('yes').tr(),
-                      )
-                    ],
-                  )),
+          onLongPress: () => deleteDialog(
+            context,
+            () => wishlist
+                ? context
+                    .read<WishlistBloc>()
+                    .add(WishlistDeleteAlbumEvent(album))
+                : context
+                    .read<DashboardBloc>()
+                    .add(DashboardDeleteAlbumEvent(album)),
+            pop: false,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

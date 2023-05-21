@@ -1,8 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_collection/core/ui/dialogs/add_to_collection_dialog.dart';
+import 'package:music_collection/core/ui/dialogs/delete_dialog.dart';
+import 'package:music_collection/core/ui/dialogs/got_back_dialog.dart';
+import 'package:music_collection/core/ui/dialogs/lend_dialog.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import 'detail_dialogs.dart';
+import 'package:music_collection/feature/details/application/detail_bloc.dart';
 
 class DetailOptionsRow extends StatelessWidget {
   final Album album;
@@ -15,7 +19,10 @@ class DetailOptionsRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         IconButton(
-          onPressed: () => deleteDialog(context),
+          onPressed: () => deleteDialog(
+            context,
+            () => context.read<DetailBloc>().add(const DetailDeleteEvent()),
+          ),
           icon: const Icon(Icons.delete),
           color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
@@ -24,7 +31,7 @@ class DetailOptionsRow extends StatelessWidget {
         ),
         album.wishlist
             ? FilledButton(
-                onPressed: () => addCollectionDialog(context),
+                onPressed: () => addToCollectionDialog(context),
                 child: const Text('addToCollection').tr())
             : FilledButton(
                 onPressed: () => album.isLent()
