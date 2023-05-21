@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:music_collection/core/application/debouncer.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
@@ -26,12 +25,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           emit(const DashboardEmptyState());
         } else {
           ScrollController controller = ScrollController();
-          Debouncer debouncer =
-          Debouncer(duration: const Duration(milliseconds: 50));
           controller.addListener(() {
-            debouncer.run(() {
-              add(const DashboardScrollAlbumListEvent());
-            });
+            add(const DashboardScrollAlbumListEvent());
           });
           emit(DashboardLoadedState(
             albums,
@@ -77,12 +72,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
               emit(const DashboardEmptyState());
             } else {
               ScrollController controller = ScrollController();
-              Debouncer debouncer =
-                  Debouncer(duration: const Duration(milliseconds: 50));
               controller.addListener(() {
-                debouncer.run(() {
-                  add(const DashboardScrollAlbumListEvent());
-                });
+                add(const DashboardScrollAlbumListEvent());
               });
               emit(DashboardLoadedState(
                 filterAlbums(

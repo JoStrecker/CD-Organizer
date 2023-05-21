@@ -49,6 +49,7 @@ class DashboardScreen extends StatelessWidget {
                       return SizeTransition(
                         axis: Axis.horizontal,
                         sizeFactor: animation,
+                        axisAlignment: 1,
                         child: Padding(
                           padding: const EdgeInsets.all(16),
                           child: child,

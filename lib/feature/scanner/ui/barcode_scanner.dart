@@ -38,6 +38,14 @@ Future<String?> showBarCodeScannerDialog({
               onPressed: () => cameraController.switchCamera(),
             ),
           ),
+          Positioned(
+            top: 32,
+            left: 32,
+            child: FloatingActionButton(
+              child: const Icon(Icons.arrow_back_ios_new),
+              onPressed: () => context.pop(),
+            ),
+          ),
         ],
       );
     },
