@@ -1,14 +1,20 @@
+import 'package:go_router/go_router.dart';
+import 'package:music_collection/core/route_info.dart';
 import 'package:music_collection/core/ui/dismiss_keyboard.dart';
 import 'package:music_collection/core/ui/music_search_bar.dart';
 import 'package:music_collection/feature/scanner/application/scanner_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_collection/feature/scanner/ui/barcode_scanner.dart';
 
 class Scanner extends StatelessWidget {
   final bool autofocus;
+  final bool wishlist;
 
-  const Scanner({super.key, required this.autofocus});
+  const Scanner({
+    super.key,
+    required this.autofocus,
+    required this.wishlist,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +48,12 @@ class Scanner extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () async => {
-                  await showBarCodeScannerDialog(
-                    context: context,
-                    barcodeDetect: barcodeDetect,
-                  ),
-                },
+                onPressed: () async => context.pushNamed(
+                  wishlist
+                      ? RouteInfo.wishBarcodeReader.name
+                      : RouteInfo.barcodeReader.name,
+                  extra: barcodeDetect,
+                ),
                 icon: const Icon(Icons.camera_alt),
               ),
             ],

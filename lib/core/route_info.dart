@@ -107,6 +107,18 @@ class RouteInfo {
     icon: Icons.album,
   );
 
+  static RouteInfo barcodeReader = RouteInfo._(
+    route: 'barcodeReader',
+    name: 'barcodeReader',
+    icon: Icons.qr_code_scanner,
+  );
+
+  static RouteInfo wishBarcodeReader = RouteInfo._(
+    route: 'wishBarcodeReader',
+    name: 'wishBarcodeReader',
+    icon: Icons.qr_code_scanner,
+  );
+
   static RouteInfo splash = RouteInfo._(
     route: '/splash',
     name: 'splash',

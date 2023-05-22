@@ -34,8 +34,9 @@ class ScannerScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Scanner(
+                  Scanner(
                     autofocus: true,
+                    wishlist: wishlist,
                   ),
                   Expanded(
                     child: EmptyScreen(
@@ -56,8 +57,9 @@ class ScannerScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Scanner(
+                  Scanner(
                     autofocus: false,
+                    wishlist: wishlist,
                   ),
                   Expanded(
                     child: ResultScreen(
@@ -74,8 +76,9 @@ class ScannerScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Scanner(
+                  Scanner(
                     autofocus: true,
+                    wishlist: wishlist,
                   ),
                   Expanded(
                     child: ErrorScreen(

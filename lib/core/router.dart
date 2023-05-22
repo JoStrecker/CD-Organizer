@@ -3,6 +3,7 @@ import 'package:music_collection/feature/dashboard/ui/dashboard_screen.dart';
 import 'package:music_collection/feature/details/ui/detail_screen.dart';
 import 'package:music_collection/feature/error/ui/error_screen.dart';
 import 'package:music_collection/feature/framework/ui/framework.dart';
+import 'package:music_collection/feature/scanner/ui/barcode_scanner.dart';
 import 'package:music_collection/feature/scanner/ui/scanner_screen.dart';
 import 'package:music_collection/feature/settings/ui/settings_screen.dart';
 import 'package:music_collection/feature/splash/ui/splash_screen.dart';
@@ -54,6 +55,18 @@ class CDOrganizerRouter {
                     context: context,
                     child: const ScannerScreen(wishlist: false),
                   ),
+                  routes: [
+                    GoRoute(
+                      name: RouteInfo.barcodeReader.name,
+                      path: RouteInfo.barcodeReader.route,
+                      pageBuilder: (context, state) =>
+                          buildPageWithDefaultTransition<void>(
+                        context: context,
+                        state: state,
+                        child: BarcodeScanner(barcodeDetect: state.extra as void Function(String?)),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -85,6 +98,18 @@ class CDOrganizerRouter {
                     context: context,
                     child: const ScannerScreen(wishlist: true),
                   ),
+                  routes: [
+                    GoRoute(
+                      name: RouteInfo.wishBarcodeReader.name,
+                      path: RouteInfo.wishBarcodeReader.route,
+                      pageBuilder: (context, state) =>
+                          buildPageWithDefaultTransition<void>(
+                            context: context,
+                            state: state,
+                            child: BarcodeScanner(barcodeDetect: state.extra as void Function(String?)),
+                          ),
+                    ),
+                  ],
                 ),
               ],
             ),
