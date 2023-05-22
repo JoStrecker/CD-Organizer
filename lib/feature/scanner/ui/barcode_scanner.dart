@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -30,6 +31,7 @@ class BarcodeScanner extends StatelessWidget {
           bottom: 32,
           right: 32,
           child: FloatingActionButton(
+            tooltip: 'toggle_flash'.tr(),
             child: const Icon(Icons.flash_on),
             onPressed: () => cameraController.toggleTorch(),
           ),
@@ -38,15 +40,17 @@ class BarcodeScanner extends StatelessWidget {
           bottom: 32,
           left: 32,
           child: FloatingActionButton(
+            tooltip: 'switch_camera'.tr(),
             child: const Icon(Icons.cameraswitch),
             onPressed: () => cameraController.switchCamera(),
           ),
         ),
         Positioned(
-          top: 32,
-          left: 32,
-          child: FloatingActionButton(
-            child: const Icon(Icons.arrow_back_ios_new),
+          top: 16,
+          left: 8,
+          child: IconButton(
+            tooltip: 'go_back'.tr(),
+            icon: const Icon(Icons.arrow_back_ios_new),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),

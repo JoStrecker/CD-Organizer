@@ -62,8 +62,8 @@ class WishlistScreen extends StatelessWidget {
                       onPressed: () async => context.read<WishlistBloc>().add(
                             WishlistRefreshEvent(
                               await context.pushNamed(
-                                RouteInfo.scanner.name,
-                                extra: false,
+                                RouteInfo.wishScanner.name,
+                                extra: true,
                               ),
                             ),
                           ),

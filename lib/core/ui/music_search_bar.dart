@@ -32,6 +32,7 @@ class MusicSearchBar extends StatelessWidget {
           border: InputBorder.none,
           hintText: 'search'.tr(),
           suffixIcon: IconButton(
+            tooltip: 'clear'.tr(),
             onPressed: onPressed,
             icon: const Icon(Icons.clear),
           ),

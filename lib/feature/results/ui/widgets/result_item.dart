@@ -28,7 +28,6 @@ class ResultItem extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
               Padding(
                 padding: const EdgeInsets.only(
@@ -91,14 +90,13 @@ class ResultItem extends StatelessWidget {
                 ),
               ),
             ),
-            MaterialButton(
+            IconButton(
+              tooltip: 'add'.tr(),
               onPressed: () => {
                 BlocProvider.of<ResultBloc>(context)
                     .add(ResultSelectAlbumEvent(release, wishlist))
               },
-              minWidth: 16,
-              height: 128,
-              child: Icon(
+              icon: Icon(
                 Icons.add,
                 color: Theme.of(context).colorScheme.onTertiaryContainer,
               ),

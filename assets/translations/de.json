@@ -37,5 +37,10 @@
   "saved": "Änderungen gespeichert",
   "error": "Es ist ein Fehler aufgetreten",
   "restartApp": "App neu starten um Änderungen anzuwenden",
-  "add": "Hinzufügen"
+  "add": "Hinzufügen",
+  "clear": "Zurücksetzen",
+  "go_back": "Zurück gehen",
+  "scan_code": "Barcode scannen",
+  "toggle_flash": "Licht umschalten",
+  "switch_camera": "Kamera wechseln"
 }

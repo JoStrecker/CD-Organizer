@@ -19,6 +19,7 @@ class DetailOptionsRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         IconButton(
+          tooltip: 'delete'.tr(),
           onPressed: () => deleteDialog(
             context,
             () => context.read<DetailBloc>().add(const DetailDeleteEvent()),

@@ -37,5 +37,10 @@
   "saved": "Saved Changes",
   "error": "An Error occurred",
   "restartApp": "Restart App to apply changes",
-  "add": "Add"
+  "add": "Add",
+  "clear": "Clear",
+  "go_back": "Go Back",
+  "scan_code": "Scan Barcode",
+  "toggle_flash": "Toggle Flash",
+  "switch_camera": "Switch Camera"
 }

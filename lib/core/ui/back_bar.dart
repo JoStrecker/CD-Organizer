@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,11 +14,13 @@ class BackBar extends StatelessWidget {
       padding: const EdgeInsets.only(
         top: 16,
         right: 16,
+        left: 8
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
+            tooltip: 'go_back'.tr(),
             onPressed: () {
               ctx.pop(true);
             },
