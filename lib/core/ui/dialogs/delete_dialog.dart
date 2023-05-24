@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-Future deleteDialog(
+Future showDeleteDialog(
   BuildContext context,
   Function deleteCallback, {
   bool pop = true,

@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/ui/snack_bars.dart';
-import 'package:music_collection/feature/empty/ui/empty_screen.dart';
 import 'package:music_collection/feature/loading/ui/loading_screen.dart';
 import 'package:music_collection/feature/settings/application/settings_bloc.dart';
 import 'package:music_collection/feature/settings/ui/widgets/color_picker.dart';
@@ -13,10 +12,6 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBar(
-            String message) =>
-        showSnackBar(message, context);
-
     return BlocProvider<SettingsBloc>(
       create: (context) => sl<SettingsBloc>()..add(const SettingsLoadEvent()),
       child: BlocBuilder<SettingsBloc, SettingsState>(
@@ -42,7 +37,14 @@ class SettingsScreen extends StatelessWidget {
                       Switch(
                         value: state.sendNotifications,
                         onChanged: (change) => context.read<SettingsBloc>().add(
-                            SettingsChangeNotificationsEvent(snackBar, change)),
+                              SettingsChangeNotificationsEvent(
+                                (message) => showSnackBar(
+                                  message,
+                                  context,
+                                ),
+                                change,
+                              ),
+                            ),
                       ),
                     ],
                   ),
@@ -52,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
           } else if (state is SettingsLoadingState) {
             return const LoadingScreen();
           } else {
-            return const EmptyScreen();
+            return Container();
           }
         },
       ),

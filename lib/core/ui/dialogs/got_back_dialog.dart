@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/feature/details/application/detail_bloc.dart';
 
-Future gotBackDialog(BuildContext context) {
+Future showGotBackDialog(BuildContext context) {
   return showDialog(
     context: context,
     builder: (ctx) {

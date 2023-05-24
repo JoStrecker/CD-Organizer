@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/feature/details/application/detail_bloc.dart';
 
-Future lendDialog(BuildContext context) {
+Future showLendDialog(BuildContext context) {
   return showDialog(
     context: context,
     builder: (ctx) {

@@ -20,7 +20,7 @@ class DetailOptionsRow extends StatelessWidget {
       children: [
         IconButton(
           tooltip: 'delete'.tr(),
-          onPressed: () => deleteDialog(
+          onPressed: () => showDeleteDialog(
             context,
             () => context.read<DetailBloc>().add(const DetailDeleteEvent()),
           ),
@@ -32,12 +32,12 @@ class DetailOptionsRow extends StatelessWidget {
         ),
         album.wishlist
             ? FilledButton(
-                onPressed: () => addToCollectionDialog(context),
+                onPressed: () => showAddToCollectionDialog(context),
                 child: const Text('addToCollection').tr())
             : FilledButton(
                 onPressed: () => album.isLent()
-                    ? gotBackDialog(context)
-                    : lendDialog(context),
+                    ? showGotBackDialog(context)
+                    : showLendDialog(context),
                 child: Text(
                   album.isLent() ? 'giveBack'.tr() : 'lend'.tr(),
                 ),

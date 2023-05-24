@@ -41,7 +41,7 @@ class AlbumListItem extends StatelessWidget {
                           pathParameters: {'id': album.id}),
                     ));
           },
-          onLongPress: () => deleteDialog(
+          onLongPress: () => showDeleteDialog(
             context,
             () => wishlist
                 ? context
