@@ -18,43 +18,53 @@ class BarcodeScanner extends StatelessWidget {
       formats: [BarcodeFormat.ean13],
     );
 
-    return Stack(
-      children: [
-        MobileScanner(
-          controller: cameraController,
-          onDetect: (capture) {
-            barcodeDetect(capture.barcodes.first.rawValue);
-            context.pop();
-          },
-        ),
-        Positioned(
-          bottom: 32,
-          right: 32,
-          child: FloatingActionButton(
-            tooltip: 'toggle_flash'.tr(),
-            child: const Icon(Icons.flash_on),
-            onPressed: () => cameraController.toggleTorch(),
+    return WillPopScope(
+      onWillPop: () async {
+        cameraController.dispose();
+        context.pop();
+        return false;
+      },
+      child: Stack(
+        children: [
+          MobileScanner(
+            controller: cameraController,
+            onDetect: (capture) {
+              barcodeDetect(capture.barcodes.first.rawValue);
+              context.pop();
+            },
           ),
-        ),
-        Positioned(
-          bottom: 32,
-          left: 32,
-          child: FloatingActionButton(
-            tooltip: 'switch_camera'.tr(),
-            child: const Icon(Icons.cameraswitch),
-            onPressed: () => cameraController.switchCamera(),
+          Positioned(
+            bottom: 32,
+            right: 32,
+            child: FloatingActionButton(
+              tooltip: 'toggle_flash'.tr(),
+              child: const Icon(Icons.flash_on),
+              onPressed: () => cameraController.toggleTorch(),
+            ),
           ),
-        ),
-        Positioned(
-          top: 16,
-          left: 8,
-          child: IconButton(
-            tooltip: 'go_back'.tr(),
-            icon: const Icon(Icons.arrow_back_ios_new),
-            onPressed: () => Navigator.of(context).pop(),
+          Positioned(
+            bottom: 32,
+            left: 32,
+            child: FloatingActionButton(
+              tooltip: 'switch_camera'.tr(),
+              child: const Icon(Icons.cameraswitch),
+              onPressed: () => cameraController.switchCamera(),
+            ),
           ),
-        ),
-      ],
+          Positioned(
+            top: 16,
+            left: 8,
+            child: IconButton(
+              tooltip: 'go_back'.tr(),
+              icon: const Icon(Icons.arrow_back_ios_new),
+              onPressed: () {
+                cameraController.dispose();
+                context.pop();
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
