@@ -11,10 +11,11 @@ part 'wishlist_event.dart';
 part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
-  IAlbumFacade albumFacade;
+  final IAlbumFacade albumFacade;
 
-  WishlistBloc({required this.albumFacade})
-      : super(const WishlistInitialState()) {
+  WishlistBloc({
+    required this.albumFacade,
+  }) : super(const WishlistInitialState()) {
     on<WishlistLoadEvent>((event, emit) async {
       emit(const WishlistLoadingState());
 
@@ -27,7 +28,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         } else {
           ScrollController controller = ScrollController();
           controller.addListener(() {
-              add(const WishlistScrollAlbumListEvent());
+            add(const WishlistScrollAlbumListEvent());
           });
           emit(WishlistLoadedState(
             albums,
@@ -74,7 +75,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             } else {
               ScrollController controller = ScrollController();
               controller.addListener(() {
-                  add(const WishlistScrollAlbumListEvent());
+                add(const WishlistScrollAlbumListEvent());
               });
               emit(WishlistLoadedState(
                 filterAlbums(

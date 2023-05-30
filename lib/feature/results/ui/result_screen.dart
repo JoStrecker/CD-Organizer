@@ -10,33 +10,48 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ResultScreen extends StatelessWidget {
   final List<Release> releases;
+  final String query;
+  final int pageCount;
   final bool wishlist;
 
-  const ResultScreen(
-      {super.key, required this.releases, required this.wishlist});
+  const ResultScreen({
+    super.key,
+    required this.releases,
+    required this.query,
+    required this.pageCount,
+    required this.wishlist,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ResultBloc>(
-      create: (context) => sl<ResultBloc>()..add(ResultLoadEvent(releases)),
+      create: (context) => sl<ResultBloc>()
+        ..add(ResultLoadEvent(
+          releases,
+          query,
+        )),
       child: BlocBuilder<ResultBloc, ResultState>(
         builder: (context, state) {
           if (state is ResultLoadedState) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: ListView.builder(
-                itemCount: releases.length,
+                controller: state.controller,
+                itemCount: releases.length + 1,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(
-                      top: 8,
-                      bottom: 8,
-                    ),
-                    child: ResultItem(
-                      release: releases[index],
-                      index: index,
-                      wishlist: wishlist,
-                    ),
+                    padding: const EdgeInsets.only(top: 16),
+                    child: index < releases.length
+                        ? ResultItem(
+                            release: releases[index],
+                            index: index,
+                            wishlist: wishlist,
+                          )
+                        : state.page < pageCount
+                            ? const Center(child: CircularProgressIndicator())
+                            : const SizedBox(
+                                height: 8,
+                              ),
                   );
                 },
               ),

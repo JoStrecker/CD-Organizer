@@ -8,13 +8,13 @@ class RouteInfo {
   /// Defines the name that is used to navigate in the router
   final String name;
 
-  /// Defines the icon that is displayed in the navigation rail
+  /// Defines the icon that is displayed in the navbar
   final IconData icon;
 
-  /// Defines the selected icon that is displayed in the navigation rail
+  /// Defines the selected icon that is displayed in the navbar
   final IconData? selectedIcon;
 
-  /// Defines if the route is displayed in the navigation rail ...
+  /// Defines if the route is displayed in the navbar
   final bool isNavigationRoute;
 
   RouteInfo._({

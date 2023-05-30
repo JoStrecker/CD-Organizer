@@ -12,13 +12,17 @@ class ScannerLoadEvent extends ScannerEvent {
 class ScannerScanCodeEvent extends ScannerEvent {
   final String code;
 
-  const ScannerScanCodeEvent(this.code);
+  const ScannerScanCodeEvent(
+    this.code,
+  );
 }
 
 class ScannerSearchAlbumEvent extends ScannerEvent {
   final String query;
 
-  const ScannerSearchAlbumEvent(this.query);
+  const ScannerSearchAlbumEvent(
+    this.query,
+  );
 }
 
 class ScannerClearSearchEvent extends ScannerEvent {

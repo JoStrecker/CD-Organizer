@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:music_collection/feature/details/application/detail_bloc.dart';
 
-Future showAddToCollectionDialog(BuildContext context) {
+Future showAddToCollectionDialog(
+  BuildContext context,
+) {
   return showDialog(
     context: context,
     builder: (ctx) {
@@ -18,7 +20,9 @@ Future showAddToCollectionDialog(BuildContext context) {
           ),
           FilledButton(
             onPressed: () {
-              context.read<DetailBloc>().add(const DetailAddCollectionEvent());
+              context.read<DetailBloc>().add(
+                    const DetailAddCollectionEvent(),
+                  );
               Navigator.pop(ctx, 'yes');
               context.pop(true);
             },

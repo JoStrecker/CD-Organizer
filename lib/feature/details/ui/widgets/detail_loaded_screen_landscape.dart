@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 class DetailLoadedScreenLandscape extends StatelessWidget {
   final Album album;
 
-  const DetailLoadedScreenLandscape({super.key, required this.album});
+  const DetailLoadedScreenLandscape({
+    super.key,
+    required this.album,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,11 @@ class DetailLoadedScreenLandscape extends StatelessWidget {
         BackBar(ctx: context, text: album.title),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
+            padding: const EdgeInsets.only(
+              top: 16,
+              right: 16,
+              left: 16,
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -30,7 +37,8 @@ class DetailLoadedScreenLandscape extends StatelessWidget {
                       child: Ink(
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primaryContainer,
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(12),

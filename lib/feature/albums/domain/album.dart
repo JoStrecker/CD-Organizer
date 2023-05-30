@@ -55,6 +55,9 @@ class Album {
   @HiveField(14)
   String? coverArtUri;
 
+  @HiveField(15)
+  DateTime lastUpdated;
+
   Album({
     required this.id,
     required this.title,
@@ -71,6 +74,7 @@ class Album {
     this.trackCount,
     this.worth,
     this.coverArtUri,
+    required this.lastUpdated,
   });
 
   static Album fromJson(Map<String, dynamic> json) {
@@ -87,12 +91,18 @@ class Album {
               .reduce((value, element) => '$value, $element')
           : null,
       tracks: List.of(
-          [...json['tracklist']?.expand((track) => Track.fromJson(track))]),
+        [
+          ...json['tracklist']?.expand(
+            (track) => Track.fromJson(track),
+          )
+        ],
+      ),
       type: (json['formats'] as List).map((e) => e['name']).toList()[0],
       country: json['country'],
       wishlist: false,
       trackCount: json['tracklist']?.length.toString(),
       worth: json['lowest_price'],
+      lastUpdated: DateTime.now(),
     );
   }
 
@@ -112,6 +122,7 @@ class Album {
     String? trackCount,
     double? worth,
     String? coverArtUri,
+    DateTime? lastUpdated,
   }) {
     return Album(
       id: id ?? this.id,
@@ -129,6 +140,7 @@ class Album {
       trackCount: trackCount ?? this.trackCount,
       worth: worth ?? this.worth,
       coverArtUri: coverArtUri ?? this.coverArtUri,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
     );
   }
 

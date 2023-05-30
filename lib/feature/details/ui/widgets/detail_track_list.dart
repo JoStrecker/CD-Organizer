@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class DetailTrackList extends StatelessWidget {
   final Album album;
 
-  const DetailTrackList({super.key, required this.album});
+  const DetailTrackList({
+    super.key,
+    required this.album,
+  });
 
   @override
   Widget build(BuildContext context) {

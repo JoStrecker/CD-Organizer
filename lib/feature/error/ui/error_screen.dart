@@ -8,12 +8,13 @@ class ErrorScreen extends StatelessWidget {
   final String? buttonLabel;
   final Function()? buttonFunction;
 
-  const ErrorScreen(
-      {super.key,
-      this.error,
-      this.message,
-      this.buttonLabel,
-      this.buttonFunction});
+  const ErrorScreen({
+    super.key,
+    this.error,
+    this.message,
+    this.buttonLabel,
+    this.buttonFunction,
+  });
 
   @override
   Widget build(BuildContext context) {

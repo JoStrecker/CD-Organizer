@@ -23,6 +23,7 @@ void initInjection() {
   //Bloc
   sl.registerFactory<DashboardBloc>(() => DashboardBloc(
         albumFacade: sl<IAlbumFacade>(),
+        musicAPIFacade: sl<IMusicAPIFacade>(),
       ));
   sl.registerFactory<ResultBloc>(() => ResultBloc(
         musicApiFacade: sl<IMusicAPIFacade>(),

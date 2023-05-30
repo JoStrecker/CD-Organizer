@@ -29,14 +29,18 @@ class Track {
         ),
       ]);
     } else if (json['type_'] == 'index') {
-      return List.of([
-        Track(
-          title: json['title'],
-          number: json['position'],
-          length: json['duration'],
-        ),
-        ...json['sub_tracks'].expand((subtrack) => Track.fromJson(subtrack)),
-      ]);
+      return List.of(
+        [
+          Track(
+            title: json['title'],
+            number: json['position'],
+            length: json['duration'],
+          ),
+          ...json['sub_tracks'].expand(
+            (subtrack) => Track.fromJson(subtrack),
+          ),
+        ],
+      );
     } else {
       return List.empty();
     }

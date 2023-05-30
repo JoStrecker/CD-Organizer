@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/feature/details/application/detail_bloc.dart';
 
-Future showGotBackDialog(BuildContext context) {
+Future showGotBackDialog(
+  BuildContext context,
+) {
   return showDialog(
     context: context,
     builder: (ctx) {
@@ -17,7 +19,9 @@ Future showGotBackDialog(BuildContext context) {
           ),
           FilledButton(
             onPressed: () {
-              context.read<DetailBloc>().add(const DetailGotBackEvent());
+              context.read<DetailBloc>().add(
+                    const DetailGotBackEvent(),
+                  );
               Navigator.pop(ctx, 'yes');
             },
             child: const Text('yes').tr(),

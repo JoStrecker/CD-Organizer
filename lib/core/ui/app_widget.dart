@@ -10,7 +10,11 @@ class AppWidget extends StatelessWidget {
   final CorePalette? palette;
   final Color? prefColor;
 
-  const AppWidget({super.key, this.palette, this.prefColor});
+  const AppWidget({
+    super.key,
+    this.palette,
+    this.prefColor,
+  });
 
   @override
   Widget build(BuildContext context) {

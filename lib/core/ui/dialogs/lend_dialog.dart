@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_collection/feature/details/application/detail_bloc.dart';
 
-Future showLendDialog(BuildContext context) {
+Future showLendDialog(
+  BuildContext context,
+  void Function(String text) lendCallback,
+) {
   return showDialog(
     context: context,
     builder: (ctx) {
@@ -20,9 +21,7 @@ Future showLendDialog(BuildContext context) {
           TextField(
             onSubmitted: (query) {
               if (controller.text.isNotEmpty) {
-                context
-                    .read<DetailBloc>()
-                    .add(DetailLendEvent(controller.text));
+                lendCallback(controller.text);
               }
               Navigator.pop(ctx, 'lend');
             },
@@ -51,9 +50,7 @@ Future showLendDialog(BuildContext context) {
               FilledButton(
                 onPressed: () {
                   if (controller.text.isNotEmpty) {
-                    context
-                        .read<DetailBloc>()
-                        .add(DetailLendEvent(controller.text));
+                    lendCallback(controller.text);
                   }
                   Navigator.pop(ctx, 'lend');
                 },

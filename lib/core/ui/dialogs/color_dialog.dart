@@ -5,7 +5,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 Future showColorDialog(
   BuildContext context,
   Color color,
-  Function(Color color) selectCallback,
+  void Function(Color color) selectCallback,
 ) {
   Color newColor = color;
 

@@ -6,7 +6,11 @@ class BackBar extends StatelessWidget {
   final BuildContext ctx;
   final String text;
 
-  const BackBar({super.key, required this.ctx, required this.text});
+  const BackBar({
+    super.key,
+    required this.ctx,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,7 @@ class BackBar extends StatelessWidget {
       padding: const EdgeInsets.only(
         top: 16,
         right: 16,
-        left: 8
+        left: 8,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

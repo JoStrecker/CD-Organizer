@@ -5,7 +5,10 @@ import 'package:lottie/lottie.dart';
 class EmptyScreen extends StatelessWidget {
   final Widget? child;
 
-  const EmptyScreen({super.key, this.child});
+  const EmptyScreen({
+    super.key,
+    this.child,
+  });
 
   @override
   Widget build(BuildContext context) {

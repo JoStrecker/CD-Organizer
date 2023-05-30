@@ -32,8 +32,7 @@ class ResultItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(
                   left: 4,
-                  top: 4,
-                  bottom: 4,
+                  top: 8,
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class Navigation extends StatelessWidget {
-  const Navigation({Key? key}) : super(key: key);
+  const Navigation({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,26 +16,26 @@ class Navigation extends StatelessWidget {
             '/collection';
 
     return NavigationBar(
-      selectedIndex: currRoute.startsWith(RouteInfo.getNavRoutes()[0].route)
-          ? 0
-          : currRoute.startsWith(RouteInfo.getNavRoutes()[1].route)
-              ? 1
-              : currRoute.startsWith(RouteInfo.getNavRoutes()[2].route)
-                  ? 2
-                  : 0,
-      destinations: List.generate(
-        routeInfos.length,
-        (index) => NavigationDestination(
-          icon: Icon(routeInfos[index].icon),
-          selectedIcon: Icon(routeInfos[index].selectedIcon ?? routeInfos[index].icon),
-          label: routeInfos[index].name.tr(),
+        selectedIndex: currRoute.startsWith(RouteInfo.getNavRoutes()[0].route)
+            ? 0
+            : currRoute.startsWith(RouteInfo.getNavRoutes()[1].route)
+                ? 1
+                : currRoute.startsWith(RouteInfo.getNavRoutes()[2].route)
+                    ? 2
+                    : 0,
+        destinations: List.generate(
+          routeInfos.length,
+          (index) => NavigationDestination(
+            icon: Icon(routeInfos[index].icon),
+            selectedIcon:
+                Icon(routeInfos[index].selectedIcon ?? routeInfos[index].icon),
+            label: routeInfos[index].name.tr(),
+          ),
         ),
-      ),
-      onDestinationSelected: (index) {
-        if (currRoute != routeInfos[index].route) {
-          context.go(routeInfos[index].route);
-        }
-      }
-    );
+        onDestinationSelected: (index) {
+          if (currRoute != routeInfos[index].route) {
+            context.go(routeInfos[index].route);
+          }
+        });
   }
 }

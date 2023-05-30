@@ -12,26 +12,35 @@ class WishlistLoadEvent extends WishlistEvent {
 class WishlistDeleteAlbumEvent extends WishlistEvent {
   final Album selectedAlbum;
 
-  const WishlistDeleteAlbumEvent(this.selectedAlbum);
+  const WishlistDeleteAlbumEvent(
+    this.selectedAlbum,
+  );
 }
 
 class WishlistRefreshEvent extends WishlistEvent {
   final bool? reload;
 
-  const WishlistRefreshEvent(this.reload);
+  const WishlistRefreshEvent(
+    this.reload,
+  );
 }
 
 class WishlistSearchAlbumEvent extends WishlistEvent {
   final String search;
 
-  const WishlistSearchAlbumEvent(this.search);
+  const WishlistSearchAlbumEvent(
+    this.search,
+  );
 }
 
 class WishlistFilterAlbumEvent extends WishlistEvent {
   final Set<MediaTypeFilter> filter;
   final Set<LentFilter> lentFilter;
 
-  const WishlistFilterAlbumEvent(this.filter, this.lentFilter);
+  const WishlistFilterAlbumEvent(
+    this.filter,
+    this.lentFilter,
+  );
 }
 
 class WishlistScrollAlbumListEvent extends WishlistEvent {

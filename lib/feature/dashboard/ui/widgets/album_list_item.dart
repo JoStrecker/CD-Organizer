@@ -32,14 +32,22 @@ class AlbumListItem extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           onTap: () async {
             wishlist
-                ? context.read<WishlistBloc>().add(WishlistRefreshEvent(
-                      await context.pushNamed<bool>('wishDetails',
-                          pathParameters: {'id': album.id}),
-                    ))
-                : context.read<DashboardBloc>().add(DashboardRefreshEvent(
-                      await context.pushNamed<bool>('details',
-                          pathParameters: {'id': album.id}),
-                    ));
+                ? context.read<WishlistBloc>().add(
+                      WishlistRefreshEvent(
+                        await context.pushNamed<bool>(
+                          'wishDetails',
+                          pathParameters: {'id': album.id},
+                        ),
+                      ),
+                    )
+                : context.read<DashboardBloc>().add(
+                      DashboardRefreshEvent(
+                        await context.pushNamed<bool>(
+                          'details',
+                          pathParameters: {'id': album.id},
+                        ),
+                      ),
+                    );
           },
           onLongPress: () => showDeleteDialog(
             context,

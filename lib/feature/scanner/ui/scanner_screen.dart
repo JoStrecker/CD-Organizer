@@ -14,7 +14,10 @@ import 'package:go_router/go_router.dart';
 class ScannerScreen extends StatelessWidget {
   final bool wishlist;
 
-  const ScannerScreen({super.key, required this.wishlist});
+  const ScannerScreen({
+    super.key,
+    required this.wishlist,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +68,8 @@ class ScannerScreen extends StatelessWidget {
                     child: ResultScreen(
                       releases: state.results,
                       wishlist: wishlist,
+                      query: state.controller.text,
+                      pageCount: state.pageCount,
                     ),
                   ),
                 ],

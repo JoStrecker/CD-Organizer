@@ -4,16 +4,18 @@ import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/core/infrastructure/dio_response_handler.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
-import 'package:music_collection/feature/music_api/domain/release.dart';
 import 'package:music_collection/feature/music_api/domain/release_initial.dart';
 import 'package:dio/dio.dart';
 
 class DioDiscogsFacade extends IMusicAPIFacade {
   @override
-  Future<List<Release>> searchByQuery({required String query}) async {
+  Future<ReleaseInitial> searchByQuery({
+    required String query,
+    int page = 1,
+  }) async {
     try {
       Response response = await Dio().get(
-        '$musicRootURL/database/search?query=${query.replaceAll(' ', '%20')}&type=release',
+        '$musicRootURL/database/search?query=${query.replaceAll(' ', '%20')}&type=release&per_page=100&page=$page',
         options: Options(
           headers: {
             'Authorization':
@@ -23,7 +25,7 @@ class DioDiscogsFacade extends IMusicAPIFacade {
         ),
       );
 
-      return ReleaseInitial.fromJson(dioResponseHandler(response)).results;
+      return ReleaseInitial.fromJson(dioResponseHandler(response));
     } catch (e) {
       if (e is DioError && e.response != null) {
         dioResponseHandler(e.response!);
@@ -33,7 +35,9 @@ class DioDiscogsFacade extends IMusicAPIFacade {
   }
 
   @override
-  Future<List<Release>> searchByBarcode({required String barcode}) async {
+  Future<ReleaseInitial> searchByBarcode({
+    required String barcode,
+  }) async {
     try {
       Response response = await Dio().get(
         '$musicRootURL/database/search?barcode=$barcode&type=release',
@@ -46,7 +50,7 @@ class DioDiscogsFacade extends IMusicAPIFacade {
         ),
       );
 
-      return ReleaseInitial.fromJson(dioResponseHandler(response)).results;
+      return ReleaseInitial.fromJson(dioResponseHandler(response));
     } catch (e) {
       if (e is DioError && e.response != null) {
         dioResponseHandler(e.response!);
@@ -56,7 +60,9 @@ class DioDiscogsFacade extends IMusicAPIFacade {
   }
 
   @override
-  Future<Album> getAlbumForID({required String id}) async {
+  Future<Album> getAlbumForID({
+    required String id,
+  }) async {
     try {
       Response response = await Dio().get(
         '$musicRootURL/releases/$id?eur',
@@ -79,7 +85,9 @@ class DioDiscogsFacade extends IMusicAPIFacade {
   }
 
   @override
-  Future<double?> getCurrentPriceForID({required String id}) async {
+  Future<double?> getCurrentPriceForID({
+    required String id,
+  }) async {
     try {
       Response response = await Dio().get(
         '$musicRootURL/releases/$id?eur',

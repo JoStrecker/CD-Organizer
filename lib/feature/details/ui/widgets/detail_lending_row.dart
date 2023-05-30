@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class DetailLendingRow extends StatelessWidget {
   final Album album;
 
-  const DetailLendingRow({super.key, required this.album});
+  const DetailLendingRow({
+    super.key,
+    required this.album,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,10 @@ class DetailLendingRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Text(
         '${'lendedTo'.tr()}${album.lendee} (${'since'.tr()}${album.lended!.toLocal().day}.${album.lended!.toLocal().month}.${album.lended!.toLocal().year})',
-        style: Theme.of(context).textTheme.bodyMedium?.apply(color: Theme.of(context).colorScheme.onPrimaryContainer),
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium
+            ?.apply(color: Theme.of(context).colorScheme.onPrimaryContainer),
       ),
     );
   }

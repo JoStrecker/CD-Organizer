@@ -1,11 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
 import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 
 part 'detail_event.dart';
 
@@ -15,8 +14,10 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
   final IAlbumFacade albumFacade;
   final IMusicAPIFacade musicAPIFacade;
 
-  DetailBloc({required this.albumFacade, required this.musicAPIFacade})
-      : super(const DetailInitialState()) {
+  DetailBloc({
+    required this.albumFacade,
+    required this.musicAPIFacade,
+  }) : super(const DetailInitialState()) {
     on<DetailLoadEvent>((event, emit) async {
       emit(const DetailLoadingState());
 
@@ -28,17 +29,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
           return;
         }
 
-        try {
-          double? price =
-              await musicAPIFacade.getCurrentPriceForID(id: event.albumId);
-          await albumFacade.updateAlbum(album, album.copyWith(worth: price));
-
-          emit(DetailLoadedState(
-            album.copyWith(worth: price),
-          ));
-        } catch (e) {
-          emit(DetailLoadedState(album));
-        }
+        emit(DetailLoadedState(album));
       } catch (e) {
         emit(DetailErrorState(UnknownServerError().message));
       }

@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 class DetailLoadedScreen extends StatelessWidget {
   final Album album;
 
-  const DetailLoadedScreen({super.key, required this.album});
+  const DetailLoadedScreen({
+    super.key,
+    required this.album,
+  });
 
   @override
   Widget build(BuildContext context) {

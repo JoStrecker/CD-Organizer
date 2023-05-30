@@ -7,9 +7,11 @@ abstract class ResultEvent {
 
 class ResultLoadEvent extends ResultEvent {
   final List<Release> result;
+  final String query;
 
   const ResultLoadEvent(
     this.result,
+    this.query,
   );
 }
 
@@ -21,4 +23,8 @@ class ResultSelectAlbumEvent extends ResultEvent {
     this.selectedAlbum,
     this.wishlist,
   );
+}
+
+class ResultAddAlbumsEvent extends ResultEvent {
+  const ResultAddAlbumsEvent();
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
@@ -12,25 +13,62 @@ part 'result_event.dart';
 part 'result_state.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState> {
-  IMusicAPIFacade musicApiFacade;
-  IAlbumFacade albumFacade;
+  final IMusicAPIFacade musicApiFacade;
+  final IAlbumFacade albumFacade;
 
-  ResultBloc({required this.musicApiFacade, required this.albumFacade})
-      : super(const ResultInitialState()) {
+  ResultBloc({
+    required this.musicApiFacade,
+    required this.albumFacade,
+  }) : super(const ResultInitialState()) {
     on<ResultLoadEvent>((event, emit) async {
       emit(const ResultLoadingState());
+
+      ScrollController controller = ScrollController();
+      controller.addListener(() {
+        if (controller.position.extentAfter == 0) {
+          add(const ResultAddAlbumsEvent());
+        }
+      });
 
       try {
         List<Album> albums = await albumFacade.getAllAlbums(null);
 
-        emit(ResultLoadedState(event.result
-          ..removeWhere(
-              (release) => albums.any((album) => album.id == release.id))));
+        emit(ResultLoadedState(
+          event.result
+            ..removeWhere(
+              (release) => albums.any((album) => album.id == release.id),
+            ),
+          event.query,
+          controller,
+          1,
+        ));
       } catch (e) {
         if (e is MusicCollectionError) {
           emit(ResultErrorState(e.message));
         }
         emit(ResultErrorState(UnknownServerError().message));
+      }
+    });
+
+    on<ResultAddAlbumsEvent>((event, emit) async {
+      var state = this.state;
+
+      if (state is ResultLoadedState) {
+        try {
+          List<Album> albums = await albumFacade.getAllAlbums(null);
+          List<Release> newReleases = (await musicApiFacade.searchByQuery(
+              query: state.query, page: state.page + 1)).results;
+          newReleases.removeWhere(
+            (release) => albums.any((album) => album.id == release.id),
+          );
+
+          emit(state.copyWith(
+            releases: state.releases..addAll(newReleases),
+            page: state.page + 1,
+          ));
+        } catch (e) {
+          emit(state);
+        }
       }
     });
 

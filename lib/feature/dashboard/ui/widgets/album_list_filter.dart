@@ -19,12 +19,10 @@ class AlbumListFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> labels = wishlist
-        ? [
-            ...MediaTypeFilter.values.map((e) => e.name),
-          ]
+        ? [...MediaTypeFilter.values.map((e) => e.name)]
         : [
             ...MediaTypeFilter.values.map((e) => e.name),
-            ...LentFilter.values.map((e) => e.name),
+            ...LentFilter.values.map((e) => e.name)
           ];
     return ListView.separated(
       scrollDirection: Axis.horizontal,
@@ -46,11 +44,13 @@ class AlbumListFilter extends StatelessWidget {
           } else {
             if (selected) {
               newLentFilter.add(
-                  LentFilter.values[index - MediaTypeFilter.values.length]);
+                LentFilter.values[index - MediaTypeFilter.values.length],
+              );
             } else {
               if (newLentFilter.length == 1) return;
               newLentFilter.remove(
-                  LentFilter.values[index - MediaTypeFilter.values.length]);
+                LentFilter.values[index - MediaTypeFilter.values.length],
+              );
             }
           }
           wishlist

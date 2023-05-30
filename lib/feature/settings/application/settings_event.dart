@@ -13,12 +13,18 @@ class SettingsChangeColorEvent extends SettingsEvent {
   final void Function(String message) callback;
   final Color newColor;
 
-  const SettingsChangeColorEvent(this.callback, this.newColor);
+  const SettingsChangeColorEvent(
+    this.callback,
+    this.newColor,
+  );
 }
 
 class SettingsChangeNotificationsEvent extends SettingsEvent {
   final void Function(String message) callback;
   final bool change;
 
-  const SettingsChangeNotificationsEvent(this.callback, this.change);
+  const SettingsChangeNotificationsEvent(
+    this.callback,
+    this.change,
+  );
 }

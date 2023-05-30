@@ -11,7 +11,10 @@ import 'package:music_collection/feature/details/application/detail_bloc.dart';
 class DetailOptionsRow extends StatelessWidget {
   final Album album;
 
-  const DetailOptionsRow({super.key, required this.album});
+  const DetailOptionsRow({
+    super.key,
+    required this.album,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,12 @@ class DetailOptionsRow extends StatelessWidget {
             : FilledButton(
                 onPressed: () => album.isLent()
                     ? showGotBackDialog(context)
-                    : showLendDialog(context),
+                    : showLendDialog(
+                        context,
+                        (String text) => context
+                            .read<DetailBloc>()
+                            .add(DetailLendEvent(text)),
+                      ),
                 child: Text(
                   album.isLent() ? 'giveBack'.tr() : 'lend'.tr(),
                 ),

@@ -52,6 +52,9 @@ Future<void> main() async {
     path: 'assets/translations',
     fallbackLocale: const Locale('de', 'DE'),
     useOnlyLangCode: true,
-    child: AppWidget(palette: palette, prefColor: prefColor),
+    child: AppWidget(
+      palette: palette,
+      prefColor: prefColor,
+    ),
   ));
 }
