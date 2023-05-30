@@ -42,6 +42,7 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
           if (releaseInitial.results.isEmpty) {
             emit(ScannerLoadedState(state.controller));
           } else {
+            state.controller.clear();
             emit(ScannerResultState(
               releaseInitial.results,
               releaseInitial.pages,

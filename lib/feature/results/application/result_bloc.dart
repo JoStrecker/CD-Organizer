@@ -34,13 +34,13 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
         List<Album> albums = await albumFacade.getAllAlbums(null);
 
         emit(ResultLoadedState(
-          event.result
+          releases: event.result
             ..removeWhere(
               (release) => albums.any((album) => album.id == release.id),
             ),
-          event.query,
-          controller,
-          1,
+          controller: controller,
+          page: 1,
+          query: event.query,
         ));
       } catch (e) {
         if (e is MusicCollectionError) {
@@ -54,20 +54,23 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       var state = this.state;
 
       if (state is ResultLoadedState) {
-        try {
-          List<Album> albums = await albumFacade.getAllAlbums(null);
-          List<Release> newReleases = (await musicApiFacade.searchByQuery(
-              query: state.query, page: state.page + 1)).results;
-          newReleases.removeWhere(
-            (release) => albums.any((album) => album.id == release.id),
-          );
+        if(state.query != '') {
+          try {
+            List<Album> albums = await albumFacade.getAllAlbums(null);
+            List<Release> newReleases = (await musicApiFacade.searchByQuery(
+                    query: state.query, page: state.page + 1))
+                .results;
+            newReleases.removeWhere(
+              (release) => albums.any((album) => album.id == release.id),
+            );
 
-          emit(state.copyWith(
-            releases: state.releases..addAll(newReleases),
-            page: state.page + 1,
-          ));
-        } catch (e) {
-          emit(state);
+            emit(state.copyWith(
+              releases: state.releases..addAll(newReleases),
+              page: state.page + 1,
+            ));
+          } catch (e) {
+            emit(state);
+          }
         }
       }
     });

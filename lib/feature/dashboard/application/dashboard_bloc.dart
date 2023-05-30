@@ -35,11 +35,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           DateTime lastDate = DateTime.now().add(
             const Duration(days: 14),
           );
-          List<Album> updateableAlbums = albums
-              .where(
+          List<Album> updateableAlbums = albums.where(
                 (album) => album.lastUpdated.isAfter(lastDate),
-              )
-              .toList();
+              ).toList();
 
           try {
             List<Album> updatedAlbums = List.empty(growable: true);

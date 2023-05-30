@@ -19,12 +19,12 @@ class ResultLoadedState extends ResultState {
   final ScrollController controller;
   final int page;
 
-  const ResultLoadedState(
-    this.releases,
-    this.query,
-    this.controller,
-    this.page,
-  );
+  const ResultLoadedState({
+    required this.releases,
+    required this.controller,
+    required this.page,
+    required this.query,
+  });
 
   ResultLoadedState copyWith({
     List<Release>? releases,
@@ -33,10 +33,10 @@ class ResultLoadedState extends ResultState {
     int? page,
   }) {
     return ResultLoadedState(
-      releases ?? this.releases,
-      query ?? this.query,
-      controller ?? this.controller,
-      page ?? this.page,
+      releases: releases ?? this.releases,
+      controller: controller ?? this.controller,
+      page: page ?? this.page,
+      query: query ?? this.query,
     );
   }
 }
