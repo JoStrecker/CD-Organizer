@@ -33,6 +33,7 @@ class ResultItem extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   left: 4,
                   top: 8,
+                  bottom: 8
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -40,8 +41,8 @@ class ResultItem extends StatelessWidget {
                     constraints: BoxConstraints(
                       minWidth: 96,
                       minHeight: 96,
-                      maxWidth: (MediaQuery.of(context).size.width/4 > 152) ? 152 : MediaQuery.of(context).size.width/4,
-                      maxHeight: (MediaQuery.of(context).size.width/4 > 152) ? 152 : MediaQuery.of(context).size.width/4,
+                      maxWidth: (MediaQuery.sizeOf(context).width/4 > 152) ? 152 : MediaQuery.sizeOf(context).width/4,
+                      maxHeight: (MediaQuery.sizeOf(context).width/4 > 152) ? 152 : MediaQuery.sizeOf(context).width/4,
                     ),
                     child: release.getThumbnail(
                         tint: Theme.of(context).colorScheme.onTertiaryContainer),

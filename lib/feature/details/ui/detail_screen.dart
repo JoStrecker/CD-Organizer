@@ -52,7 +52,7 @@ class DetailScreen extends StatelessWidget {
     if(orientation == Orientation.portrait){
       return true;
     }else{
-      if(MediaQuery.of(ctx).size.width < 750){
+      if(MediaQuery.sizeOf(ctx).width < 750){
         return true;
       }else{
         return false;

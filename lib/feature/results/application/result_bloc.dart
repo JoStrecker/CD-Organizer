@@ -54,7 +54,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       var state = this.state;
 
       if (state is ResultLoadedState) {
-        if(state.query != '') {
+        if(state.query.isNotEmpty) {
           try {
             List<Album> albums = await albumFacade.getAllAlbums(null);
             List<Release> newReleases = (await musicApiFacade.searchByQuery(

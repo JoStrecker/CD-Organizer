@@ -61,6 +61,26 @@ class Release extends Equatable {
   }
 
   Widget getThumbnail({Color? tint}) {
+    // can't be used due to CORS policy
+    // return Image.network(
+    //   thumbnail.toString(),
+    //   frameBuilder: (context, child, frame, wasSynchronouslyLoaded) => child,
+    //   loadingBuilder: (context, child, loadingProgress) => Stack(
+    //     children: [
+    //       child,
+    //       Center(
+    //         child: CircularProgressIndicator(
+    //           value: (loadingProgress?.expectedTotalBytes ?? 1) /
+    //               (loadingProgress?.cumulativeBytesLoaded ?? 1),
+    //         ),
+    //       )
+    //     ],
+    //   ),
+    //   errorBuilder: (context, child, stackTrace) => SvgPicture.asset(
+    //     Assets.imagesNoImage,
+    //     colorFilter: ColorFilter.mode(tint ?? Colors.black, BlendMode.srcIn),
+    //   ),
+    // );
     return ImageNetwork(
       image: thumbnail.toString(),
       onLoading: const CircularProgressIndicator(),
