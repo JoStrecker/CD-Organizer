@@ -32,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: const Text('sendNotifications').tr(),
+                        child: const Text('send_notifications').tr(),
                       ),
                       Switch(
                         value: state.sendNotifications,

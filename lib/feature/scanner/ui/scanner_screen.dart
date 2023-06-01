@@ -33,7 +33,7 @@ class ScannerScreen extends StatelessWidget {
             if (state is ScannerLoadedState) {
               return Column(
                 children: [
-                  BackBar(ctx: context, text: 'addAlbum'.tr()),
+                  BackBar(ctx: context, text: 'add_album'.tr()),
                   const SizedBox(
                     height: 8,
                   ),
@@ -44,7 +44,7 @@ class ScannerScreen extends StatelessWidget {
                   Expanded(
                     child: EmptyScreen(
                       child: const Text(
-                        'trySearching',
+                        'try_searching',
                         textAlign: TextAlign.center,
                       ).tr(),
                     ),
@@ -56,7 +56,7 @@ class ScannerScreen extends StatelessWidget {
             } else if (state is ScannerResultState) {
               return Column(
                 children: [
-                  BackBar(ctx: context, text: 'addAlbum'.tr()),
+                  BackBar(ctx: context, text: 'add_album'.tr()),
                   const SizedBox(
                     height: 8,
                   ),
@@ -77,7 +77,7 @@ class ScannerScreen extends StatelessWidget {
             } else if (state is ScannerErrorState) {
               return Column(
                 children: [
-                  BackBar(ctx: context, text: 'addAlbum'.tr()),
+                  BackBar(ctx: context, text: 'add_album'.tr()),
                   const SizedBox(
                     height: 8,
                   ),

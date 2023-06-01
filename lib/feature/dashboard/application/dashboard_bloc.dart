@@ -51,29 +51,18 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
               (album) => album.lastUpdated.isAfter(lastDate),
             );
             albums.addAll(updatedAlbums);
+          } catch(e){}
 
-            albums.sort((a, b) => a.title.compareTo(b.title));
+          albums.sort((a, b) => a.title.compareTo(b.title));
 
-            emit(DashboardLoadedState(
-              albums,
-              null,
-              const {...MediaTypeFilter.values},
-              const {...LentFilter.values},
-              controller,
-              true,
-            ));
-          } catch (e) {
-            albums.sort((a, b) => a.title.compareTo(b.title));
-
-            emit(DashboardLoadedState(
-              albums,
-              null,
-              const {...MediaTypeFilter.values},
-              const {...LentFilter.values},
-              controller,
-              true,
-            ));
-          }
+          emit(DashboardLoadedState(
+            albums,
+            null,
+            const {...MediaTypeFilter.values},
+            const {...LentFilter.values},
+            controller,
+            true,
+          ));
         }
       } catch (e) {
         if (e is MusicCollectionError) {

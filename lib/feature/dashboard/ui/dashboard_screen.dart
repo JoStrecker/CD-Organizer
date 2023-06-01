@@ -82,7 +82,7 @@ class DashboardScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const Text(
-                    'tryAddingFirst',
+                    'try_adding_first',
                     textAlign: TextAlign.center,
                   ).tr(),
                   const SizedBox(
@@ -98,7 +98,7 @@ class DashboardScreen extends StatelessWidget {
                             ),
                           ),
                       child: const Text(
-                        'addFirstAlbum',
+                        'add_first_album',
                         textAlign: TextAlign.center,
                       ).tr()),
                 ],
@@ -107,6 +107,9 @@ class DashboardScreen extends StatelessWidget {
           } else if (state is DashboardErrorState) {
             return ErrorScreen(
               message: state.errorMessage,
+              buttonFunction: () => context
+                  .read<DashboardBloc>()
+                  .add(const DashboardRefreshEvent(true)),
             );
           } else {
             return Container();

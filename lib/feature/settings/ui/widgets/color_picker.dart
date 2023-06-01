@@ -20,7 +20,7 @@ class ColorPicker extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: const Text('prefColor').tr(),
+              child: const Text('pref_color').tr(),
             ),
             FilledButton(
               onPressed: () => showColorDialog(

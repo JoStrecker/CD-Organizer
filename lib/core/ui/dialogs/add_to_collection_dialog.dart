@@ -11,8 +11,8 @@ Future showAddToCollectionDialog(
     context: context,
     builder: (ctx) {
       return AlertDialog(
-        title: const Text('addToCollection').tr(),
-        content: const Text('addCollectionDialog').tr(),
+        title: const Text('add_to_collection').tr(),
+        content: const Text('add_collection_dialog').tr(),
         actions: [
           OutlinedButton(
             onPressed: () => Navigator.pop(ctx, 'cancel'),

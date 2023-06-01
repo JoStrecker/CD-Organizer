@@ -48,7 +48,12 @@ class ResultScreen extends StatelessWidget {
                             wishlist: wishlist,
                           )
                         : state.page < pageCount
-                            ? const Center(child: CircularProgressIndicator())
+                            ? const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
                             : const SizedBox(
                                 height: 8,
                               ),

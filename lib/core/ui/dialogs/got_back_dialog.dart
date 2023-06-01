@@ -10,8 +10,8 @@ Future showGotBackDialog(
     context: context,
     builder: (ctx) {
       return AlertDialog(
-        title: const Text('giveBack').tr(),
-        content: const Text('gotBackDialog').tr(),
+        title: const Text('give_back').tr(),
+        content: const Text('got_back_dialog').tr(),
         actions: [
           OutlinedButton(
             onPressed: () => Navigator.pop(ctx, 'cancel'),

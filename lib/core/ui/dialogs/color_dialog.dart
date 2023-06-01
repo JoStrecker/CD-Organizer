@@ -12,7 +12,7 @@ Future showColorDialog(
   return showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
-      title: const Text('pickColor').tr(),
+      title: const Text('pick_color').tr(),
       content: SingleChildScrollView(
         child: BlockPicker(
           pickerColor: color,
@@ -21,7 +21,7 @@ Future showColorDialog(
       ),
       actions: <Widget>[
         ElevatedButton(
-          child: const Text('gotIt').tr(),
+          child: const Text('got_it').tr(),
           onPressed: () {
             selectCallback(newColor);
             Navigator.pop(ctx);

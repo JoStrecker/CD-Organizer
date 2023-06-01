@@ -11,7 +11,7 @@ Future showDeleteDialog(
     context: context,
     builder: (ctx) => AlertDialog(
       title: const Text('delete').tr(),
-      content: const Text('wantToDelete').tr(),
+      content: const Text('want_to_delete').tr(),
       actions: [
         OutlinedButton(
           onPressed: () => Navigator.pop(ctx, 'cancel'),

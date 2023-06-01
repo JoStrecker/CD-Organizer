@@ -82,7 +82,7 @@ class WishlistScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const Text(
-                    'tryAddingFirst',
+                    'try_adding_first',
                     textAlign: TextAlign.center,
                   ).tr(),
                   const SizedBox(
@@ -98,7 +98,7 @@ class WishlistScreen extends StatelessWidget {
                           ),
                         ),
                     child: const Text(
-                      'addFirstAlbum',
+                      'add_first_album',
                       textAlign: TextAlign.center,
                     ).tr(),
                   ),
@@ -108,6 +108,9 @@ class WishlistScreen extends StatelessWidget {
           } else if (state is WishlistErrorState) {
             return ErrorScreen(
               message: state.errorMessage,
+              buttonFunction: () => context
+                  .read<WishlistBloc>()
+                  .add(const WishlistRefreshEvent(true)),
             );
           } else {
             return Container();

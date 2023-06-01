@@ -15,7 +15,7 @@ class DetailLendingRow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Text(
-        '${'lendedTo'.tr()}${album.lendee} (${'since'.tr()}${album.lended!.toLocal().day}.${album.lended!.toLocal().month}.${album.lended!.toLocal().year})',
+        '${'lent_to'.tr()}${album.lendee} (${'since'.tr()}${album.lended!.toLocal().day}.${album.lended!.toLocal().month}.${album.lended!.toLocal().year})',
         style: Theme.of(context)
             .textTheme
             .bodyMedium

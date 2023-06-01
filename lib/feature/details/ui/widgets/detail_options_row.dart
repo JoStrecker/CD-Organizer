@@ -36,7 +36,7 @@ class DetailOptionsRow extends StatelessWidget {
         album.wishlist
             ? FilledButton(
                 onPressed: () => showAddToCollectionDialog(context),
-                child: const Text('addToCollection').tr())
+                child: const Text('add_to_collection').tr())
             : FilledButton(
                 onPressed: () => album.isLent()
                     ? showGotBackDialog(context)
@@ -47,7 +47,7 @@ class DetailOptionsRow extends StatelessWidget {
                             .add(DetailLendEvent(text)),
                       ),
                 child: Text(
-                  album.isLent() ? 'giveBack'.tr() : 'lend'.tr(),
+                  album.isLent() ? 'give_back'.tr() : 'lend'.tr(),
                 ),
               ),
       ],

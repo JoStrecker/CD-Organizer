@@ -12,10 +12,14 @@ class DioDiscogsFacade extends IMusicAPIFacade {
   Future<ReleaseInitial> searchByQuery({
     required String query,
     int page = 1,
+    int perPage = 30,
   }) async {
+    if (perPage > 100) {
+      perPage = 100;
+    }
     try {
       Response response = await Dio().get(
-        '$musicRootURL/database/search?query=${query.replaceAll(' ', '%20')}&type=release&per_page=100&page=$page',
+        '$musicRootURL/database/search?query=${query.replaceAll(' ', '%20')}&type=release&per_page=$perPage&page=$page',
         options: Options(
           headers: {
             'Authorization':
@@ -40,7 +44,7 @@ class DioDiscogsFacade extends IMusicAPIFacade {
   }) async {
     try {
       Response response = await Dio().get(
-        '$musicRootURL/database/search?barcode=$barcode&type=release',
+        '$musicRootURL/database/search?barcode=$barcode&type=release&per_page=100',
         options: Options(
           headers: {
             'Authorization':

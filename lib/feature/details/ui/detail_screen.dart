@@ -38,6 +38,8 @@ class DetailScreen extends StatelessWidget {
             } else if (state is DetailErrorState) {
               return ErrorScreen(
                 message: state.message,
+                buttonFunction: () =>
+                    context.read<DetailBloc>().add(DetailLoadEvent(id)),
               );
             } else {
               return Container();
@@ -48,13 +50,13 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  bool _isPortrait(Orientation orientation, BuildContext ctx){
-    if(orientation == Orientation.portrait){
+  bool _isPortrait(Orientation orientation, BuildContext ctx) {
+    if (orientation == Orientation.portrait) {
       return true;
-    }else{
-      if(MediaQuery.sizeOf(ctx).width < 750){
+    } else {
+      if (MediaQuery.sizeOf(ctx).width < 750) {
         return true;
-      }else{
+      } else {
         return false;
       }
     }

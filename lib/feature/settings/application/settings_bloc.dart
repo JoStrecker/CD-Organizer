@@ -56,7 +56,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
               Restart.restartApp();
             }else if (Platform.isIOS) {
               //iOS does not allow app restarting
-              event.callback('restartApp'.tr());
+              event.callback('restart_app'.tr());
             } else {
               //restart app to load new color as theme
               Restart.restartApp();
