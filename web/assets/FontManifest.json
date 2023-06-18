@@ -8,6 +8,14 @@
     ]
   },
   {
+    "family": "IBM Plex Mono",
+    "fonts": [
+      {
+        "asset": "fonts/IBMPlexMono-Regular.ttf"
+      }
+    ]
+  },
+  {
     "family": "MaterialIcons",
     "fonts": [
       {

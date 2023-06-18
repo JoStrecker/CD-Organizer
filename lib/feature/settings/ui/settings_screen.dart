@@ -7,6 +7,7 @@ import 'package:music_collection/feature/loading/ui/loading_screen.dart';
 import 'package:music_collection/feature/settings/application/settings_bloc.dart';
 import 'package:music_collection/feature/settings/ui/widgets/color_picker.dart';
 import 'package:music_collection/injection_container.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -20,17 +21,14 @@ class SettingsScreen extends StatelessWidget {
           if (state is SettingsLoadedState) {
             return Padding(
               padding: const EdgeInsets.only(
-                top: 16,
-                left: 16,
-                right: 16,
-              ),
+                  top: 32, left: 16, right: 16, bottom: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   state.usesMaterialYou
                       ? Container()
                       : ColorPicker(color: state.color),
-                  if(!kIsWeb)
+                  if (!kIsWeb)
                     Row(
                       children: [
                         Expanded(
@@ -38,18 +36,45 @@ class SettingsScreen extends StatelessWidget {
                         ),
                         Switch(
                           value: state.sendNotifications,
-                          onChanged: (change) => context.read<SettingsBloc>().add(
-                                SettingsChangeNotificationsEvent(
-                                  (message) => showSnackBar(
-                                    message,
-                                    context,
+                          onChanged: (change) =>
+                              context.read<SettingsBloc>().add(
+                                    SettingsChangeNotificationsEvent(
+                                      (message) => showSnackBar(
+                                        message,
+                                        context,
+                                      ),
+                                      change,
+                                    ),
                                   ),
-                                  change,
-                                ),
-                              ),
                         ),
                       ],
                     ),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  const Center(
+                    child: Text(
+                      '©2023 Johannes Strecker',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'IBM Plex Mono',
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Center(
+                    child: InkWell(
+                      child: const Text(
+                        'Data provided by discogs.com',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'IBM Plex Mono',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () => launchUrlString('https://www.discogs.com/developers'),
+                    ),
+                  ),
                 ],
               ),
             );

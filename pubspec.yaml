@@ -63,3 +63,6 @@ flutter:
     - family: Sora
       fonts:
         - asset: fonts/Sora-VariableFont_wght.ttf
+    - family: IBM Plex Mono
+      fonts:
+        - asset: fonts/IBMPlexMono-Regular.ttf
