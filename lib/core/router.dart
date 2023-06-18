@@ -6,7 +6,6 @@ import 'package:music_collection/feature/framework/ui/framework.dart';
 import 'package:music_collection/feature/scanner/ui/barcode_scanner.dart';
 import 'package:music_collection/feature/scanner/ui/scanner_screen.dart';
 import 'package:music_collection/feature/settings/ui/settings_screen.dart';
-import 'package:music_collection/feature/splash/ui/splash_screen.dart';
 import 'package:music_collection/feature/wishlist/ui/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -124,15 +123,6 @@ class CDOrganizerRouter {
               ),
             ),
           ],
-        ),
-        GoRoute(
-          name: RouteInfo.splash.name,
-          path: RouteInfo.splash.route,
-          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
-            state: state,
-            context: context,
-            child: const SplashScreen(),
-          ),
         ),
       ],
       errorPageBuilder: (context, state) => MaterialPage<void>(

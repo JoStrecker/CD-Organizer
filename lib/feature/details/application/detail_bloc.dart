@@ -5,6 +5,8 @@ import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
 import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
+import 'package:music_collection/feature/notifications/application/util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'detail_event.dart';
 
@@ -65,6 +67,20 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
           Album newAlbum =
               await albumFacade.getAlbum(state.album.id) ?? state.album;
 
+          //schedule Notification
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          bool granted = prefs.getBool('sendNotifications') ?? false;
+
+          if (granted) {
+            DateTime now = DateTime.now();
+            showNotificationWithActions(
+              title: 'Return Album',
+              text:
+                  '${state.album.title} has been loaned to ${event.lendee} since ${now.day}.${now.month}.${now.year}.',
+              id: int.parse(state.album.id),
+            );
+          }
+
           emit(state.copyWith(album: newAlbum));
         } catch (e) {
           emit(state);
@@ -82,6 +98,8 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
           await albumFacade.gotBackAlbum(state.album);
           Album newAlbum =
               await albumFacade.getAlbum(state.album.id) ?? state.album;
+
+          cancelNotification(int.parse(state.album.id));
 
           emit(state.copyWith(album: newAlbum));
         } catch (e) {

@@ -119,12 +119,6 @@ class RouteInfo {
     icon: Icons.qr_code_scanner,
   );
 
-  static RouteInfo splash = RouteInfo._(
-    route: '/splash',
-    name: 'splash',
-    icon: Icons.supervised_user_circle_rounded,
-  );
-
   static RouteInfo error = RouteInfo._(
     route: '/report',
     name: 'report',

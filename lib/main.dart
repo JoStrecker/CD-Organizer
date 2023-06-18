@@ -1,17 +1,40 @@
+import 'dart:async';
+
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
+import 'package:music_collection/core/application/global_vars.dart';
 import 'package:music_collection/core/ui/app_widget.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/albums/domain/track.dart';
+import 'package:music_collection/feature/notifications/domain/received_notification.dart';
 import 'package:music_collection/injection_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
-import 'firebase_options.dart';
+//Notification Setup
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+final StreamController<ReceivedNotification> didReceiveLocalNotificationStream =
+    StreamController<ReceivedNotification>.broadcast();
+
+final StreamController<String?> selectNotificationStream =
+    StreamController<String?>.broadcast();
+
+const MethodChannel platform = MethodChannel(notificationChannelId);
+
+const String portName = 'notification_send_port';
+
+const String darwinNotificationCategoryPlain = 'plainCategory';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,10 +50,41 @@ Future<void> main() async {
   Hive.registerAdapter(AlbumAdapter());
   Hive.registerAdapter(TrackAdapter());
 
-  //Initialize Firebase Auth and Cloud Store
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  //Initialize Notifications
+  await _configureLocalTimeZone();
+
+  await flutterLocalNotificationsPlugin.initialize(
+    InitializationSettings(
+      android: const AndroidInitializationSettings('ic_launcher_monochrome'),
+      iOS: DarwinInitializationSettings(
+        onDidReceiveLocalNotification:
+            (int id, String? title, String? body, String? payload) async {
+          didReceiveLocalNotificationStream.add(
+            ReceivedNotification(
+              id: id,
+              title: title,
+              body: body,
+              payload: payload,
+            ),
+          );
+        },
+        notificationCategories: [
+          const DarwinNotificationCategory(
+            darwinNotificationCategoryPlain,
+            actions: <DarwinNotificationAction>[],
+            options: <DarwinNotificationCategoryOption>{
+              DarwinNotificationCategoryOption.hiddenPreviewShowTitle,
+            },
+          ),
+        ],
+      ),
+    ),
   );
+
+  //Initialize Firebase Auth and Cloud Store (currently unused)
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   //Get Color Palette on Android >12 for a Dynamic Color Scheme
   CorePalette? palette = await DynamicColorPlugin.getCorePalette();
@@ -57,4 +111,13 @@ Future<void> main() async {
       prefColor: prefColor,
     ),
   ));
+}
+
+Future<void> _configureLocalTimeZone() async {
+  if (kIsWeb) {
+    return;
+  }
+  tz.initializeTimeZones();
+  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
 }

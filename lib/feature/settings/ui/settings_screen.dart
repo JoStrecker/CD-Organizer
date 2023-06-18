@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/ui/snack_bars.dart';
@@ -29,25 +30,26 @@ class SettingsScreen extends StatelessWidget {
                   state.usesMaterialYou
                       ? Container()
                       : ColorPicker(color: state.color),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: const Text('send_notifications').tr(),
-                      ),
-                      Switch(
-                        value: state.sendNotifications,
-                        onChanged: (change) => context.read<SettingsBloc>().add(
-                              SettingsChangeNotificationsEvent(
-                                (message) => showSnackBar(
-                                  message,
-                                  context,
+                  if(!kIsWeb)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: const Text('send_notifications').tr(),
+                        ),
+                        Switch(
+                          value: state.sendNotifications,
+                          onChanged: (change) => context.read<SettingsBloc>().add(
+                                SettingsChangeNotificationsEvent(
+                                  (message) => showSnackBar(
+                                    message,
+                                    context,
+                                  ),
+                                  change,
                                 ),
-                                change,
                               ),
-                            ),
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             );

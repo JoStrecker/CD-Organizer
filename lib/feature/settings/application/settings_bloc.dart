@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:music_collection/feature/notifications/application/util.dart';
 
 part 'settings_event.dart';
 
@@ -51,10 +52,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
               sendNotifications: state.sendNotifications,
             ));
 
-            if(kIsWeb){
+            if (kIsWeb) {
               //restart app to load new color as theme
               Restart.restartApp();
-            }else if (Platform.isIOS) {
+            } else if (Platform.isIOS) {
               //iOS does not allow app restarting
               event.callback('restart_app'.tr());
             } else {
@@ -78,16 +79,27 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
       if (state is SettingsLoadedState) {
         try {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setBool('sendNotifications', event.change);
+          bool granted = true;
+          if (event.change) {
+            granted = (await requestNotificationPermissions()) ?? false;
+          }
 
-          emit(SettingsLoadedState(
-            color: state.color,
-            usesMaterialYou: state.usesMaterialYou,
-            sendNotifications: event.change,
-          ));
+          if (granted) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setBool('sendNotifications', event.change);
 
-          event.callback('saved'.tr());
+            emit(SettingsLoadedState(
+              color: state.color,
+              usesMaterialYou: state.usesMaterialYou,
+              sendNotifications: event.change,
+            ));
+
+            event.callback('saved'.tr());
+          } else {
+            emit(state);
+
+            event.callback('error'.tr());
+          }
         } catch (e) {
           emit(state);
 

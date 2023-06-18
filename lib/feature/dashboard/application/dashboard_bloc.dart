@@ -231,7 +231,6 @@ List<Album> filterAlbums(
   Set<MediaTypeFilter> filter,
   Set<LentFilter> lentFilter,
 ) {
-  albums.sort((a, b) => a.title.compareTo(b.title));
   albums = albums
       .where((album) => filter.any((filter) =>
           album.type.toLowerCase().contains(filter.name) ||
@@ -259,6 +258,8 @@ List<Album> filterAlbums(
           )
           .toList()
       : albums;
+
+  albums.sort((a, b) => a.title.compareTo(b.title));
   return albums;
 }
 

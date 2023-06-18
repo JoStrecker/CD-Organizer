@@ -31,7 +31,7 @@ class DioDiscogsFacade extends IMusicAPIFacade {
 
       return ReleaseInitial.fromJson(dioResponseHandler(response));
     } catch (e) {
-      if (e is DioError && e.response != null) {
+      if (e is DioException && e.response != null) {
         dioResponseHandler(e.response!);
       }
       throw UnknownServerError();
@@ -56,7 +56,7 @@ class DioDiscogsFacade extends IMusicAPIFacade {
 
       return ReleaseInitial.fromJson(dioResponseHandler(response));
     } catch (e) {
-      if (e is DioError && e.response != null) {
+      if (e is DioException && e.response != null) {
         dioResponseHandler(e.response!);
       }
       throw UnknownServerError();
@@ -81,7 +81,7 @@ class DioDiscogsFacade extends IMusicAPIFacade {
 
       return Album.fromJson(dioResponseHandler(response));
     } catch (e) {
-      if (e is DioError && e.response != null) {
+      if (e is DioException && e.response != null) {
         dioResponseHandler(e.response!);
       }
       throw UnknownServerError();
@@ -106,7 +106,7 @@ class DioDiscogsFacade extends IMusicAPIFacade {
 
       return dioResponseHandler(response)['lowest_price'];
     } catch (e) {
-      if (e is DioError && e.response != null) {
+      if (e is DioException && e.response != null) {
         dioResponseHandler(e.response!);
       }
       throw UnknownServerError();

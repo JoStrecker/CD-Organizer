@@ -21,7 +21,7 @@
   "count": "Amount: ",
   "worth": "Worth: ",
   "lent": "Lent",
-  "not_lent": "Not Lent",
+  "notLent": "Not Lent",
   "other": "Other",
   "wishlist": "Wishlist",
   "add_first_album": "Add First Album",
