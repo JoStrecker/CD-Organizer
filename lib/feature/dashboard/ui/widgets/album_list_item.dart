@@ -103,15 +103,6 @@ class AlbumListItem extends StatelessWidget {
                         children: [
                           Expanded(
                             child: ContainerTextElement(
-                              text: album.year ?? 'unknown'.tr(),
-                              icon: Icons.access_time,
-                              textColor: Theme.of(context)
-                                  .colorScheme
-                                  .onTertiaryContainer,
-                            ),
-                          ),
-                          Expanded(
-                            child: ContainerTextElement(
                               text: album.type,
                               icon: Icons.album,
                               textColor: Theme.of(context)
@@ -119,18 +110,42 @@ class AlbumListItem extends StatelessWidget {
                                   .onTertiaryContainer,
                             ),
                           ),
-                        ],
-                      ),
-                      album.isLent()
-                          ? ContainerTextElement(
-                              text:
-                                  '${album.lendee} (${album.lended!.toLocal().day}.${album.lended!.toLocal().month}.${album.lended!.toLocal().year})',
-                              icon: Icons.handshake,
+                          Expanded(
+                            child: ContainerTextElement(
+                              text: album.worth?.toStringAsFixed(2) ??
+                                  'unknown'.tr(),
+                              icon: Icons.euro,
                               textColor: Theme.of(context)
                                   .colorScheme
                                   .onTertiaryContainer,
-                            )
-                          : Container(),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          if (album.location != null)
+                            Expanded(
+                              child: ContainerTextElement(
+                                text: album.location!,
+                                icon: Icons.place,
+                                textColor: Theme.of(context)
+                                    .colorScheme
+                                    .onTertiaryContainer,
+                              ),
+                            ),
+                          if (album.isLent())
+                            Expanded(
+                              child: ContainerTextElement(
+                                text: album.lendee!,
+                                icon: Icons.handshake,
+                                textColor: Theme.of(context)
+                                    .colorScheme
+                                    .onTertiaryContainer,
+                              ),
+                            ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

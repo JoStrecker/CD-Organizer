@@ -21,6 +21,12 @@ class DetailLendEvent extends DetailEvent{
   const DetailLendEvent(this.lendee);
 }
 
+class DetailChangeLocationEvent extends DetailEvent{
+  final String newLocation;
+
+  const DetailChangeLocationEvent(this.newLocation);
+}
+
 class DetailGotBackEvent extends DetailEvent{
   const DetailGotBackEvent();
 }

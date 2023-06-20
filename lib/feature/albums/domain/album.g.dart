@@ -33,13 +33,14 @@ class AlbumAdapter extends TypeAdapter<Album> {
       worth: fields[13] as double?,
       coverArtUri: fields[14] as String?,
       lastUpdated: fields[15] as DateTime,
+      location: fields[16] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Album obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -71,7 +72,9 @@ class AlbumAdapter extends TypeAdapter<Album> {
       ..writeByte(14)
       ..write(obj.coverArtUri)
       ..writeByte(15)
-      ..write(obj.lastUpdated);
+      ..write(obj.lastUpdated)
+      ..writeByte(16)
+      ..write(obj.location);
   }
 
   @override

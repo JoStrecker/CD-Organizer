@@ -108,6 +108,28 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       }
     });
 
+    on<DetailChangeLocationEvent>((event, emit) async {
+      DetailState state = this.state;
+
+      if (state is DetailLoadedState) {
+        emit(const DetailLoadingState());
+
+        try {
+          await albumFacade.updateAlbum(
+            state.album,
+            state.album.copyWith(location: event.newLocation),
+          );
+
+          Album newAlbum =
+              await albumFacade.getAlbum(state.album.id) ?? state.album;
+
+          emit(state.copyWith(album: newAlbum));
+        } catch (e) {
+          emit(state);
+        }
+      }
+    });
+
     on<DetailAddCollectionEvent>((event, emit) async {
       DetailState state = this.state;
 

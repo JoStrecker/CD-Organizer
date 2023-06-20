@@ -8,6 +8,7 @@
   "lend": "Verleihen",
   "scan": "Scannen",
   "cancel": "Abbrechen",
+  "save": "Speichern",
   "want_to_delete": "Bist du dir sicher, dass du dieses Album löschen willst?",
   "yes": "Ja",
   "all": "Alles",
@@ -44,5 +45,8 @@
   "toggle_flash": "Licht umschalten",
   "switch_camera": "Kamera wechseln",
   "reload": "neu Laden",
-  "data_provider": "Daten von discogs.com bereitgestellt"
+  "data_provider": "Daten von discogs.com bereitgestellt",
+  "location": "Lagerort",
+  "add_location": "Lagerort hinzufügen",
+  "change_location": "Lagerort ändern"
 }

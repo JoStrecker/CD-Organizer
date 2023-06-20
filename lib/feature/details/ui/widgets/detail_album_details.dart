@@ -76,6 +76,12 @@ class DetailAlbumDetails extends StatelessWidget {
                   ),
                 ],
               ),
+              if(album.location != null)
+                ContainerTextElement(
+                  text: album.location!,
+                  icon: Icons.place,
+                  textColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
             ],
           ),
         ),

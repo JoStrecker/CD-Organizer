@@ -58,6 +58,9 @@ class Album {
   @HiveField(15)
   DateTime lastUpdated;
 
+  @HiveField(16)
+  String? location;
+
   Album({
     required this.id,
     required this.title,
@@ -75,6 +78,7 @@ class Album {
     this.worth,
     this.coverArtUri,
     required this.lastUpdated,
+    this.location,
   });
 
   static Album fromJson(Map<String, dynamic> json) {
@@ -123,6 +127,7 @@ class Album {
     double? worth,
     String? coverArtUri,
     DateTime? lastUpdated,
+    String? location,
   }) {
     return Album(
       id: id ?? this.id,
@@ -141,6 +146,7 @@ class Album {
       worth: worth ?? this.worth,
       coverArtUri: coverArtUri ?? this.coverArtUri,
       lastUpdated: lastUpdated ?? this.lastUpdated,
+      location: location ?? this.location,
     );
   }
 
