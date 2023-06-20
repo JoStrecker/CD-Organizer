@@ -7,10 +7,11 @@ class Copyright extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Center(
-          child: Text(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
             '©2023 Johannes Strecker',
             style: TextStyle(
               fontSize: 12,
@@ -18,21 +19,19 @@ class Copyright extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-        ),
-        Center(
-          child: InkWell(
-            child: const Text(
-              'data_provider',
-              style: TextStyle(
+          InkWell(
+            child: Text(
+              'data_provider'.tr(),
+              style: const TextStyle(
                 fontSize: 12,
                 fontFamily: 'IBM Plex Mono',
               ),
               textAlign: TextAlign.center,
-            ).tr(),
+            ),
             onTap: () => launchUrlString('https://www.discogs.com/developers'),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
