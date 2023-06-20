@@ -43,5 +43,6 @@
   "scan_code": "Scan Barcode",
   "toggle_flash": "Toggle Flash",
   "switch_camera": "Switch Camera",
-  "reload": "Refresh"
+  "reload": "Refresh",
+  "data_provider": "Data provided by discogs.com"
 }

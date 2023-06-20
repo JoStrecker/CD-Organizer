@@ -43,5 +43,6 @@
   "scan_code": "Barcode scannen",
   "toggle_flash": "Licht umschalten",
   "switch_camera": "Kamera wechseln",
-  "reload": "neu Laden"
+  "reload": "neu Laden",
+  "data_provider": "Daten von discogs.com bereitgestellt"
 }
