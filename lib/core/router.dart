@@ -62,7 +62,9 @@ class CDOrganizerRouter {
                           buildPageWithDefaultTransition<void>(
                         context: context,
                         state: state,
-                        child: BarcodeScanner(barcodeDetect: state.extra as void Function(String?)),
+                        child: BarcodeScanner(
+                            barcodeDetect:
+                                state.extra as void Function(String?)),
                       ),
                     ),
                   ],
@@ -103,10 +105,12 @@ class CDOrganizerRouter {
                       path: RouteInfo.wishBarcodeReader.route,
                       pageBuilder: (context, state) =>
                           buildPageWithDefaultTransition<void>(
-                            context: context,
-                            state: state,
-                            child: BarcodeScanner(barcodeDetect: state.extra as void Function(String?)),
-                          ),
+                        context: context,
+                        state: state,
+                        child: BarcodeScanner(
+                            barcodeDetect:
+                                state.extra as void Function(String?)),
+                      ),
                     ),
                   ],
                 ),

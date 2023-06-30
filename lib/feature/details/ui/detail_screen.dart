@@ -23,28 +23,30 @@ class DetailScreen extends StatelessWidget {
         context.pop(true);
         return false;
       },
-      child: BlocProvider<DetailBloc>(
-        create: (context) => sl<DetailBloc>()..add(DetailLoadEvent(id)),
-        child: BlocBuilder<DetailBloc, DetailState>(
-          builder: (context, state) {
-            if (state is DetailLoadedState) {
-              return OrientationBuilder(builder: (context, orientation) {
-                return _isPortrait(orientation, context)
-                    ? DetailLoadedScreen(album: state.album)
-                    : DetailLoadedScreenLandscape(album: state.album);
-              });
-            } else if (state is DetailLoadingState) {
-              return const LoadingScreen();
-            } else if (state is DetailErrorState) {
-              return ErrorScreen(
-                message: state.message,
-                buttonFunction: () =>
-                    context.read<DetailBloc>().add(DetailLoadEvent(id)),
-              );
-            } else {
-              return Container();
-            }
-          },
+      child: Scaffold(
+        body: BlocProvider<DetailBloc>(
+          create: (context) => sl<DetailBloc>()..add(DetailLoadEvent(id)),
+          child: BlocBuilder<DetailBloc, DetailState>(
+            builder: (context, state) {
+              if (state is DetailLoadedState) {
+                return OrientationBuilder(builder: (context, orientation) {
+                  return _isPortrait(orientation, context)
+                      ? DetailLoadedScreen(album: state.album)
+                      : DetailLoadedScreenLandscape(album: state.album);
+                });
+              } else if (state is DetailLoadingState) {
+                return const LoadingScreen();
+              } else if (state is DetailErrorState) {
+                return ErrorScreen(
+                  message: state.message,
+                  buttonFunction: () =>
+                      context.read<DetailBloc>().add(DetailLoadEvent(id)),
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
     );

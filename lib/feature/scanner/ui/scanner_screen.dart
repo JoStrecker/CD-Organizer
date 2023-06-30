@@ -26,76 +26,78 @@ class ScannerScreen extends StatelessWidget {
         context.pop(true);
         return false;
       },
-      child: BlocProvider<ScannerBloc>(
-        create: (context) => sl<ScannerBloc>()..add(const ScannerLoadEvent()),
-        child: BlocBuilder<ScannerBloc, ScannerState>(
-          builder: (context, state) {
-            if (state is ScannerLoadedState) {
-              return Column(
-                children: [
-                  BackBar(ctx: context, text: 'add_album'.tr()),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Scanner(
-                    autofocus: true,
-                    wishlist: wishlist,
-                  ),
-                  Expanded(
-                    child: EmptyScreen(
-                      child: const Text(
-                        'try_searching',
-                        textAlign: TextAlign.center,
-                      ).tr(),
+      child: Scaffold(
+        body: BlocProvider<ScannerBloc>(
+          create: (context) => sl<ScannerBloc>()..add(const ScannerLoadEvent()),
+          child: BlocBuilder<ScannerBloc, ScannerState>(
+            builder: (context, state) {
+              if (state is ScannerLoadedState) {
+                return Column(
+                  children: [
+                    BackBar(ctx: context, text: 'add_album'.tr()),
+                    const SizedBox(
+                      height: 8,
                     ),
-                  ),
-                ],
-              );
-            } else if (state is ScannerLoadingState) {
-              return const LoadingScreen();
-            } else if (state is ScannerResultState) {
-              return Column(
-                children: [
-                  BackBar(ctx: context, text: 'add_album'.tr()),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Scanner(
-                    autofocus: false,
-                    wishlist: wishlist,
-                  ),
-                  Expanded(
-                    child: ResultScreen(
-                      releases: state.results,
+                    Scanner(
+                      autofocus: true,
                       wishlist: wishlist,
-                      query: state.controller.text,
-                      pageCount: state.pageCount,
                     ),
-                  ),
-                ],
-              );
-            } else if (state is ScannerErrorState) {
-              return Column(
-                children: [
-                  BackBar(ctx: context, text: 'add_album'.tr()),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Scanner(
-                    autofocus: true,
-                    wishlist: wishlist,
-                  ),
-                  Expanded(
-                    child: ErrorScreen(
-                      message: state.errorMessage,
+                    Expanded(
+                      child: EmptyScreen(
+                        child: const Text(
+                          'try_searching',
+                          textAlign: TextAlign.center,
+                        ).tr(),
+                      ),
                     ),
-                  ),
-                ],
-              );
-            } else {
-              return const EmptyScreen();
-            }
-          },
+                  ],
+                );
+              } else if (state is ScannerLoadingState) {
+                return const LoadingScreen();
+              } else if (state is ScannerResultState) {
+                return Column(
+                  children: [
+                    BackBar(ctx: context, text: 'add_album'.tr()),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Scanner(
+                      autofocus: false,
+                      wishlist: wishlist,
+                    ),
+                    Expanded(
+                      child: ResultScreen(
+                        releases: state.results,
+                        wishlist: wishlist,
+                        query: state.controller.text,
+                        pageCount: state.pageCount,
+                      ),
+                    ),
+                  ],
+                );
+              } else if (state is ScannerErrorState) {
+                return Column(
+                  children: [
+                    BackBar(ctx: context, text: 'add_album'.tr()),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Scanner(
+                      autofocus: true,
+                      wishlist: wishlist,
+                    ),
+                    Expanded(
+                      child: ErrorScreen(
+                        message: state.errorMessage,
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return const EmptyScreen();
+              }
+            },
+          ),
         ),
       ),
     );
