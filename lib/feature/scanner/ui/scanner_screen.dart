@@ -1,3 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:music_collection/core/ui/back_bar.dart';
 import 'package:music_collection/feature/empty/ui/empty_screen.dart';
 import 'package:music_collection/feature/error/ui/error_screen.dart';
@@ -6,10 +10,6 @@ import 'package:music_collection/feature/results/ui/result_screen.dart';
 import 'package:music_collection/feature/scanner/application/scanner_bloc.dart';
 import 'package:music_collection/feature/scanner/ui/scanner.dart';
 import 'package:music_collection/injection_container.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class ScannerScreen extends StatelessWidget {
   final bool wishlist;
@@ -21,10 +21,10 @@ class ScannerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
         context.pop(true);
-        return false;
       },
       child: Scaffold(
         body: BlocProvider<ScannerBloc>(

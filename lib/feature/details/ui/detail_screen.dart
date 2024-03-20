@@ -1,12 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:music_collection/feature/details/application/detail_bloc.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_loaded_screen.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_loaded_screen_landscape.dart';
 import 'package:music_collection/feature/error/ui/error_screen.dart';
 import 'package:music_collection/feature/loading/ui/loading_screen.dart';
 import 'package:music_collection/injection_container.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class DetailScreen extends StatelessWidget {
   final String id;
@@ -18,10 +18,10 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
         context.pop(true);
-        return false;
       },
       child: Scaffold(
         body: BlocProvider<DetailBloc>(

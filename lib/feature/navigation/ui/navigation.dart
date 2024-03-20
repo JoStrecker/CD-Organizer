@@ -1,28 +1,25 @@
-import 'package:music_collection/core/route_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:music_collection/core/route_info.dart';
 
-class Navigation extends StatelessWidget {
+class Navigation extends StatefulWidget {
   const Navigation({
     super.key,
   });
 
   @override
+  State<StatefulWidget> createState() => _NavigationState();
+}
+
+class _NavigationState extends State<Navigation> {
+  int currIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
     List<RouteInfo> routeInfos = RouteInfo.getNavRoutes();
-    String currRoute =
-        Router.of(context).routeInformationProvider?.value.location ??
-            '/collection';
-
     return NavigationBar(
-        selectedIndex: currRoute.startsWith(RouteInfo.getNavRoutes()[0].route)
-            ? 0
-            : currRoute.startsWith(RouteInfo.getNavRoutes()[1].route)
-                ? 1
-                : currRoute.startsWith(RouteInfo.getNavRoutes()[2].route)
-                    ? 2
-                    : 0,
+        selectedIndex: currIndex,
         destinations: List.generate(
           routeInfos.length,
           (index) => NavigationDestination(
@@ -33,8 +30,11 @@ class Navigation extends StatelessWidget {
           ),
         ),
         onDestinationSelected: (index) {
-          if (currRoute != routeInfos[index].route) {
+          if (RouteInfo.getNavRoutes()[currIndex] != routeInfos[index]) {
             context.go(routeInfos[index].route);
+            setState(() {
+              currIndex = RouteInfo.getNavRoutes().indexOf(routeInfos[index]);
+            });
           }
         });
   }

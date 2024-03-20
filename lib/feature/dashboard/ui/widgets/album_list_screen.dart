@@ -1,3 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/ui/dismiss_keyboard.dart';
 import 'package:music_collection/core/ui/music_search_bar.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
@@ -6,9 +9,6 @@ import 'package:music_collection/feature/dashboard/ui/widgets/album_list.dart';
 import 'package:music_collection/feature/dashboard/ui/widgets/album_list_filter.dart';
 import 'package:music_collection/feature/empty/ui/empty_screen.dart';
 import 'package:music_collection/feature/wishlist/application/wishlist_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlbumListScreen extends StatelessWidget {
   final List<Album> albums;
@@ -48,7 +48,7 @@ class AlbumListScreen extends StatelessWidget {
                 : context
                     .read<DashboardBloc>()
                     .add(DashboardSearchAlbumEvent(query)),
-            onPressed: () {
+            onClear: () {
               unfocusCurrWidget(context);
               wishlist
                   ? context.read<WishlistBloc>().add(const WishlistLoadEvent())

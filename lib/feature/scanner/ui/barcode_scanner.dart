@@ -18,11 +18,11 @@ class BarcodeScanner extends StatelessWidget {
       formats: [BarcodeFormat.ean13],
     );
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
         cameraController.dispose();
         context.pop();
-        return false;
       },
       child: Stack(
         children: [

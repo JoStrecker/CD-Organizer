@@ -19,8 +19,8 @@ class ScannerControlledState extends ScannerState {
 
 class ScannerLoadedState extends ScannerControlledState {
   const ScannerLoadedState(
-    TextEditingController controller,
-  ) : super(controller);
+    super.controller,
+  );
 }
 
 class ScannerResultState extends ScannerControlledState {

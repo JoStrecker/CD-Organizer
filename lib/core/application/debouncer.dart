@@ -8,8 +8,10 @@ class Debouncer {
 
   Debouncer({required this.duration});
 
-  run(VoidCallback action) {
-    _timer?.cancel();
+  void run(VoidCallback action) {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
     _timer = Timer(duration, action);
   }
 }

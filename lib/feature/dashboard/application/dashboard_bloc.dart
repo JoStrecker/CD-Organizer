@@ -1,5 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
@@ -7,7 +7,6 @@ import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
 import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
 
 part 'dashboard_event.dart';
-
 part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
@@ -250,10 +249,10 @@ List<Album> filterAlbums(
       ? albums
           .where(
             (album) =>
-                album.title.toLowerCase().contains(search.toLowerCase()) ||
+                album.title.toLowerCase().contains(search.toLowerCase().trim()) ||
                 album.artists.any(
                   (artist) =>
-                      artist.toLowerCase().contains(search.toLowerCase()),
+                      artist.toLowerCase().contains(search.toLowerCase().trim()),
                 ),
           )
           .toList()

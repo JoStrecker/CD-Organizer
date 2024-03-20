@@ -19,7 +19,7 @@ Future<bool?> requestNotificationPermissions() async {
     return flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
+        ?.requestNotificationsPermission();
   }
   return false;
 }
