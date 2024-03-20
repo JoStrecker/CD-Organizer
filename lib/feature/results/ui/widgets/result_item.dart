@@ -1,9 +1,9 @@
-import 'package:music_collection/core/ui/container_text_element.dart';
-import 'package:music_collection/feature/music_api/domain/release.dart';
-import 'package:music_collection/feature/results/application/result_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_collection/core/ui/container_text_element.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
+import 'package:music_collection/feature/results/application/result_bloc.dart';
 
 class ResultItem extends StatelessWidget {
   final Release release;
@@ -48,12 +48,14 @@ class ResultItem extends StatelessWidget {
                           maxWidth: (MediaQuery.sizeOf(context).width / 4 > 152)
                               ? 152
                               : MediaQuery.sizeOf(context).width / 4,
-                          maxHeight: (MediaQuery.sizeOf(context).width / 4 > 152)
-                              ? 152
-                              : MediaQuery.sizeOf(context).width / 4,
+                          maxHeight:
+                              (MediaQuery.sizeOf(context).width / 4 > 152)
+                                  ? 152
+                                  : MediaQuery.sizeOf(context).width / 4,
                         ),
                         child: release.getThumbnail(
-                          tint: Theme.of(context).colorScheme.onTertiaryContainer,
+                          tint:
+                              Theme.of(context).colorScheme.onTertiaryContainer,
                         ),
                       ),
                     ),
@@ -67,33 +69,38 @@ class ResultItem extends StatelessWidget {
                           ContainerTextElement(
                             text: release.title,
                             icon: Icons.people,
-                            textColor:
-                                Theme.of(context).colorScheme.onTertiaryContainer,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onTertiaryContainer,
                           ),
                           ContainerTextElement(
                             text: release.label ?? 'unknown'.tr(),
                             icon: Icons.label,
-                            textColor:
-                                Theme.of(context).colorScheme.onTertiaryContainer,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onTertiaryContainer,
                           ),
                           ContainerTextElement(
                             text: release.year ?? 'unknown'.tr(),
                             icon: Icons.access_time,
-                            textColor:
-                                Theme.of(context).colorScheme.onTertiaryContainer,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onTertiaryContainer,
                           ),
                           ContainerTextElement(
                             text: release.country ?? 'unknown'.tr(),
                             icon: Icons.language,
-                            textColor:
-                                Theme.of(context).colorScheme.onTertiaryContainer,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onTertiaryContainer,
                           ),
                           ContainerTextElement(
                             text: release.formats
                                 .reduce((value, element) => '$value, $element'),
                             icon: Icons.album,
-                            textColor:
-                                Theme.of(context).colorScheme.onTertiaryContainer,
+                            textColor: Theme.of(context)
+                                .colorScheme
+                                .onTertiaryContainer,
                           ),
                         ],
                       ),

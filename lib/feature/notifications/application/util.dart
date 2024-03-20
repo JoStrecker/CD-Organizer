@@ -47,7 +47,7 @@ Future<void> showNotificationWithActions({
     id,
     title,
     text,
-    tz.TZDateTime.now(tz.local).add(const Duration(days:30)),
+    tz.TZDateTime.now(tz.local).add(const Duration(days: 30)),
     NotificationDetails(
       android: androidNotificationDetails,
       iOS: iosNotificationDetails,

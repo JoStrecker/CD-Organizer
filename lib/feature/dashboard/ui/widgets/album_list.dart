@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/dashboard/ui/widgets/album_list_item.dart';
-import 'package:flutter/material.dart';
 
 class AlbumList extends StatelessWidget {
   final List<Album> albums;
@@ -23,7 +23,7 @@ class AlbumList extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.only(
             top: 8,
-            bottom: (index+1 == albums.length) ? 80 : 8,
+            bottom: (index + 1 == albums.length) ? 80 : 8,
           ),
           child: AlbumListItem(
             album: albums[index],

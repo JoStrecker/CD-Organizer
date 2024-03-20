@@ -34,9 +34,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           DateTime lastDate = DateTime.now().add(
             const Duration(days: 14),
           );
-          List<Album> updateableAlbums = albums.where(
+          List<Album> updateableAlbums = albums
+              .where(
                 (album) => album.lastUpdated.isAfter(lastDate),
-              ).toList();
+              )
+              .toList();
 
           try {
             List<Album> updatedAlbums = List.empty(growable: true);
@@ -50,7 +52,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
               (album) => album.lastUpdated.isAfter(lastDate),
             );
             albums.addAll(updatedAlbums);
-          } catch(e){}
+          } catch (e) {}
 
           albums.sort((a, b) => a.title.compareTo(b.title));
 
@@ -249,10 +251,13 @@ List<Album> filterAlbums(
       ? albums
           .where(
             (album) =>
-                album.title.toLowerCase().contains(search.toLowerCase().trim()) ||
+                album.title
+                    .toLowerCase()
+                    .contains(search.toLowerCase().trim()) ||
                 album.artists.any(
-                  (artist) =>
-                      artist.toLowerCase().contains(search.toLowerCase().trim()),
+                  (artist) => artist
+                      .toLowerCase()
+                      .contains(search.toLowerCase().trim()),
                 ),
           )
           .toList()

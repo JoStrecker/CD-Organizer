@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'package:image_network/image_network.dart';
-import 'package:music_collection/feature/albums/domain/track.dart';
-import 'package:music_collection/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
+import 'package:image_network/image_network.dart';
+import 'package:music_collection/feature/albums/domain/track.dart';
+import 'package:music_collection/generated/assets.dart';
 
 part 'album.g.dart';
 

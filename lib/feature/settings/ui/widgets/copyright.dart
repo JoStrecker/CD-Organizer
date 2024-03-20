@@ -12,7 +12,7 @@ class Copyright extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            '©2023 Johannes Strecker',
+            '©2024 Johannes Strecker',
             style: TextStyle(
               fontSize: 12,
               fontFamily: 'IBM Plex Mono',

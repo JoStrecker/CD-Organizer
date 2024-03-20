@@ -1,5 +1,5 @@
-import 'package:music_collection/feature/music_api/domain/release.dart';
 import 'package:equatable/equatable.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
 
 class ReleaseInitial extends Equatable {
   final List<Release> results;

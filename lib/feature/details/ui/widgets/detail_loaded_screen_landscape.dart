@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:music_collection/core/ui/back_bar.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_album_details.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_lending_row.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_options_row.dart';
 import 'package:music_collection/feature/details/ui/widgets/detail_track_list.dart';
-import 'package:flutter/material.dart';
 
 class DetailLoadedScreenLandscape extends StatelessWidget {
   final Album album;

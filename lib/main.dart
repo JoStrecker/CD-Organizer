@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:music_collection/core/application/global_vars.dart';
@@ -16,7 +17,6 @@ import 'package:music_collection/feature/albums/domain/track.dart';
 import 'package:music_collection/feature/notifications/domain/received_notification.dart';
 import 'package:music_collection/injection_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -80,11 +80,6 @@ Future<void> main() async {
       ),
     ),
   );
-
-  //Initialize Firebase Auth and Cloud Store (currently unused)
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
 
   //Get Color Palette on Android >12 for a Dynamic Color Scheme
   CorePalette? palette = await DynamicColorPlugin.getCorePalette();

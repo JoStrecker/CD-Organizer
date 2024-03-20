@@ -9,5 +9,4 @@ class Assets {
   static const String lottiesSearchAnim = 'assets/lotties/search_anim.json';
   static const String translationsDe = 'assets/translations/de.json';
   static const String translationsEn = 'assets/translations/en.json';
-
 }

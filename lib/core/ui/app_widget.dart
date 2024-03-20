@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:music_collection/core/router.dart';
 import 'package:music_collection/core/ui/dismiss_keyboard.dart';
 import 'package:music_collection/core/ui/themes/dark_theme.dart';
 import 'package:music_collection/core/ui/themes/light_theme.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:material_color_utilities/material_color_utilities.dart';
 
 class AppWidget extends StatelessWidget {
   final CorePalette? palette;

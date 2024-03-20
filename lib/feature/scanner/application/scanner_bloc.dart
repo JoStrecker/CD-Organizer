@@ -1,14 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
-import 'package:music_collection/feature/music_api/domain/release.dart';
 import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
-import 'package:flutter/material.dart';
+import 'package:music_collection/feature/music_api/domain/release.dart';
 import 'package:music_collection/feature/music_api/domain/release_initial.dart';
 
 part 'scanner_event.dart';
-
 part 'scanner_state.dart';
 
 class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:music_collection/core/application/env.dart';
 import 'package:music_collection/core/application/global_vars.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
@@ -5,7 +6,6 @@ import 'package:music_collection/core/infrastructure/dio_response_handler.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dart';
 import 'package:music_collection/feature/music_api/domain/release_initial.dart';
-import 'package:dio/dio.dart';
 
 class DioDiscogsFacade extends IMusicAPIFacade {
   @override

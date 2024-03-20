@@ -20,7 +20,6 @@ class DetailLoadedState extends DetailState {
 
   DetailLoadedState copyWith({
     Album? album,
-
   }) {
     return DetailLoadedState(
       album ?? this.album,

@@ -1,6 +1,6 @@
-import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
 
 class DetailLendingRow extends StatelessWidget {
   final Album album;

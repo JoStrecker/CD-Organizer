@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:music_collection/core/route_info.dart';
 import 'package:music_collection/feature/dashboard/ui/dashboard_screen.dart';
 import 'package:music_collection/feature/details/ui/detail_screen.dart';
@@ -7,8 +9,6 @@ import 'package:music_collection/feature/scanner/ui/barcode_scanner.dart';
 import 'package:music_collection/feature/scanner/ui/scanner_screen.dart';
 import 'package:music_collection/feature/settings/ui/settings_screen.dart';
 import 'package:music_collection/feature/wishlist/ui/wishlist_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CDOrganizerRouter {
   static GoRouter? _router;

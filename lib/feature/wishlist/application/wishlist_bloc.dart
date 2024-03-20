@@ -1,5 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
@@ -7,7 +7,6 @@ import 'package:music_collection/feature/albums/domain/i_album_facade.dart';
 import 'package:music_collection/feature/dashboard/application/dashboard_bloc.dart';
 
 part 'wishlist_event.dart';
-
 part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {

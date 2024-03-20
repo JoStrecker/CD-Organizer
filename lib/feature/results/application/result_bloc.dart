@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_collection/core/domain/errors/music_collection_error.dart';
 import 'package:music_collection/core/domain/errors/unknown_server_error.dart';
 import 'package:music_collection/feature/albums/domain/album.dart';
@@ -9,7 +9,6 @@ import 'package:music_collection/feature/music_api/domain/i_music_api_facade.dar
 import 'package:music_collection/feature/music_api/domain/release.dart';
 
 part 'result_event.dart';
-
 part 'result_state.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState> {
@@ -54,7 +53,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       var state = this.state;
 
       if (state is ResultLoadedState) {
-        if(state.query.isNotEmpty) {
+        if (state.query.isNotEmpty) {
           try {
             List<Album> albums = await albumFacade.getAllAlbums(null);
             List<Release> newReleases = (await musicApiFacade.searchByQuery(

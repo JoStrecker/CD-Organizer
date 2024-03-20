@@ -1,7 +1,7 @@
-import 'package:music_collection/core/ui/container_text_element.dart';
-import 'package:music_collection/feature/albums/domain/album.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:music_collection/core/ui/container_text_element.dart';
+import 'package:music_collection/feature/albums/domain/album.dart';
 
 class DetailAlbumDetails extends StatelessWidget {
   final Album album;
@@ -76,7 +76,7 @@ class DetailAlbumDetails extends StatelessWidget {
                   ),
                 ],
               ),
-              if(album.location != null)
+              if (album.location != null)
                 ContainerTextElement(
                   text: album.location!,
                   icon: Icons.place,

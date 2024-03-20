@@ -9,7 +9,6 @@ import 'package:music_collection/feature/notifications/application/util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'detail_event.dart';
-
 part 'detail_state.dart';
 
 class DetailBloc extends Bloc<DetailEvent, DetailState> {
