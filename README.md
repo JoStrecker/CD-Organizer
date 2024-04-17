@@ -1,16 +1,13 @@
 # music_collection
-
-An App to organize a collection of Vinyl, CDs and co.
+A flutter App to organize a collection of Vinyl, CDs and co.
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Run ``` flutter pub get ``` to install dependencies
+2. Create a discogs developer account and register an application: https://www.discogs.com/developers
+3. Create an .env file in the project root with the following data:
+```
+API_KEY=**YOUR_DISCOGS_API_KEY**
+API_SECRET=**YOUR_DISCOGS_API_SECRET**
+```
+4. Run ``` dart run build_runner build --delete-conflicting-outputs ``` to create the env.g.dart file
+5. Run the App using ``` flutter run lib/main.dart  ```
